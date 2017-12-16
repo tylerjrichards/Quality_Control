@@ -1,16 +1,34 @@
 ---
-title: "R Notebook"
+title: "Chapter 4: Exercise Walkthroughs"
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+This walkthrough will go over each of the example exercises in chapter 4, covering Inferences about Process Quality.
+
+
+## Example 4.1: Computer Response Time
+
+This example teaches us about basic hypothesis testing and One-Sample Z tests specific to the question "is the mean response time to a specific type of command greater than 75 ms". We're given the mean of a random sample (called x_bar), the hypothesis mean (called mu), the standard deviation (called sd), and the size of the sample (called n). 
+
+Here's how to do it in R.
+
+
 
 ```{r}
-plot(cars)
+#first define the variables
+x_bar = 79.25
+sample_mu = 75
+sd = 8
+n = 25
+
+#now find the Z score
+
+Z = (x_bar - sample_mu) / (sd / sqrt(n))
+p = 1 - pnorm(Z)
+
+print(paste("The Z score of the example is ", Z, ", and the p score associated is ", p, sep = ""))
+
+
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
