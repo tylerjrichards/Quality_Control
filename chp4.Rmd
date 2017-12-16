@@ -1,10 +1,19 @@
 ---
-title: "Chapter 4: Exercise Walkthroughs"
-output: html_notebook
+title: "Chapter 4: Example Walkthroughs"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
 ---
+
+```{r include=FALSE}
+library(knitr)
+```
 
 
 This walkthrough will go over each of the example exercises in chapter 4, covering Inferences about Process Quality.
+
+
 
 
 ## Example 4.1: Computer Response Time
@@ -28,6 +37,15 @@ Z = (x_bar - sample_mu) / (sd / sqrt(n))
 p = 1 - pnorm(Z)
 
 print(paste("The Z score of the example is ", Z, ", and the p score associated is ", p, sep = ""))
+
+
+```
+
+```{r}
+
+#After running the code above, your screen should look like the output below
+
+include_graphics("Screenshots/Example_4_1.png")
 
 
 ```
