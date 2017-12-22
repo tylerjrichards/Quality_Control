@@ -41,6 +41,8 @@ print(paste("The Z score of the example is ", Z, ", and the p score associated i
 
 ```
 
+Because we specified a type 1 error of a = .05 and the test is one sided, we reject the null hypothesis and conclude that the mean response time exceeds 75ms. 
+
 ```{r}
 
 #After running the code above, your screen should look like the output below
@@ -49,4 +51,37 @@ include_graphics("Screenshots/Example_4_1.png")
 
 
 ```
+
+
+
+## Example 4.2: Computer Response Time pt 2
+
+
+This example introduces two-sided confidence intervals to what we already know about hypothesis testing using a similar example to 4.1. The following R code explains how to compute this given x_bar, Z, sigma, and n.
+
+
+```{r}
+#first define variables
+x_bar = 79.25
+Z = 1.96
+sigma = 8
+n = 25
+
+#Lower bound
+lower_bound = x_bar - (Z) * (sigma / sqrt(n))
+
+#Upper bound
+upper_bound = x_bar + (Z) * (sigma / sqrt(n))
+
+#Result
+print(paste(lower_bound, "< mu <", upper_bound))
+
+```
+
+```{r}
+#After running the code above, your screen should look like the output below
+
+include_graphics("Screenshots/Example_4_2.png")
+```
+
 
