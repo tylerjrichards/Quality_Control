@@ -84,4 +84,38 @@ print(paste(lower_bound, "< mu <", upper_bound))
 include_graphics("Screenshots/Example_4_2.png")
 ```
 
+## Example 4.3: Rubberized Asphalt
+
+
+This example asks us to interpret a dataset to find the sample standard deviation and sample mean, and use the test statistic for a fixed significance level. Now for the R!
+
+```{r}
+#given variables
+null_hypothesis = 3200
+dataset_rubberized = data.frame(Specimen = c(1:15), Stabilized_Viscosity = c(3193, 3124, 3153, 3145, 3093, 3466, 3355, 2979, 3182, 3227, 3256, 3332, 3204, 3282, 3170))
+
+#mean and standard deviation
+visc_mean = mean(dataset_rubberized$Stabilized_Viscosity)
+
+visc_sd = sd(dataset_rubberized$Stabilized_Viscosity)
+
+#t statistic
+t_stat = (visc_mean - null_hypothesis) / (visc_sd / sqrt(nrow(dataset_rubberized)))
+
+#Range
+qt(c(.025, .975), df = 14)
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
 
