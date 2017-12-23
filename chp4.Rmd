@@ -103,13 +103,22 @@ visc_sd = sd(dataset_rubberized$Stabilized_Viscosity)
 t_stat = (visc_mean - null_hypothesis) / (visc_sd / sqrt(nrow(dataset_rubberized)))
 
 #Range
-qt(c(.025, .975), df = 14)
-
-
+Range_t <- qt(c(.025, .975), df = 14)
+if(Range_t[1] < t_stat & t_stat < Range_t[2]){
+  print(TRUE)
+}
+print(paste(round(Range_t[1],3), "<", round(t_stat, 3), "<", round(Range_t[2], 3)))
 
 
 ```
 
+After completion, your screen should look something like this
+
+```{r}
+#After running the code above, your screen should look like the output below
+
+include_graphics("Screenshots/Example_4_3.png")
+```
 
 
 
