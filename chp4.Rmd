@@ -115,13 +115,73 @@ print(paste(round(Range_t[1],3), "<", round(t_stat, 3), "<", round(Range_t[2], 3
 After completion, your screen should look something like this
 
 ```{r}
-#After running the code above, your screen should look like the output below
 
 include_graphics("Screenshots/Example_4_3.png")
 ```
 
 
+## Example 4.4: Rubberized Viscosity pt 2
 
+Working off of the previous example, 4.4 asks us to find the 95% confidence interval on the mean stabilized viscosity given equation 4.36. The implementation in R is as follows.
+
+```{r}
+#given variables
+null_hypothesis = 3200
+dataset_rubberized = data.frame(Specimen = c(1:15), Stabilized_Viscosity = c(3193, 3124, 3153, 3145, 3093, 3466, 3355, 2979, 3182, 3227, 3256, 3332, 3204, 3282, 3170))
+
+#mean and standard deviation
+visc_mean = mean(dataset_rubberized$Stabilized_Viscosity)
+
+visc_sd = sd(dataset_rubberized$Stabilized_Viscosity)
+
+#t statistic
+t_stat = (visc_mean - null_hypothesis) / (visc_sd / sqrt(nrow(dataset_rubberized)))
+
+#Range
+Range_t <- qt(c(.025, .975), df = 14)
+
+#Lower bound
+lower_bound = visc_mean - Range_t[2] * (visc_sd / sqrt(15))
+
+#Upper bound
+upper_bound = visc_mean + Range_t[2] * (visc_sd / sqrt(15))
+
+#Finished interval
+print(paste(round(lower_bound,3), "< mean stabilized viscosity <", round(upper_bound, 3)))
+
+
+```
+
+```{r}
+include_graphics("Screenshots/Example_4_4.png")
+```
+
+
+## Example 4.5: A Forging Process
+
+This example is similar to example 4.4, but the hypothesis is a p value instead of a mean, using the inference on a population proportion's formula (equation 4.43)  Here we go!
+
+```{r}
+#given variables
+errors = 41
+sample_size = 250
+null_hypothesis = .1
+
+#Equation
+Z = ((errors - .5) - sample_size * null_hypothesis) / sqrt(sample_size * null_hypothesis * (1 - null_hypothesis))
+
+if(Z > 1.96) {
+  print("REJECT")
+}
+if(Z < 1.96){
+  print("ACCEPT")
+}
+
+```
+
+```{r}
+include_graphics("Screenshots/Example_4_5.png")
+```
 
 
 
