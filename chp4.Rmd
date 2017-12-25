@@ -183,6 +183,28 @@ if(Z < 1.96){
 include_graphics("Screenshots/Example_4_5.png")
 ```
 
+## Example 4.6: Mortgage Applications
+
+Given a fraction of acceptable samples and a desired percent confidence, can we find a confidence interval? Here's how using equation 4.44
+
+```{r}
+#Given variables
+total_samples = 80
+rejected_applications = 15
+fraction_rejected = rejected_applications / total_samples
+Z_score = 1.96
+
+#Lower Bound
+lower_bound = fraction_rejected - Z_score * sqrt((fraction_rejected * (1 - fraction_rejected)) / total_samples)
+
+#Upper Bound
+upper_bound = fraction_rejected + Z_score * sqrt((fraction_rejected * (1 - fraction_rejected)) / total_samples)
+
+print(paste(round(lower_bound,4), "< p <", round(upper_bound, 4)))
+
+
+```
+
 
 
 
