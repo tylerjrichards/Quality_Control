@@ -295,12 +295,55 @@ if(Range_t[1] < t_stat & Range_t[2] > t_stat) {
 
 ```
 
+```{r}
+#Here's what an R console would look like
+include_graphics("Screenshots/Example_4_9.png")
+```
+
+
+## Example 4.10: Doped Versus Undoped Cement
+
+The crux of this example is the two samples t test with two different sample sizes. Given the means, standard deviation, and sample size of both samples, we need to use the t test to determine if there is an affect, in this case, of doping cement. 
+
+```{r}
+#Given variables
+x_1 = 90
+x_2 = 87
+sd_1 = 5
+sd_2 = 4
+n_1 = 10
+n_2 = 15
+
+#Application of equation 4.57
+s_pooled = sqrt((((n_1 - 1) * (sd_1 ^ 2)) + ((n_2 - 1) * (sd_2 ^ 2))) / (n_1 + n_2 - 2))
+
+t_value <- qt(c(.025, .975), df = 23)[2]
+
+#Left bound
+left_bound = x_1 - x_2 - t_value * s_pooled * sqrt((1/n_1) + (1/n_2))
+#Now for the right
+right_bound = x_1 - x_2 + t_value * s_pooled * sqrt((1/n_1) + (1/n_2))
+
+#Let's bring it all together
+Mean_diff = x_1 - x_2
+
+if(left_bound < Mean_diff & Mean_diff < right_bound) {
+  print("Cannot Reject Null Hypothesis")
+} else{
+  print("Reject Null Hypothesis")
+}
 
 
 
+```
 
+```{r}
+#Here's what an R console would look like
+include_graphics("Screenshots/Example_4_9.png")
+```
 
+## Example 4.11: The Paired t-Test
 
-
+This example 
 
 
