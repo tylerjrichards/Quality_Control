@@ -213,7 +213,22 @@ include_graphics("Screenshots/Example_4_6.png")
 ## Example 4.7: Finding the Power of a Test
 
 ```{r}
-#install.packages("asbio")
+#Given Variables
+h0 = 16.1
+h1 = 16.0
+sigma = .1
+n = 9
+
+#Create Z test function
+powerZtest = function(alpha = 0.05, sigma, n, delta){
+  zcr = qnorm(p = 1-alpha, mean = 0, sd = 1)
+  s = sigma/sqrt(n)
+  power = 1 - pnorm(q = zcr, mean = (delta/s), sd = 1)
+  return(power)
+}
+
+#Use function
+powerZtest(n = n, sigma = sigma, delta = (h0-h1))
 
 
 ```
