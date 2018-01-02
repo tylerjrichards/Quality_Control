@@ -1,0 +1,395 @@
+---
+title: "Learning R for Quality Control: Part 1"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+    
+---
+
+#Why Learn R?
+
+R is a data science specific langauge with a huge community of dedicated and helpful users in every field imaginable. Not only do Google, Microsoft, Uber, TechCrunch, P&G, the New York Times, and Bank of America  use R, but also the best academic institutions in the world in every deparment from journalism to finance to political science and biology, and even Quality Control.
+
+The goal of this tutorial, and the second part of the series, is to get you from 'I have no idea how to do that' to 'yeah I think I could figure out how to do this.' 
+
+Before we get to all that, we need to set a good foundation for how R works. 
+
+We'll begin by covering data types and classes, and then look into how to create vectors and dataframes, and after that we'll work on how to manipulate your data by filtering and indexing. 
+
+When reading this doc, the lines that are in beige boxes are code followed by another beige box below with the result of the code. There are three ways to learn from this document, i'll rank them from best to worst. 
+
+1. Type out every piece of code below and run it in your R Studio console
+2. Only type out the pieces of code that seem more difficult, read the rest closely
+3. Read this doc and reference it throughout the class if you get stuck
+
+
+
+##What is R?
+
+R is an open source programming language and software environment for statistical computing and graphics. R runs through an integrated development environment (IDE) called RStudio, far and away the most common and best (in my humble opinion) IDE for R. 
+
+The top right section is the environment, the bottom right is the files, plots, packages section, the top left is for scripts, and the bottom left is the console. The console will run your code immediately, and if you type code in the scripts section you can run a line by pressing ctrl+enter. 
+
+##Common data/object types  
+
+You can check what data type on object is by using the ``class()`` function. Here are the most popular of the data types in R. 
+
+
+###Numeric  
+
+```{r}
+x = 4.8
+class(x)
+```
+
+
+###Integer  
+
+```{r}
+y = as.integer(5)
+class(y)
+as.integer(4.8)
+```
+
+As you can see, R will truncate everything after the decimal if you call the as.integer function. How do we get around this, and round instead?
+
+```{r}
+round(4.8)
+```
+
+
+
+###Characters (text)  
+
+```{r}
+z <- "dog"
+class(z)
+```
+
+Assigning text without quotations will make R look for an object with that name, and will throw you an error if you don't have an object with that name. Additionally, you may have noticed that I used the '<-' operator instead of '='. Both work, however '<-' is used in the R community's vernacular, and will mostly be used for the rest of this course.
+
+
+###Logical (Boolean)  
+
+```{r}
+
+a <- T  
+a <- TRUE  
+b <- F  
+b <- FALSE  
+
+class(a)
+
+```
+
+
+Rule of thumb: don't create objects with the name T or F. It will overwrite the true/false default identification and may (read: will) cause you trouble later in your code. 
+
+
+###Factor  
+
+This is used often when we have data that can be organized into a limited number of categories. For example, a categorization of students by what university they go to.  
+
+```{r}
+uni <- c("UF","FSU","UF","FSU","FSU")  
+factor_uni <- factor(uni)
+class(factor_uni)
+``` 
+
+
+We will revisit this utility when we start working with datasets. 
+
+We organize these data types using data structures.
+
+
+##Data Structure Types
+
+1. Vector
+2. Matrix
+3. Array
+4. Data frame
+5. List
+
+###Creating a vector
+
+```{r}
+# a numerical vector
+a<-c(1,2,3,4,5,6,7)   
+a
+
+b<-c("one","two","three")   # or character vector
+b
+
+c<-c(TRUE,FALSE,FALSE,TRUE)  # or logical vector
+c
+
+```
+
+
+```{r}
+
+#Subsetting vectors
+a[1]
+a[2:5]
+a[-1]
+a[-(1:3)]
+a[-length(a)]
+
+```
+
+###Creating a matrix
+
+```{r}
+# Matrix with data in it
+new_matrix<-matrix(1:20,
+                    nrow=5,
+                    ncol=4) 
+new_matrix
+```
+
+```{r}
+
+mat <- matrix(c(1,77,56,33,22,43), 
+               nrow = 2, 
+               ncol = 3, 
+               byrow = TRUE) ##byrow=TRUE allows to fill the matrix by row
+mat
+
+```
+
+```{r}
+
+# empty matrix-
+empty_matrix<-matrix(NA,nrow=5,ncol=4)
+empty_matrix
+
+```
+
+NA is R's way of telling you that there is nothing there. Note that this is different than saying the matrix is filled with 0s. 
+
+
+```{r}
+#Subsetting matrices
+subset_matrix <- matrix(1:20, ncol = 4, nrow = 5)
+subset_matrix
+subset_matrix[1,4]
+subset_matrix[2,1]
+
+```
+
+subset_matrix[1,4] returns the first row, fourth column
+subset_matrix[2,1] returns the second row, first column
+
+We will use matrices occasionally, as the linear algebra in more complicated modeling problems is faster when using a matrix. But for the most part, we will use data frames. 
+
+
+###Creating a data frame
+```{r}
+studentID <- c(1, 2, 3, 4)
+age <- c(25, 19, 22, 21)
+university <- c("UF", "FSU", "UF", "UGA")
+hired <- c(TRUE, FALSE, TRUE, FALSE)
+studentdata <- data.frame(studentID, age, university, hired)
+studentdata
+```
+
+```{r}
+#Subsetting dataframes
+#dataframes are subset by row and column
+#if not specified, R will take the whole row
+
+studentdata[1,3]
+studentdata[1,"hired"]
+studentdata$age
+
+```
+
+
+###Creating a list
+
+```{r}
+my_list<-list(1,2,3,4)
+my_list
+my_list[1]
+```
+
+###Logicals
+
+Logicals in R deal with ``TRUE`` and ``FALSE`` operations. These are also known as boolean operaters in many programming languages. 
+
+We obtain logical expressions by comparing values using logical operaters. 
+
+Logical operaters in R include the following:
+
+* equal: ``==``
+* not equal: ``!=``
+* greater/less than: ``> <``
+* greater/less than or equal: ``>= <=``
+
+Examples:
+```{r}
+3<4
+4>3*2
+3==3*1
+```
+
+```{r}
+x<-c(-1,0,1,2,3,4)
+xx<-c(-1:4)
+
+#these lines give boolean values at each evaluation
+x==xx
+x<=3
+```
+
+We can also directly manipulate logicals using the following operaters:
+
+* ``!`` is negation
+* ``&`` or ``&&`` is intersection
+* ``|`` or ``||`` is union
+
+The shorter form performs elementwise comparisons in much the same way as arithmetic operators. The longer form evaluates left to right examining only the first element of each vector.
+
+```{r}
+u = TRUE; v = FALSE 
+u & v          # u AND v 
+u | v          # u OR v 
+!u             # negation of u 
+```
+
+
+##Basic Functions for working with data
+We will use the "mtcars" dataset to apply some of these ideas. This dataset is preinstalled with R to be used pretty much for the purpose of trying things out.  
+
+The **head()** function shows you the top six rows while **tail()** shows the last six rows. 
+Another useful function is the **str()** which gives a description of the structure of the data.
+
+
+
+```{r}
+class(mtcars)
+str(mtcars)
+```
+
+```{r}
+head(mtcars)
+
+```
+
+
+###Subsetting 
+
+There are many ways to subset a dataframe, here are a few. 
+
+```{r}
+mtcars[,3]
+mtcars[,"disp"]
+mtcars$disp
+```
+
+
+You can specify an entry by adding the appropriate row identifier or subsetting with the dollar sign. 
+
+```{r}
+mtcars$disp[2]
+```
+
+
+####Subsetting with ``subset()``
+
+We can subset using subset, or by giving R a logical statement to filter by. 
+
+```{r}
+high_mpg <- subset(mtcars, subset = mtcars$mpg > 20)
+high_mpg <- mtcars[mtcars$mpg > 20,]
+
+engine_mpg_disp <- subset(mtcars, subset = mpg > 20, select = c(mpg, disp))
+eng_mpg_disp <- mtcars[mtcars$mpg > 20, c("mpg", "disp")]
+
+```
+
+We can look another form of logical subsetting using multiple logical operators
+```{r}
+high_cyl <- subset(mtcars, mpg > 20 & cyl >= 6)
+```
+
+### Summary statistics of your data
+We will use these often. Basically all the time. na.rm stands for remove NA, we will sometimes use this for summary statistics, and dealing with NA values is necessary for non-clean datasets that exist in the real world. 
+
+```{r}
+mean(mtcars$qsec, na.rm=TRUE)
+sd(mtcars$qsec, na.rm = TRUE)
+median(mtcars$qsec, na.rm = TRUE)
+range(mtcars$qsec, na.rm = TRUE)
+max(mtcars$qsec)
+min(mtcars$qsec)
+```
+
+###Basic Graphing of the mtcards dataset
+
+Plotting in R can be done using base plot functions, or through a library called ggplot. For beautiful, distributable, and publishing-ready graphics, use ggplot. For now, we'll use base plot functions. Whenever you get a new dataset, it is a great idea to plot the data first.
+
+
+```{r}
+plot(x = mtcars$wt, y = mtcars$mpg, main="Scatterplot Example", 
+  	xlab="Car Weight ", ylab="Miles Per Gallon ")
+```
+
+
+```{r}
+#The table() command creates a simple table of counts of the elements in a data set.
+counts <- table(mtcars$gear)
+barplot(counts, main="Car Distribution", 
+  	xlab="Number of Gears")
+```
+
+##Reading Data into R
+
+##House Keeping: Setting your working directory
+
+If you are not sure in which directory you are you can look on the headline of the console at the top left, there you'll find written in grey the directory you are working in now.
+An easier way is to ask R to tell you in which directory you are
+
+```{r}
+getwd()
+```
+
+Remember: the path always have to be in double quotation marks ("") and with either forward slash (/) or two backward slashes(\\\\)
+
+```{r, cache = TRUE}
+setwd("~/Documents/Spring18/Quality_Control/R_tutorials")
+```
+
+Or you can set your working directoy through RStudio. Session > Set Working Directory or Ctrl+Shift+H  
+
+##More Housekeeping: Your Environment
+
+It is possible to see what is stored in R's memory and then remove only a specific object. This memory is known as Rs 'Global Environment'
+
+
+To see what is stored we use just ls()
+
+```{r}
+ls()
+```
+
+To remove an object we use: ('object' represents the object we want to remove). Let's say we're done with our studentID data, and want to remove it from memory to make room for another object (memory is limited by your computer's specific available memory and it different for each computer, we probably won't be using any datasets that will overdo your memory capacities).
+
+```{r}
+rm(studentID)
+ls()
+```
+
+Every variable you create is saved to R memory and many times R doesn't forget just because you closed it and reopened it later. Thus you should always clean your environment when you start working on something new or with updated data.
+
+This can be done with the function 
+
+```{r}
+rm(list = ls())
+ls()
+```
+
+This means our environemnt is totally empty! This is often the first command I run in R when starting a new session.
+
+Thanks for following along! If you have any questions about this document, the fastest way to get a response is to [email me](mailto:tylerjrichards@gmail.com). This doc, and other materials, can be found on [my github](https://github.com/tylerjrichards/Quality_Control). 
