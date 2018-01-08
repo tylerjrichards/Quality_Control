@@ -1,0 +1,42 @@
+---
+title: "Chapter 3: Modeling Process Quality"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+#From the Beginning
+Before we start, we need to download R and RStudio.
+
+Go to the link below and download and run the file. 
+Download R(https://cloud.r-project.org/)
+
+```{r include=FALSE}
+library(knitr)
+library(here)
+setwd(here())
+```
+
+```{r}
+include_graphics("Screenshots/Downloading_R.png")
+```
+
+
+Download RStudio(https://www.rstudio.com/products/rstudio/download/#download)
+
+
+```{r}
+
+include_graphics("Screenshots/Downloading_RStudio.png")
+
+
+```
+
+After you download and install the appropriate R and RStudio versions, open RStudio.
+
+
+It will look like this, 
+
+
+

@@ -1,0 +1,8 @@
+first thing
+detailed doc that intro's R and R studio
+intro to IDE, lots of pictures
+all minitab examples in chapter 3
+chapter 3 exercises: end of chapter maybe, create doc, stuff that is already in the book
+make 4 better: bigger pictures
+make some exercises
+
