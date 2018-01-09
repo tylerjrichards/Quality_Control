@@ -18,7 +18,7 @@ library(here)
 setwd(here())
 ```
 
-```{r}
+```{r echo = F}
 include_graphics("Screenshots/Downloading_R.png")
 ```
 
@@ -26,17 +26,61 @@ include_graphics("Screenshots/Downloading_R.png")
 Download RStudio(https://www.rstudio.com/products/rstudio/download/#download)
 
 
-```{r}
+```{r echo = F}
 
 include_graphics("Screenshots/Downloading_RStudio.png")
 
 
 ```
 
-After you download and install the appropriate R and RStudio versions, open RStudio.
+After you download and install the appropriate R and RStudio versions, open RStudio. It should look something like this. 
 
+```{r echo = F}
+include_graphics("Screenshots/R_Session.png")
+```
 
-It will look like this, 
+Click the button at the top left circled in the above screenshot and press New Script
 
+```{r echo = F}
+include_graphics("Screenshots/New_script.png")
+```
+
+Let's look at each section
+
+### Top Right
+
+```{r echo = F}
+include_graphics("Screenshots/Environment.png")
+```
+
+The environment is where your data and objects are stored. If you create a variable, it will be shown here. 
+
+### Bottom right. 
+
+```{r}
+include_graphics("Screenshots/files.png")
+```
+
+This section is a representation of your files in the same folder as the directory that you're in. More on this later, but this section is also where your plots are output, and where your packages are (read: other people's code that you're using)
+
+### Top Left
+
+```{r}
+include_graphics("Screenshots/topleft.png")
+```
+
+This section is where you will write your R code in a script that you can save and document to look back at. Most of your work will be in this section.
+
+### Bottom left 
+
+```{r}
+include_graphics("Screenshots/console.png")
+```
+
+The console runs R code directly. Type x = 5, press enter, and see what happens
+
+```{r}
+
+```
 
 
