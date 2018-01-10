@@ -90,4 +90,70 @@ As you can see, the code is run in the console, and the result is shown in the c
 
 That's essentially how we use RStudio! Now let's go to Chapter 3 examples.
 
-##Chapter 3 Examples
+#Chapter 3 Examples
+
+##Example 3.1: Health Insurance Claims
+
+This example asks us to create a stem and leaf plot from the data given. Here's the R solution.
+
+```{r}
+#First create a dataframe and input the data
+health_data = data.frame(Claim = c(1:40), Days = c(48,41,35,36,37,26,36,46,35,47, 35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17))
+
+#make the stem and leaf plot
+#if you want to know more about the stem function, run ?stem in the console
+#the $ character specifies the column
+stem(health_data$Days)
+```
+
+
+##Example 3.2:Metal Thickness in Silicon Wafers
+
+This example is actually all about histograms. The histogram function is very easy to use in R, but getting the data can be a pain. Feel free to copy the data entry part if it makes your life easier. Here's the implementation.
+```{r}
+wafer_thickness = data.frame(Thickness = c(438,413,444,468,445,472,474,454,455,449,450,450,450,459,466,470,457,441,450,445,487,430,446,450,456,433,455,459,423,455,451,437,444,453,434,454,448,435,432,441,452,465,466,473,471,464,478,446,459,464,441,444,458,454,437,443,465,435,444,457,444,471,471,458,459,449,462,460,445,437,461,453,452,438,445,435,454,428,454,434,432,431,455,447,454,435,425,449,449,452,471,458,445,463,423,451,440,442,441,439))
+
+hist(wafer_thickness$Thickness, breaks = 20)
+#the number of breaks is relatively arbitrary, I chose 15 here because it most adequately illustrated the outliers and the variety in the data.
+```
+
+
+##Example 3.3: Defects in Automobile Hoods
+
+This example is remarkably similar to the previous one. 
+```{r}
+#define the data
+Surface_defects = data.frame(Num_defects = c(6,1, 5,7,8,6,0,2,4, 2,5,2, 4,4,1,4,1,7,2, 3,4,3, 3,3,6,3,2,3,4, 5,5,2, 3,4,4,4,2,3,5, 7,5, 4, 5, 5, 4, 5, 3, 3, 3, 12))
+
+#graph using a histogram
+hist(Surface_defects$Num_defects, breaks = 10)
+
+```
+
+
+##Example 3.4: Hole Diameter
+
+The focus of this example is using a box plot to visualize hold diameters in wings. Let's do it in R. 
+
+```{r}
+#get the data
+Wing_data = data.frame(Hole_diameter = c(120.5, 120.4, 120.7,
+120.9, 120.2, 121.1,
+120.3, 120.1, 120.9,
+121.3, 120.5, 120.8))
+
+#boxplot
+boxplot(Wing_data$Hole_diameter)
+
+#this boxplot is not very pretty, but is great for visualizing data quickly and getting an idea about the outliers
+
+```
+
+
+
+
+
+
+
+
+
