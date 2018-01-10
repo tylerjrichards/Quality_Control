@@ -150,6 +150,29 @@ boxplot(Wing_data$Hole_diameter)
 ```
 
 
+##Example 3.5: A Discrete Distribution
+
+For finding the probability of one or fewer noncomforming parts in the sample we use the dbinom function. Here's how in R. 
+
+```{r}
+#add the probability of having 1 error to the probability of having two errors
+probability = dbinom(0,size = 25, prob = .01) + dbinom(1,size = 25, prob = .01)
+print(probability)
+
+```
+
+The probability of having 1 or fewer errors in a sample of 25 is about 97%, which is pretty great! There is an easier way of doing this in R, using a cumulative distribution function for the binomial distribution. 
+
+```{r}
+pbinom(1, size=25, prob=0.01)
+```
+
+That method is much faster, and is generally preferred. 
+
+##Example 3.6: A continuous distribution
+```{r}
+
+```
 
 
 
