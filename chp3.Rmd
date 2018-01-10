@@ -6,11 +6,11 @@ output:
     highlight: github
 ---
 
-#From the Beginning
+#Learning R and RStudio
 Before we start, we need to download R and RStudio.
 
-Go to the link below and download and run the file. 
-Download R(https://cloud.r-project.org/)
+Go to the link below and download and run the file.  
+[Download R](https://cloud.r-project.org/)
 
 ```{r include=FALSE}
 library(knitr)
@@ -23,7 +23,7 @@ include_graphics("Screenshots/Downloading_R.png")
 ```
 
 
-Download RStudio(https://www.rstudio.com/products/rstudio/download/#download)
+[Download RStudio](https://www.rstudio.com/products/rstudio/download/#download)
 
 
 ```{r echo = F}
@@ -77,10 +77,17 @@ This section is where you will write your R code in a script that you can save a
 include_graphics("Screenshots/console.png")
 ```
 
-The console runs R code directly. Type x = 5, press enter, and see what happens
+The console runs R code directly. Type x = 5, press enter, and see what happens.
 
 ```{r}
-
+include_graphics("Screenshots/x_equals_5.png")
+```
+```{r}
+include_graphics("Screenshots/environment_xequals5.png")
 ```
 
+As you can see, the code is run in the console, and the result is shown in the console.  
 
+That's essentially how we use RStudio! Now let's go to Chapter 3 examples.
+
+##Chapter 3 Examples
