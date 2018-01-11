@@ -106,6 +106,12 @@ health_data = data.frame(Claim = c(1:40), Days = c(48,41,35,36,37,26,36,46,35,47
 stem(health_data$Days)
 ```
 
+For the first example, a screenshot of the result is included to illustrate how the code should look in your console/script after finishing the example. The rest will not include a screenshot, but the TA will be happy to accomodate if necessary. 
+
+```{r}
+include_graphics("Screenshots/Example_3_1.png")
+```
+
 
 ##Example 3.2:Metal Thickness in Silicon Wafers
 
