@@ -33,7 +33,7 @@ include_graphics("Screenshots/Downloading_RStudio.png")
 
 ```
 
-After you download and install the appropriate R and RStudio versions, open RStudio. It should look something like this. 
+After you download and install the appropriate R and RStudio versions, open RStudio. It should look something like this. (N.B. the author's personal RStudio console uses a dark theme, but the default background screen is white)
 
 ```{r echo = F}
 include_graphics("Screenshots/R_Session.png")
@@ -90,7 +90,7 @@ As you can see, the code is run in the console, and the result is shown in the c
 
 That's essentially how we use RStudio! Now let's go to Chapter 3 examples.
 
-#Chapter 3 Examples
+#Chapter 3 Examples  
 
 ##Example 3.1: Health Insurance Claims
 
@@ -170,13 +170,87 @@ pbinom(1, size=25, prob=0.01)
 That method is much faster, and is generally preferred. 
 
 ##Example 3.6: A continuous distribution
+
+The example focuses on uniform/continuous distributions, which involves integration instead of summing multiple possibilities. Here's the corresponding R code. 
+
 ```{r}
+#The uniform distribution is rather simple to work with, because the probability is simply the fraction of the space occupied by the area desired (in our case, less than or equal to 16)
+
+probability = (16-15.5) / (17-15.5)
+probability
 
 ```
 
 
+##Example 3.7: Tensile Strength of Paper
+
+The normal distribution is the focus of this example, with it asking us to find the probability that bags produced from this paper will meet or exceed the specification of greater than or equal to 35 tensile strength given a mean and sd. 
+
+```{r}
+#find the one tailed distribution
+pnorm((35-40)/2, lower.tail = F)
+
+```
+
+The desired probability is 99.38%
+
+##Example 3.8: Shaft Diameters
+
+This is a two tailed normal distribution problem that is slightly harder than the previous example. 
+
+```{r}
+
+limit_1 = ( .2515-.25 ) / .0005
+limit_2 = ( .2485 - .25) / .0005
+
+(1-pnorm(limit_1,lower.tail = F)) - (1-pnorm(limit_2, lower.tail = F))
+
+```
+
+##Example 3.9: Another Use of the Standard Normal Table
+
+Because we're in R, we have no use for looking values up in tables, but this problem is about using the normal tables backwards. We use the percent to get a value given a distribution.
+
+```{r}
+#in R, we use the qnorm function for this task
+qnorm(.95, mean = 10, sd = 3)
+```
+
+##Example 3.10: Medical Laser Lifetime
+
+For this example, we'll use the cumulative distribution function to find the probability the lifetime exceeds 500 hours. 
+
+```{r}
+plnorm(log(500), 6, 1.2, lower.tail = FALSE)
+```
+
+##Example 3.11: A Standby Redundant System
+
+A standby redundant system operates in such a way that the components switch on and off at times modeled by a gamma distribution. We want to know the mean time to failure using the cumulative gamma distribution function. Here's the corresponding R code. 
+
+```{r}
+#In this case, we do not need to use the dgamma or the pgamma functions, but we simply need to estimate the mean time by dividing r by lambda. 
+
+mean_time = 2 / (.0001)
+mean_time
+```
 
 
+#Example 3.12: Time to Failure for Electronic Components
 
+For our final example of the chapter, we move over to our last distribution: the Weibull distribution. We will use the mean time to failure equation as well as the fraction of components equation to answer this example. Here is the code in R. 
+
+
+```{r}
+
+mean_time = 5000 * gamma(1+ 1/(1/2))
+mean_time
+
+Fraction_survive = 1- exp(-(20000/5000)^.5)
+Fraction_survive
+
+```
+
+The mean time to failure is 10000 hours, and the fraction of subassemblies that will survive is a little over 86%.
 
 
