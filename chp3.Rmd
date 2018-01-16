@@ -39,7 +39,12 @@ After you download and install the appropriate R and RStudio versions, open RStu
 include_graphics("Screenshots/R_Session.png")
 ```
 
-Click the button at the top left circled in the above screenshot and press New Script
+Click the button at the top left circled in the above screenshot and press New Script.
+
+```{r}
+include_graphics("Screenshots/R_script_button.png")
+```
+
 
 ```{r echo = F}
 include_graphics("Screenshots/New_script.png")
@@ -48,16 +53,22 @@ include_graphics("Screenshots/New_script.png")
 Let's look at each section
 
 ### Top Right
-
+   ,
 ```{r echo = F}
 include_graphics("Screenshots/Environment.png")
 ```
 
-The environment is where your data and objects are stored. If you create a variable, it will be shown here. 
+The environment is where your data and objects are stored. If you create a variable, it will be shown here.  
+At the end of this tutorial, your environment will be full of variables and objects, like the environment shown below.    
+```{r echo = F}
+include_graphics("Screenshots/full_environment.png")
+```
+
+  
 
 ### Bottom right. 
 
-```{r}
+```{r echo = F}
 include_graphics("Screenshots/files.png")
 ```
 
@@ -65,7 +76,7 @@ This section is a representation of your files in the same folder as the directo
 
 ### Top Left
 
-```{r}
+```{r echo = F}
 include_graphics("Screenshots/topleft.png")
 ```
 
@@ -73,16 +84,16 @@ This section is where you will write your R code in a script that you can save a
 
 ### Bottom left 
 
-```{r}
+```{r echo = F}
 include_graphics("Screenshots/console.png")
 ```
 
 The console runs R code directly. Type x = 5, press enter, and see what happens.
 
-```{r}
+```{r echo = F}
 include_graphics("Screenshots/x_equals_5.png")
 ```
-```{r}
+```{r echo = F}
 include_graphics("Screenshots/environment_xequals5.png")
 ```
 
@@ -108,14 +119,15 @@ stem(health_data$Days)
 
 For the first example, a screenshot of the result is included to illustrate how the code should look in your console/script after finishing the example. The rest will not include a screenshot, but the TA will be happy to accomodate if necessary. 
 
-```{r}
+```{r echo = F}
 include_graphics("Screenshots/Example_3_1.png")
 ```
 
 
 ##Example 3.2:Metal Thickness in Silicon Wafers
 
-This example is actually all about histograms. The histogram function is very easy to use in R, but getting the data can be a pain. Feel free to copy the data entry part if it makes your life easier. Here's the implementation.
+This example is actually all about histograms. The histogram function is very easy to use in R, but getting the data can be a pain. Feel free to copy the data entry part if it makes your life easier. Here's the implementation.  
+
 ```{r}
 wafer_thickness = data.frame(Thickness = c(438,413,444,468,445,472,474,454,455,449,450,450,450,459,466,470,457,441,450,445,487,430,446,450,456,433,455,459,423,455,451,437,444,453,434,454,448,435,432,441,452,465,466,473,471,464,478,446,459,464,441,444,458,454,437,443,465,435,444,457,444,471,471,458,459,449,462,460,445,437,461,453,452,438,445,435,454,428,454,434,432,431,455,447,454,435,425,449,449,452,471,458,445,463,423,451,440,442,441,439))
 
