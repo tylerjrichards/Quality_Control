@@ -39,18 +39,30 @@ After you download and install the appropriate R and RStudio versions, open RStu
 include_graphics("Screenshots/R_Session.png")
 ```
 
-Click the button at the top left circled in the above screenshot and press New Script.
+Click the button at the top left circled in the above screenshot and press R Script.
 
-```{r}
+```{r echo = F}
 include_graphics("Screenshots/R_script_button.png")
 ```
-
+  
+  
+Your RStudio should look like this
 
 ```{r echo = F}
 include_graphics("Screenshots/New_script.png")
 ```
 
 Let's look at each section
+
+
+### Top Left
+
+```{r echo = F}
+include_graphics("Screenshots/topleft.png")
+```
+
+This section is where you will write your R code in a script that you can save and document to look back at. Most of your work will be in this section.
+
 
 ### Top Right
    ,
@@ -72,15 +84,19 @@ include_graphics("Screenshots/full_environment.png")
 include_graphics("Screenshots/files.png")
 ```
 
-This section is a representation of your files in the same folder as the directory that you're in. More on this later, but this section is also where your plots are output, and where your packages are (read: other people's code that you're using)
-
-### Top Left
+This section shows you the files on you computer, starting where the R Script file you created is. You can change the location of your file by clicking File and then Save As. 
 
 ```{r echo = F}
-include_graphics("Screenshots/topleft.png")
+include_graphics("Screenshots/file_save_as.png")
 ```
 
-This section is where you will write your R code in a script that you can save and document to look back at. Most of your work will be in this section.
+
+The bottom right section also can show you the graphs you'll create, packages, help, and Viewer. Here is what a sample graph looks like. 
+
+```{r echo = F}
+include_graphics("Screenshots/graphing_plots.png")
+```
+
 
 ### Bottom left 
 
@@ -99,6 +115,14 @@ include_graphics("Screenshots/environment_xequals5.png")
 
 As you can see, the code is run in the console, and the result is shown in the console.  
 
+Now write x = 2 in the top left section in the script and press the run button (or press command + enter). This will run the line of code that you are on (line 1 in my case). Check your environment to make sure that it works. 
+
+```{r echo = F}
+include_graphics("Screenshots/script_running.png")
+```
+
+If you need to run every line in the script, press control + alt + R.  
+
 That's essentially how we use RStudio! Now let's go to Chapter 3 examples.
 
 #Chapter 3 Examples  
@@ -108,12 +132,15 @@ That's essentially how we use RStudio! Now let's go to Chapter 3 examples.
 This example asks us to create a stem and leaf plot from the data given. Here's the R solution.
 
 ```{r}
+#A dataframe is functionally synonymous with a an excel spreadsheet, it has columns and rows and data inside
 #First create a dataframe and input the data
 health_data = data.frame(Claim = c(1:40), Days = c(48,41,35,36,37,26,36,46,35,47, 35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17))
 
-#make the stem and leaf plot
+#make the stem and leaf plot using the stem function
+#the stem function takes data, and turns it into a stem and leaf plot
 #if you want to know more about the stem function, run ?stem in the console
 #the $ character specifies the column
+#stem is called a function in R, which performs a specific task on your input to give you an output  
 stem(health_data$Days)
 ```
 
@@ -129,10 +156,13 @@ include_graphics("Screenshots/Example_3_1.png")
 This example is actually all about histograms. The histogram function is very easy to use in R, but getting the data can be a pain. Feel free to copy the data entry part if it makes your life easier. Here's the implementation.  
 
 ```{r}
-wafer_thickness = data.frame(Thickness = c(438,413,444,468,445,472,474,454,455,449,450,450,450,459,466,470,457,441,450,445,487,430,446,450,456,433,455,459,423,455,451,437,444,453,434,454,448,435,432,441,452,465,466,473,471,464,478,446,459,464,441,444,458,454,437,443,465,435,444,457,444,471,471,458,459,449,462,460,445,437,461,453,452,438,445,435,454,428,454,434,432,431,455,447,454,435,425,449,449,452,471,458,445,463,423,451,440,442,441,439))
+wafer_thickness = data.frame(Thickness = c(438, 450, 487, 451, 452, 441, 444, 461, 432, 471, 413, 450, 430, 437, 465, 444, 471, 453, 431, 458, 444, 450, 446, 444, 466, 458, 471, 452, 455, 445,468, 459, 450, 453, 473, 454, 458, 438, 447, 463, 445, 466, 456, 434, 471, 437, 459, 445, 454, 423, 472, 470, 433, 454, 464, 443, 449, 435, 435, 451, 474, 457, 455, 448, 478, 465, 462, 454, 425, 440, 454, 441, 459, 435, 446, 435, 460, 428, 449, 442, 455, 450, 423, 432, 459, 444, 445, 454, 449, 441, 449, 445, 455, 441, 464, 457, 437, 434, 452, 439))
 
-hist(wafer_thickness$Thickness, breaks = 20)
-#the number of breaks is relatively arbitrary, I chose 15 here because it most adequately illustrated the outliers and the variety in the data.
+#the hist function accepts data, as well as the number of desired breaks
+#the breaks parameter loosely sets the number of bins in the histogram. It is not an exact bin number due to how the algorithm R uses works
+hist(wafer_thickness$Thickness, breaks = 15)
+
+
 ```
 
 
@@ -144,7 +174,8 @@ This example is remarkably similar to the previous one.
 Surface_defects = data.frame(Num_defects = c(6,1, 5,7,8,6,0,2,4, 2,5,2, 4,4,1,4,1,7,2, 3,4,3, 3,3,6,3,2,3,4, 5,5,2, 3,4,4,4,2,3,5, 7,5, 4, 5, 5, 4, 5, 3, 3, 3, 12))
 
 #graph using a histogram
-hist(Surface_defects$Num_defects, breaks = 10)
+#we can label the axes and the title with xlab, ylab, and main 
+hist(Surface_defects$Num_defects, breaks = 10, xlab = "Number of Defects", ylab = "Frequency", main = "Histogram of Number of Defects in Automobile Hoods")
 
 ```
 
@@ -161,13 +192,14 @@ Wing_data = data.frame(Hole_diameter = c(120.5, 120.4, 120.7,
 121.3, 120.5, 120.8))
 
 #boxplot
-boxplot(Wing_data$Hole_diameter)
+#we can set y limits after we have the data using ylim which makes the graph cleaner
+boxplot(Wing_data$Hole_diameter, ylim = c(120, 121.5))
 
-#this boxplot is not very pretty, but is great for visualizing data quickly and getting an idea about the outliers
 
 ```
 
-
+this boxplot is not very pretty, but is great for visualizing data quickly and getting an idea about the outliers.  
+  
 ##Example 3.5: A Discrete Distribution
 
 For finding the probability of one or fewer noncomforming parts in the sample we use the dbinom function. Here's how in R. 
@@ -175,14 +207,23 @@ For finding the probability of one or fewer noncomforming parts in the sample we
 ```{r}
 #add the probability of having 1 error to the probability of having two errors
 probability = dbinom(0,size = 25, prob = .01) + dbinom(1,size = 25, prob = .01)
+
 print(probability)
+
+#we can also print text along with the probability
+#we can combine strings of text with numbers using the paste function
+
+print(paste("The probability of having one or fewer defects is ", probability, ".", sep = ""))
 
 ```
 
-The probability of having 1 or fewer errors in a sample of 25 is about 97%, which is pretty great! There is an easier way of doing this in R, using a cumulative distribution function for the binomial distribution. 
+The probability of having 1 or fewer errors in a sample of 25 is about 97%, which is pretty great! There is an easier way of doing this in R, using a cumulative distribution function for the binomial distribution. We're also going to round for readability.
 
 ```{r}
-pbinom(1, size=25, prob=0.01)
+probability = round(pbinom(1, size=25, prob=0.01), 2)
+
+print(paste("The probability of having one or fewer defects is ", probability, ".", sep = ""))
+
 ```
 
 That method is much faster, and is generally preferred. 
@@ -206,7 +247,9 @@ The normal distribution is the focus of this example, with it asking us to find 
 
 ```{r}
 #find the one tailed distribution
-pnorm((35-40)/2, lower.tail = F)
+#pnorm is the standard normal distribution where we define the mean as 40, the stdev as 2, and our value is 35. 
+#setting the lower.tail parameter as false makes the distribution one tailed, rather than two tailed
+pnorm((35-40)/2, lower.tail = FALSE)
 
 ```
 
@@ -214,20 +257,38 @@ The desired probability is 99.38%
 
 ##Example 3.8: Shaft Diameters
 
-This is a two tailed normal distribution problem that is slightly harder than the previous example. 
+This is a two tailed normal distribution problem that is slightly harder than the previous example.  
+We want to find the fraction of metal shafts produced that conform to specifications given the mean and standard deviation of the diameter of the metal shaft as well as the desired specifications of the shaft.  
 
 ```{r}
+#we need to find the probability of x < or = to .2515 and subtract the probability of x < or = to .2485
+prob_one = 1 - pnorm((.2515-.2508)/.0005, lower.tail = F) #F is the same as FALSE
+prob_two = 1 - pnorm((.2485 - .2508)/.0005, lower.tail = F)
 
-limit_1 = ( .2515-.25 ) / .0005
-limit_2 = ( .2485 - .25) / .0005
+Fraction_conforms = round(prob_one - prob_two, 4)
 
-(1-pnorm(limit_1,lower.tail = F)) - (1-pnorm(limit_2, lower.tail = F))
+print(paste("The number of shafts that conform to specifications is ", Fraction_conforms, ".", sep = ""))
 
 ```
 
-##Example 3.9: Another Use of the Standard Normal Table
 
-Because we're in R, we have no use for looking values up in tables, but this problem is about using the normal tables backwards. We use the percent to get a value given a distribution.
+```{r}
+
+#Now the book asks us what would happen if we changed the process mean to .25, let's see
+prob_one = ( .2515-.25 ) / .0005
+prob_two = ( .2485 - .25) / .0005
+
+Fraction_corrected = round((1-pnorm(prob_one,lower.tail = F)) - (1-pnorm(prob_two, lower.tail = F)), 4)
+
+paste("The number of shafts that conform to specifications is ", Fraction_corrected, ".", sep = "")
+
+```
+
+If the process mean was a constant .2500, less than 1% of our metal shafts would be outside of specifications.  
+  
+##Example 3.9: Another Use of the Standard Normal Table
+  
+Because we're in R, we have no use for looking values up in tables, but this problem is about using the normal tables backwards. We use the percent to get a value given a distribution.  
 
 ```{r}
 #in R, we use the qnorm function for this task
@@ -269,6 +330,6 @@ Fraction_survive
 
 ```
 
-The mean time to failure is 10000 hours, and the fraction of subassemblies that will survive is a little over 86%.
-
-
+The mean time to failure is 10000 hours, and the fraction of subassemblies that will survive is a little over 86%.  
+  
+This document was created by [Tyler Richards](www.tylerjrichards.com). If you have any questions about it, please reach out at [tylerrich@ufl.edu](mailto:tylerjrichards@gmail.com).

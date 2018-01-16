@@ -1,0 +1,35 @@
+1) In the first Rstudio screen add an image that shows the zoomed in version of what they need to click on to type "New Script"
+
+(2) Environment: Right next to the empty Environment screen, show another that has all the variables at the end of the Ch3 tutorial. This way one will be the before image, the other after. Please add a sentence that goes something like "At the end of this tutorial, this is what your environment screen will look like"
+
+
+(3) The first sentence that described the bottom right portion is too convoluted (This section is a representation ....) Are you trying to say that it is a browser utility that lets you navigate through your computer and locate R files?
+
+
+(4) Why is there an "include_graphics" above every image? We do not need to tell them what the name of the image files we include in the tutorial.
+
+
+(5) Example 3.1:  We need to explain what a data frame is as well as the stem command. For instance what does health_data$Days mean? Remember that these guys know nothing about R. In the beginning, we need to explain every new detail.
+
+
+(6) is there a parameter of the stem function that displays the cumulative values like the example in the book? No there is not
+
+(7) Explain the parameter "breaks" in hist function.
+(8) Your image has 15 bins but the command uses 20.
+
+
+(9) In the second histogram example (Example 3,3), demonstrate the ability to specify the title of the histogram, which I assume is possible. Every example should teach something new.
+
+(10) In Example 3.4 (box plot) can we also set the minimum y axis value?
+
+
+(11) Can we add a second box plot example that shows two box plots side by side? The second box plot should be based on a second data set. ask question here, can't find second data set
+
+(12) In Example 3.5, can we introduce strings so that the print output reads "probability of having one or less defects is 0.9742". We can also introduce rounding here.\
+
+(13) Example 3.6: Is there a way to get the x value from the user? We can introduce user input here. there is not an easy way to do this with the knowledge they have
+
+(14) Example 3.7: Indicate that pnorm is the standard normal distribution. We can define variables for mean (=40) and stdev(=2) and ask the user for x (=35).
+(15) Explain the lower.tail parameter.
+
+(16) Example 3.8: Explain the problem ("we would like to find the probability between 0.2515 and 0.2485"). Use the exact wording from the book.
