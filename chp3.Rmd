@@ -123,7 +123,19 @@ include_graphics("Screenshots/script_running.png")
 
 If you need to run every line in the script, press control + alt + R.  
 
-That's essentially how we use RStudio! Now let's go to Chapter 3 examples.
+That's essentially how we use RStudio! Before you work on Chapter 3, let's go over a few concepts we will use. 
+
+```{r}
+#this is a comment, if you run this line nothing will happen
+#We want to create a dataframe in R. A dataframe is functionally synonymous with an excel spreadsheet, it has columns and rows and data inside
+#the c() function stands for concatenate, it is a way for R to group numbers
+my_new_dataframe = data.frame(my_numbers = c(1,2,3,4,5,1,3,4,2,4))
+print(my_new_dataframe)
+
+```
+  
+
+Now let's go to Chapter 3 examples.
 
 #Chapter 3 Examples  
 
@@ -132,9 +144,8 @@ That's essentially how we use RStudio! Now let's go to Chapter 3 examples.
 This example asks us to create a stem and leaf plot from the data given. Here's the R solution.
 
 ```{r}
-#A dataframe is functionally synonymous with a an excel spreadsheet, it has columns and rows and data inside
 #First create a dataframe and input the data
-health_data = data.frame(Claim = c(1:40), Days = c(48,41,35,36,37,26,36,46,35,47, 35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17))
+health_data = data.frame(Days = c(48,41,35,36,37,26,36,46,35,47, 35,34,36,42,43,36,56,32,46,30,37,43,17,26,28,27,45,33,22,27,16,22,33,30,24,23,22,30,31,17))
 
 #make the stem and leaf plot using the stem function
 #the stem function takes data, and turns it into a stem and leaf plot
@@ -144,7 +155,7 @@ health_data = data.frame(Claim = c(1:40), Days = c(48,41,35,36,37,26,36,46,35,47
 stem(health_data$Days)
 ```
 
-For the first example, a screenshot of the result is included to illustrate how the code should look in your console/script after finishing the example. The rest will not include a screenshot, but the TA will be happy to accomodate if necessary. 
+For the first example, a screenshot of the result is included to illustrate how the code should look in your console/script after finishing the example. The rest will not include a screenshot.
 
 ```{r echo = F}
 include_graphics("Screenshots/Example_3_1.png")
@@ -199,6 +210,16 @@ boxplot(Wing_data$Hole_diameter, ylim = c(120, 121.5))
 ```
 
 this boxplot is not very pretty, but is great for visualizing data quickly and getting an idea about the outliers.  
+Let's make up some data (note, this is not part of the book example) to explore the functionality of multiple box plots in R.  
+
+```{r}
+#new data
+Wing_data = data.frame(Hole_diameter = c(120.5, 120.4, 120.7, 120.9, 120.2, 121.1, 120.3, 120.1, 120.9, 121.3, 120.5, 120.8), Hole_diameter2 = c(122.5, 121.4, 123.7, 120.9, 124.2, 124.1, 122.3, 122.1, 123.9, 124.3, 122.5, 123.8))
+boxplot(Wing_data$Hole_diameter, Wing_data$Hole_diameter2, ylim = c(119, 125 ))
+
+```
+
+  
   
 ##Example 3.5: A Discrete Distribution
 
@@ -206,14 +227,16 @@ For finding the probability of one or fewer noncomforming parts in the sample we
 
 ```{r}
 #add the probability of having 1 error to the probability of having two errors
+#the print function outputs the object within its parenthesis
 probability = dbinom(0,size = 25, prob = .01) + dbinom(1,size = 25, prob = .01)
 
 print(probability)
 
 #we can also print text along with the probability
 #we can combine strings of text with numbers using the paste function
+#the sep parameter sets what we want to separate each string or number with. In this case, we want a space inbetween "is" and the probability
 
-print(paste("The probability of having one or fewer defects is ", probability, ".", sep = ""))
+print(paste("The probability of having one or fewer defects is", probability, sep = " "))
 
 ```
 
@@ -236,7 +259,7 @@ The example focuses on uniform/continuous distributions, which involves integrat
 #The uniform distribution is rather simple to work with, because the probability is simply the fraction of the space occupied by the area desired (in our case, less than or equal to 16)
 
 probability = (16-15.5) / (17-15.5)
-probability
+print(probability)
 
 ```
 
@@ -249,7 +272,7 @@ The normal distribution is the focus of this example, with it asking us to find 
 #find the one tailed distribution
 #pnorm is the standard normal distribution where we define the mean as 40, the stdev as 2, and our value is 35. 
 #setting the lower.tail parameter as false makes the distribution one tailed, rather than two tailed
-pnorm((35-40)/2, lower.tail = FALSE)
+print(pnorm((35-40)/2, lower.tail = FALSE))
 
 ```
 
@@ -262,8 +285,8 @@ We want to find the fraction of metal shafts produced that conform to specificat
 
 ```{r}
 #we need to find the probability of x < or = to .2515 and subtract the probability of x < or = to .2485
-prob_one = 1 - pnorm((.2515-.2508)/.0005, lower.tail = F) #F is the same as FALSE
-prob_two = 1 - pnorm((.2485 - .2508)/.0005, lower.tail = F)
+prob_one = 1 - pnorm((0.2515 - 0.2508)/.0005, lower.tail = F) #F is the same as FALSE
+prob_two = 1 - pnorm((0.2485 - 0.2508)/0.0005, lower.tail = F)
 
 Fraction_conforms = round(prob_one - prob_two, 4)
 
@@ -275,10 +298,10 @@ print(paste("The number of shafts that conform to specifications is ", Fraction_
 ```{r}
 
 #Now the book asks us what would happen if we changed the process mean to .25, let's see
-prob_one = ( .2515-.25 ) / .0005
-prob_two = ( .2485 - .25) / .0005
+prob_one = (.2515 - 0.25 ) / 0.0005
+prob_two = (.2485 - 0.25) / 0.0005
 
-Fraction_corrected = round((1-pnorm(prob_one,lower.tail = F)) - (1-pnorm(prob_two, lower.tail = F)), 4)
+Fraction_corrected = round((1 - pnorm(prob_one,lower.tail = F)) - (1 - pnorm(prob_two, lower.tail = F)), 4)
 
 paste("The number of shafts that conform to specifications is ", Fraction_corrected, ".", sep = "")
 
@@ -292,44 +315,34 @@ Because we're in R, we have no use for looking values up in tables, but this pro
 
 ```{r}
 #in R, we use the qnorm function for this task
-qnorm(.95, mean = 10, sd = 3)
+value = qnorm(0.95, mean = 10, sd = 3)
+print(value)
 ```
 
-##Example 3.10: Medical Laser Lifetime
-
-For this example, we'll use the cumulative distribution function to find the probability the lifetime exceeds 500 hours. 
-
-```{r}
-plnorm(log(500), 6, 1.2, lower.tail = FALSE)
-```
-
-##Example 3.11: A Standby Redundant System
-
-A standby redundant system operates in such a way that the components switch on and off at times modeled by a gamma distribution. We want to know the mean time to failure using the cumulative gamma distribution function. Here's the corresponding R code. 
-
-```{r}
-#In this case, we do not need to use the dgamma or the pgamma functions, but we simply need to estimate the mean time by dividing r by lambda. 
-
-mean_time = 2 / (.0001)
-mean_time
-```
+##Example 3.13:Probability Plots
 
 
-#Example 3.12: Time to Failure for Electronic Components
-
-For our final example of the chapter, we move over to our last distribution: the Weibull distribution. We will use the mean time to failure equation as well as the fraction of components equation to answer this example. Here is the code in R. 
-
-
-```{r}
-
-mean_time = 5000 * gamma(1+ 1/(1/2))
-mean_time
-
-Fraction_survive = 1- exp(-(20000/5000)^.5)
-Fraction_survive
-
-```
-
-The mean time to failure is 10000 hours, and the fraction of subassemblies that will survive is a little over 86%.  
   
+The easiest way to make a probability plot in R is through using what is called a package. A package is how to get use other people's code, without having to write it yourself. It is a way of getting functions (like the stem(), or hist() functions we've been using) that are not automatically included in R.  
+
+```{r eval= FALSE}
+#first we need to install the necessary package
+install.packages("e1071")
+
+
+```
+
+```{r}
+#now we need to load the package
+library(e1071)
+
+#write in the data
+road_octane_data = c(88.9, 87.0, 90.0, 88.2, 87.2, 87.4, 87.8, 89.7, 86.0, 89.6)
+
+#use the probplot() function from the e1071
+probplot(road_octane_data)
+
+```
+
+
 This document was created by [Tyler Richards](www.tylerjrichards.com). If you have any questions about it, please reach out at [tylerrich@ufl.edu](mailto:tylerjrichards@gmail.com).
