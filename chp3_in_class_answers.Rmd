@@ -19,7 +19,7 @@ sd(electric_component_failure$time)
 ```
 
 ```{r}
-hist(electric_component_failure$time, breaks = 15, main = "Failure time of Electric Components")
+hist(electric_component_failure$time, breaks = 5, main = "Failure time of Electric Components")
 ```
 
 ```{r}
@@ -30,7 +30,7 @@ stem(electric_component_failure$time)
 
 ##Example 2: Viscosity
 
-Data on the viscosity of liquid substances is given in the table below. Construct a probability plot of the data. What can be interpreted from the graph?
+Data on the viscosity of liquid substances is given in the table below. Construct a probability plot of the data. Which distribution fits the data best?
 
 ```{r}
 
@@ -39,8 +39,9 @@ Viscosity = data.frame(Values = c(13.3, 14.9, 15.8, 16.0, 14.5, 13.7, 13.7, 14.9
 14.1, 15.4, 16.9, 14.4, 14.3, 15.2, 14.2, 14.0, 16.1, 15.2, 16.9, 14.4, 13.1, 15.9, 14.9, 13.7, 15.5, 16.5, 15.2, 13.8, 12.6, 14.8, 14.4, 15.6, 14.6, 15.1, 15.2, 14.5, 14.3, 17.0, 14.6, 12.8, 15.4, 14.9, 16.4, 16.1, 15.2, 14.8, 14.2, 16.6, 16.8, 14.0, 15.7, 15.6))
 
 library(e1071)
-probplot(Viscosity$Values)
-
+probplot(Viscosity$Values, qdist = "qunif")
+probplot(Viscosity$Values, qdist = "qnorm")
+probplot(Viscosity$Values, qdist = "qlnorm")
 
 ```
 
@@ -48,17 +49,59 @@ All of the values are very close to the red line, meaning the values follow the 
 
 
 ##Example 3: Tensile Strength
+  
+The tensile strength of a metal part is normally distributed with mean 600 lb and standard deviation 50 lb.
+a. If 50,000 parts are produced, how many would you expect to fail to meet a minimum specification limit of 550 lb tensile strength? 
+b. Use the standard normal table at the end of the book to verify question 1. 
+c. What percentage of the parts will fall inbetween the range of 570 and 630?
+d. Verify the range using the standard normal tables in the back of the book. 
+e. Find the tensile strength limits (upper and lower) that cover 90% of the production. 
 
 
 ```{r}
+#a
 percentage = pnorm((550-600)/50, lower.tail = F)
-
 total_passed = 50000 * percentage
 print(round(total_passed))
 ```
 
+c
+
+```{r}
+prob_one = 1 - pnorm((630-600/50), lower.tail = F) #F is the same as FALSE
+prob_two = 1 - pnorm((570-600)/50, lower.tail = F)
+prob_one - prob_two
+```
+
+```{r}
+#e
+
+print(paste("90% of the products will be inbetween", round(qnorm(.1, mean = 600, sd = 50)), "and", round(qnorm(.90, mean=600, sd=50)
+) ))
+
+
+```
+
+
 ```{r}
 round(pnorm((450-600)/50, lower.tail = F) * 50000)
+```
+
+##Example 4: Mechatronic Assembly
+  
+A mechatronic assembly is subjected to a final functional test. Suppose that defects occur at random in these assemblies, and that defects occur according to a Poisson distribution with parameter lambda = 0.02.  
+a What is the probability that an assembly will have exactly one defect?
+b What is the probability that an assembly will have one or more defects?  
+
+
+```{r}
+#a
+ppois(1, lambda = .02) - ppois(0, lambda = .02)
+```
+
+```{r}
+#b
+ppois(0, lambda = .02, lower = F)
 ```
 
 

@@ -16,13 +16,14 @@ include_graphics("Screenshots/Example_3_1_in_class.png")
 ```
 
 1. What is the average and standard deviation of the failure times?  
-2. Construct a histogram of the data. Add a title and change the number of bins.  
+2. Construct a histogram of the data. Add a title and set the number of bins to 5.  
+3. Increase the number of bins to 10 in a new plot.  
 3. Create a stem-and-leaf plot of the data.  
 
   
 ##Example 2: Viscosity
 
-Data on the viscosity of liquid substances is given in the table below. Construct a probability plot of the data. What can be interpreted from the graph?
+Data on the viscosity of liquid substances is given in the table below. Construct a probability plot of the data for the normal, log-normal, and uniform distributions. Which distribution fits the data best?
 
 ```{r echo = F}
 include_graphics("Screenshots/Example_3_2_in_class.png")
@@ -30,7 +31,14 @@ include_graphics("Screenshots/Example_3_2_in_class.png")
 
 ##Example 3: Tensile strength
   
-The tensile strength of a metal part is normally distributed with mean 600 lb and standard deviation 50 lb.
-If 50,000 parts are produced, how many would you expect to fail to meet a minimum specification limit of 550 lb tensile strength?  
-What about if the specification was 450?
-
+The tensile strength of a metal part is normally distributed with mean 600 lb and standard deviation 50 lb.  
+a. If 50,000 parts are produced, how many would you expect to fail to meet a minimum specification limit of 550 lb tensile strength?  
+b. Use the standard normal table at the end of the book to verify question 1.  
+c. What percentage of the parts will fall inbetween the range of 570 and 630?  
+d. Verify the range using the standard normal tables in the back of the book.  
+e. Find the tensile strength limits (upper and lower) that cover 80% of the production. 
+  
+##Example 4: Mechatronic Assembly
+A mechatronic assembly is subjected to a final functional test. Suppose that defects occur at random in these assemblies, and that defects occur according to a Poisson distribution with parameter lambda = 0.02.  
+a What is the probability that an assembly will have exactly one defect?
+b What is the probability that an assembly will have one or more defects?
