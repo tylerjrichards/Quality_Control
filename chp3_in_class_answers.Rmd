@@ -57,5 +57,9 @@ total_passed = 50000 * percentage
 print(round(total_passed))
 ```
 
+```{r}
+round(pnorm((450-600)/50, lower.tail = F) * 50000)
+```
+
 
 
