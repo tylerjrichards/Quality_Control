@@ -1,0 +1,60 @@
+---
+title: 'Chapter 3: In Class Answers'
+author: "Tyler Richards"
+date: "January 17, 2018"
+output: html_document
+---
+
+##Example 1: Time to Failure
+
+```{r}
+electric_component_failure = data.frame(time = c(127, 124, 121, 118, 125, 123, 136, 131, 131, 120, 140, 125, 124, 119, 137, 133, 129, 128, 125, 141,
+121, 133, 124, 125, 142, 137, 128, 140,
+151, 124, 129, 131, 160, 142, 130, 129,
+125, 123, 122, 126))
+
+mean(electric_component_failure$time)
+sd(electric_component_failure$time)
+```
+
+```{r}
+hist(electric_component_failure$time, breaks = 15, main = "Failure time of Electric Components")
+```
+
+```{r}
+stem(electric_component_failure$time)
+```
+
+
+
+##Example 2: Viscosity
+
+Data on the viscosity of liquid substances is given in the table below. Construct a probability plot of the data. What can be interpreted from the graph?
+
+```{r}
+
+Viscosity = data.frame(Values = c(13.3, 14.9, 15.8, 16.0, 14.5, 13.7, 13.7, 14.9,
+15.3, 15.2, 15.1, 13.6, 15.3, 14.5, 13.4, 15.3, 14.3, 15.3, 14.1, 14.3, 14.8, 15.6, 14.8, 15.6, 15.2, 15.8, 14.3, 16.1, 14.5, 13.3, 14.3, 13.9, 14.6, 14.1, 16.4, 15.2,
+14.1, 15.4, 16.9, 14.4, 14.3, 15.2, 14.2, 14.0, 16.1, 15.2, 16.9, 14.4, 13.1, 15.9, 14.9, 13.7, 15.5, 16.5, 15.2, 13.8, 12.6, 14.8, 14.4, 15.6, 14.6, 15.1, 15.2, 14.5, 14.3, 17.0, 14.6, 12.8, 15.4, 14.9, 16.4, 16.1, 15.2, 14.8, 14.2, 16.6, 16.8, 14.0, 15.7, 15.6))
+
+library(e1071)
+probplot(Viscosity$Values)
+
+
+```
+
+All of the values are very close to the red line, meaning the values follow the normal distribution. 
+
+
+##Example 3: Tensile Strength
+
+
+```{r}
+percentage = pnorm((550-600)/50, lower.tail = F)
+
+total_passed = 50000 * percentage
+print(round(total_passed))
+```
+
+
+

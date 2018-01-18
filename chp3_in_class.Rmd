@@ -1,0 +1,35 @@
+---
+title: 'Chapter 3: In Class Examples'
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+##Example 1: Time to Failure
+
+Electronic Components are subjected to an accelerated life test. A sample of failure times is given below.
+
+```{r echo = F}
+library(knitr)
+include_graphics("Screenshots/Example_3_1_in_class.png")
+```
+
+1. What is the average and standard deviation of the failure times?  
+2. Construct a histogram of the data. Add a title and change the number of bins.  
+3. Create a stem-and-leaf plot of the data.  
+
+  
+##Example 2: Viscosity
+
+Data on the viscosity of liquid substances is given in the table below. Construct a probability plot of the data. What can be interpreted from the graph?
+
+```{r echo = F}
+include_graphics("Screenshots/Example_3_2_in_class.png")
+```
+
+##Example 3: Tensile strength
+  
+The tensile strength of a metal part is normally distributed with mean 600 lb and standard deviation 50 lb.
+If 50,000 parts are produced, how many would you expect to fail to meet a minimum specification limit of 550 lb tensile strength?
+

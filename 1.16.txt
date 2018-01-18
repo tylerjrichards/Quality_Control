@@ -1,0 +1,52 @@
+Notes:
+
+insert shape
+for future reference - make arrows and the like to show where everything is
+
+add something before example 3.1 to show the dataframes
+c() concatenate
+
+
+3.1 remove the claim 
+remove the TA will accomodate
+make sure to modify the previous screenshot that includes claim
+
+3.2 
+later we'll make them better, now it is fine
+
+3.3 fine
+
+3.4 make up some data
+keep the current example, add new data as well
+
+
+
+3.5 
+explain the sep parameter
+remove the period, change the sep, explain
+also explain print
+
+
+
+3.6 
+add print
+
+3.7 
+print
+
+3.8
+put 0 in front of decimal point
+be consistent with the spacing
+same sep thing as last time
+
+3.9 clean up
+
+3.10 take out
+
+3.11 take out
+
+3.12 take out
+
+page 94 botton for normal distribution
+
+
