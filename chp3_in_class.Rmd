@@ -31,5 +31,6 @@ include_graphics("Screenshots/Example_3_2_in_class.png")
 ##Example 3: Tensile strength
   
 The tensile strength of a metal part is normally distributed with mean 600 lb and standard deviation 50 lb.
-If 50,000 parts are produced, how many would you expect to fail to meet a minimum specification limit of 550 lb tensile strength?
+If 50,000 parts are produced, how many would you expect to fail to meet a minimum specification limit of 550 lb tensile strength?  
+What about if the specification was 450?
 
