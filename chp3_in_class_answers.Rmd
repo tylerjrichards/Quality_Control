@@ -1,8 +1,9 @@
 ---
 title: 'Chapter 3: In Class Answers'
-author: "Tyler Richards"
-date: "January 17, 2018"
-output: html_document
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
 ---
 
 ##Example 1: Time to Failure
