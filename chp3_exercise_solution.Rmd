@@ -104,5 +104,10 @@ ppois(1, lambda = .02) - ppois(0, lambda = .02)
 ppois(0, lambda = .02, lower = F)
 ```
 
+##Example 5: Defective Furnaces
+  
+```{r}
+dbinom(5, 100, .05)
+```
 
 

@@ -42,3 +42,7 @@ e. Find the tensile strength limits (upper and lower) that cover 80% of the prod
 A mechatronic assembly is subjected to a final functional test. Suppose that defects occur at random in these assemblies, and that defects occur according to a Poisson distribution with parameter lambda = 0.02.  
 a What is the probability that an assembly will have exactly one defect?
 b What is the probability that an assembly will have one or more defects?
+
+##Example 5: Defective Furnaces
+  
+The error rate for the production of furnances is .005. In a sample of 100 furnaces, given that you know the distribution is binomail, what is the probability there are exactly 5 broken furnaces?
