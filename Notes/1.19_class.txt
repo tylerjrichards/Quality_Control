@@ -1,0 +1,3 @@
+learn more lower = F for normal dis, no need to do 1 - in that case, fix chp3.html
+bins vs break in in class example chp 3
+new meeting are at 3:30 not 3
