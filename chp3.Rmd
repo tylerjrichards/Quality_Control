@@ -171,6 +171,8 @@ wafer_thickness = data.frame(Thickness = c(438, 450, 487, 451, 452, 441, 444, 46
 
 #the hist function accepts data, as well as the number of desired breaks
 #the breaks parameter loosely sets the number of bins in the histogram. It is not an exact bin number due to how the algorithm R uses works
+#for this reason, the breaks parameter is nearly synonymous with the number of bins
+#in the future, we will learn about the ggplot package which will make this process easier
 hist(wafer_thickness$Thickness, breaks = 15)
 
 
@@ -285,8 +287,9 @@ We want to find the fraction of metal shafts produced that conform to specificat
 
 ```{r}
 #we need to find the probability of x < or = to .2515 and subtract the probability of x < or = to .2485
-prob_one = 1 - pnorm((0.2515 - 0.2508)/.0005, lower.tail = F) #F is the same as FALSE
-prob_two = 1 - pnorm((0.2485 - 0.2508)/0.0005, lower.tail = F)
+
+prob_one = pnorm((.2515-.2508)/.0005)
+prob_two = pnorm((.2485-.2508)/.0005)
 
 Fraction_conforms = round(prob_one - prob_two, 4)
 

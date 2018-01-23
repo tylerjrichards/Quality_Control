@@ -68,8 +68,8 @@ print(round(total_passed))
 c
 
 ```{r}
-prob_one = 1 - pnorm((630-600/50), lower.tail = F) #F is the same as FALSE
-prob_two = 1 - pnorm((570-600)/50, lower.tail = F)
+prob_one = pnorm((630-600/50)) #F is the same as FALSE
+prob_two = pnorm((570-600)/50)
 prob_one - prob_two
 ```
 
