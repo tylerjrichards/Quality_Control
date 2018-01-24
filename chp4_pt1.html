@@ -137,7 +137,9 @@ visc_sd =<span class="st"> </span><span class="kw">sd</span>(dataset_rubberized<
 <span class="co">#t statistic</span>
 t_stat =<span class="st"> </span>(visc_mean <span class="op">-</span><span class="st"> </span>null_hypothesis) <span class="op">/</span><span class="st"> </span>(visc_sd <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">nrow</span>(dataset_rubberized)))
 
-<span class="co">#Range</span>
+<span class="co">#We want to use both the .025 and the .975 values, and so we can pass both of those into our qt() file which covers the t distribution</span>
+<span class="co">#then we can get the first and second values for the t distribution by Range_t[1] and Range_t[2] respectively</span>
+
 Range_t &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="kw">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), <span class="dt">df =</span> <span class="dv">14</span>)
 <span class="cf">if</span>(Range_t[<span class="dv">1</span>] <span class="op">&lt;</span><span class="st"> </span>t_stat <span class="op">&amp;</span><span class="st"> </span>t_stat <span class="op">&lt;</span><span class="st"> </span>Range_t[<span class="dv">2</span>]){
   <span class="kw">print</span>(<span class="ot">TRUE</span>)
@@ -248,6 +250,7 @@ upper_bound =<span class="st"> </span>fraction_rejected <span class="op">+</span
 </div>
 <div id="example-4.7-finding-the-power-of-a-test" class="section level2">
 <h2>Example 4.7: Finding the Power of a Test</h2>
+<p>The mean contents of coffee cans filled on a particular production line are being studied. Standards specify that the mean contents must be 16.0 oz, and from past experience it is known that the standard deviation of the can contents is 0.1 oz. The null hypothesis is that mu = 16.0. A random sample of nine cans is to be used, and the type I error probability is specified as .05. Find the probability of type II error and the power of the test, if the true mean contents is 16.1 oz.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Given Variables</span>
 h0 =<span class="st"> </span><span class="fl">16.1</span>
 h1 =<span class="st"> </span><span class="fl">16.0</span>
