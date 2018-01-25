@@ -1,0 +1,19 @@
+part of chapter 4 to be completed
+
+4.1 
+4.2 try to use confint using Z dist
+4.3 t distribtuion, has a probability plot go ahead and use that
+4.4 confint with t dist
+4.3.4 included sub example
+4.5 + 4.6 + 4.7
+
+for examples in class:
+single sample: inference on mu for variance known and variance unknown and their confidence intervals
+inference on variance example
+inference on population proportion and confint
+
+to do:
+create tutorial send out tonight
+send chapter 3 and in class solution
+pick out chapter 4 exercise: email that document
+add code for larger dataframes and include that in examples

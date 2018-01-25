@@ -42,7 +42,7 @@ print(paste("The Z score of the example is ", round(Z,3), ", and the p score ass
 
 Because we specified a type 1 error of a = .05 and the test is one sided, we reject the null hypothesis as 2.656 > 1.645 and conclude that the mean response time exceeds 75ms. 
 
-```{r}
+```{r echo=FALSE}
 
 #After running the code above, your screen should look like the output below
 

@@ -1,0 +1,136 @@
+---
+title: "Chapter 4 Part 1: Solutions"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r include=FALSE}
+library(knitr)
+```
+
+## In Class Example 1: Aircraft Bearings
+
+The inside diameters of bearings used in an aircraft landing gear assembly are known to have a standard deviation of .002. A random sample of 15 bearings has an average inside diameter of 8.2535 cm.  
+Test the hypothesis that the mean inside bearing diameter is 8.25cm. Use a two-sided alternative and a = .05.  
+
+
+```{r}
+null_hypothesis = 8.25
+sample_mean = 8.2535
+standard_dev = 0.002
+t_stat = (sample_mean - null_hypothesis) / (standard_dev / sqrt(15))
+
+Range_t <- qt(c(.025, .975), df = 14)
+if(Range_t[1] < t_stat & t_stat < Range_t[2]){
+  print("Accept")
+} else{
+  print("Reject")
+}
+
+
+```
+
+## In Class Example 2: Aircraft Bearings Confidence intervals
+
+Construct a 95% two sided confidence interval on the mean bearing diameter using data from the previous question.
+
+```{r}
+sample_mean = 8.2535
+error = qt(.975, df = 14) * (standard_dev /sqrt(15))
+left_interval = sample_mean - error
+right_interval = sample_mean + error
+
+print(paste("The 95% interval is between ", left_interval, " and ", right_interval))
+
+
+```
+
+## In Class Example 3: Circuit Boards
+
+A random sample of 200 printed circuit boards contains 18 defective or nonconforming units. 
+Test the hypothesis that the true fraction nonconforming in the process is 0.10. Use a = 0.05. 
+
+```{r}
+#given variables
+errors = 18
+sample_size = 200
+null_hypothesis =0.1
+alpha = 0.05
+
+#Equation
+Z = ((errors - 0.5) - sample_size * null_hypothesis) / sqrt(sample_size * null_hypothesis * (1 - null_hypothesis))
+
+if(Z > qnorm(1-(alpha/2))) {
+  print("REJECT")
+}
+if(Z < qnorm(1-(alpha/2))) {
+  print("ACCEPT")
+}
+
+```
+
+## In Class Example 4: Circuit Boards Confidence Intervals
+
+Using the data from the previous example, find a 95% confidence interval for the circuit board defective rate. How would this change if we wanted a 99% confidence interval?
+
+```{r}
+total_samples = 200
+rejected_applications = 18
+alpha = 0.05
+fraction_rejected = rejected_applications / total_samples
+Z_score = qnorm(1-(alpha/2)) #z is 1.96 for a 95% confidence interval
+
+#Lower Bound
+lower_bound = fraction_rejected - Z_score * sqrt((fraction_rejected * (1 - fraction_rejected)) / total_samples)
+
+#Upper Bound
+upper_bound = fraction_rejected + Z_score * sqrt((fraction_rejected * (1 - fraction_rejected)) / total_samples)
+
+print(paste(round(lower_bound,4), "< p <", round(upper_bound, 4)))
+
+```
+
+```{r}
+total_samples = 200
+rejected_applications = 18
+alpha = 0.01
+fraction_rejected = rejected_applications / total_samples
+Z_score = qnorm(1-(alpha/2)) #z is 1.96 for a 95% confidence interval
+
+#Lower Bound
+lower_bound = fraction_rejected - Z_score * sqrt((fraction_rejected * (1 - fraction_rejected)) / total_samples)
+
+#Upper Bound
+upper_bound = fraction_rejected + Z_score * sqrt((fraction_rejected * (1 - fraction_rejected)) / total_samples)
+
+print(paste(round(lower_bound,4), "< p <", round(upper_bound, 4)))
+```
+
+
+##In Class Example 5: Output Voltage
+
+The output voltage of a power supply is assumed to be normally distributed. Sixteen observations taken at random on voltage are as follows: 10.35, 9.30, 10.00, 9.96, 11.65, 12.00, 11.25, 9.58, 11.54, 9.95, 10.28, 8.37, 10.44, 9.25, 9.38, and 10.85. 
+Create a 95% confidence interval for the standard deviation.
+  
+```{r}
+voltage_data = c(10.35, 9.30, 10.00, 9.96, 11.65, 12.00, 11.25, 9.58, 11.54, 9.95, 10.28, 8.37, 10.44, 9.25, 9.38, 10.85)
+
+s_sqrd = (sd(voltage_data)^2)
+degree_freedom = length(voltage_data) - 1
+
+#lower bound
+lower_bound = degree_freedom*s_sqrd / qchisq(.975,degree_freedom)
+
+#upper bound
+upper_bound = degree_freedom*s_sqrd / qchisq(.025,degree_freedom)
+
+paste("The interval is from ", round(sqrt(lower_bound),3), " to ", round(sqrt(upper_bound),3))
+
+
+```
+
+
+

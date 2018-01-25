@@ -1,0 +1,38 @@
+---
+title: 'Chapter 4 Part 1: Questions'
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r include=FALSE}
+library(knitr)
+```
+
+## In Class Example 1: Aircraft Bearings
+
+The inside diameters of bearings used in an aircraft landing gear assembly are known to have a standard deviation of 0.002. A random sample of 15 bearings has an average inside diameter of 8.2535 cm.  
+Test the hypothesis that the mean inside bearing diameter is 8.25cm. Use a two-sided alternative and a = 0.05.  
+  
+  
+  
+  
+## In Class Example 2: Aircraft Bearings Confidence intervals
+
+Construct a 95% two sided confidence interval on the mean bearing diameter using data from the previous question.  
+  
+## In Class Example 3: Circuit Boards
+
+A random sample of 200 printed circuit boards contains 18 defective or nonconforming units. Test the hypothesis that the true fraction nonconforming in the process is 0.10. Use a = 0.05. 
+  
+  
+## In Class Example 4: Circuit Boards Confidence Intervals
+
+Using the data from the previous example, find a 95% confidence interval for the circuit board defective rate. How would this change if we wanted a 99% confidence interval?
+
+##In Class Example 5: Output Voltage
+
+The output voltage of a power supply is assumed to be normally distributed. Sixteen observations taken at random on voltage are as follows: 10.35, 9.30, 10.00, 9.96, 11.65, 12.00, 11.25, 9.58, 11.54, 9.95, 10.28, 8.37, 10.44, 9.25, 9.38, and 10.85. 
+Create a 95% confidence interval for the standard deviation.
