@@ -124,10 +124,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Example 3: Tensile Strength</h2>
 <p>The tensile strength of a metal part is normally distributed with mean 600 lb and standard deviation 50 lb. a. If 50,000 parts are produced, how many would you expect to fail to meet a minimum specification limit of 550 lb tensile strength? b. Use the standard normal table at the end of the book to verify question 1. c. What percentage of the parts will fall inbetween the range of 570 and 630? d. Verify the range using the standard normal tables in the back of the book. e. Find the tensile strength limits (upper and lower) that cover 90% of the production.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#a</span>
-percentage =<span class="st"> </span><span class="kw">pnorm</span>((<span class="dv">550</span><span class="op">-</span><span class="dv">600</span>)<span class="op">/</span><span class="dv">50</span>, <span class="dt">lower.tail =</span> F)
-total_passed =<span class="st"> </span><span class="dv">50000</span> <span class="op">*</span><span class="st"> </span>percentage
-<span class="kw">print</span>(<span class="kw">round</span>(total_passed))</code></pre></div>
-<pre><code>## [1] 42067</code></pre>
+percentage =<span class="st"> </span><span class="kw">pnorm</span>((<span class="dv">550</span><span class="op">-</span><span class="dv">600</span>)<span class="op">/</span><span class="dv">50</span>)
+total_failed =<span class="st"> </span><span class="dv">50000</span> <span class="op">*</span><span class="st"> </span>percentage
+<span class="kw">print</span>(<span class="kw">round</span>(total_failed))</code></pre></div>
+<pre><code>## [1] 7933</code></pre>
 <p>c</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prob_one =<span class="st"> </span><span class="kw">pnorm</span>((<span class="dv">630</span><span class="op">-</span><span class="dv">600</span><span class="op">/</span><span class="dv">50</span>)) <span class="co">#F is the same as FALSE</span>
 prob_two =<span class="st"> </span><span class="kw">pnorm</span>((<span class="dv">570</span><span class="op">-</span><span class="dv">600</span>)<span class="op">/</span><span class="dv">50</span>)

@@ -60,9 +60,9 @@ e. Find the tensile strength limits (upper and lower) that cover 90% of the prod
 
 ```{r}
 #a
-percentage = pnorm((550-600)/50, lower.tail = F)
-total_passed = 50000 * percentage
-print(round(total_passed))
+percentage = pnorm((550-600)/50)
+total_failed = 50000 * percentage
+print(round(total_failed))
 ```
 
 c
