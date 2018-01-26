@@ -45,8 +45,7 @@ probplot(Viscosity$Values, qdist = "qlnorm")
 
 ```
 
-All of the values are very close to the red line, meaning the values follow the normal distribution. 
-
+The values appear to follow a normal distribution. 
 
 ##Example 3: Tensile Strength
   
