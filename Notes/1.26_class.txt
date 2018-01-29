@@ -1,1 +1,5 @@
 4.7 4.8 4.9 4.10 4.15 4.20 4.27
+chapter 3 has lower.tail = F when it shouldn't you dumbass
+continue on in class tutorial examples for last examples
+	4.8 examples and on
+	skip a couple examples

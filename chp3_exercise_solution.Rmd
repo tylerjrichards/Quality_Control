@@ -68,7 +68,7 @@ print(round(total_failed))
 
 ```{r}
 #c
-prob_one = pnorm((630-600/50)) #F is the same as FALSE
+prob_one = pnorm((630-600)/50)
 prob_two = pnorm((570-600)/50)
 prob_one - prob_two
 ```
@@ -76,15 +76,10 @@ prob_one - prob_two
 ```{r}
 #e
 
-print(paste("90% of the products will be inbetween", round(qnorm(.1, mean = 600, sd = 50)), "and", round(qnorm(.90, mean=600, sd=50)
+print(paste("90% of the products will be inbetween", round(qnorm(.05, mean = 600, sd = 50)), "and", round(qnorm(.95, mean=600, sd=50)
 ) ))
 
 
-```
-
-
-```{r}
-round(pnorm((450-600)/50, lower.tail = F) * 50000)
 ```
 
 ##Example 4: Mechatronic Assembly
