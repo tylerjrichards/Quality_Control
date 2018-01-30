@@ -1,0 +1,185 @@
+---
+title: "Chapter 4 Part 2: Example Walkthroughs"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+4.7 4.8 4.9 4.10 4.15 4.20 4.27
+
+## Example 4.7: Finding the Power of a Test
+
+The mean contents of coffee cans filled on a particular production line are being studied. Standards specify that the mean contents must be 16.0 oz, and from past experience it is known that the standard deviation of the can contents is 0.1 oz. The hypotheses are h0 = 16.1 and h1 = 16.0.  
+A random sample of nine cans is to be used, and the type I error probability is specified as a = .05. h0 is rejected if Z > 1.96.   
+Find the probability of type II error and the power of the test, if the true mean contents are equal to 16.1.  
+
+  
+```{r}
+#Given Variables
+h0 = 16.1
+h1 = 16.0
+sigma = .1
+n = 9
+
+#Create Z test function
+#we can create functions in R that pre-define the inputs and the outputs
+powerZtest = function(alpha = 0.05, sigma, n, delta){ #here we define what the user will need to input to use our function
+  zcr = qnorm(p = 1-alpha, mean = 0, sd = 1) #here is the code that finds the power of a Z test
+  s = sigma/sqrt(n)
+  power = 1 - pnorm(q = zcr, mean = (delta/s), sd = 1)
+  return(power) #and this is what the function returns
+}
+#functions will make our code much faster in the future
+
+#now that we've created the function, let's use it!
+powerZtest(n = n, sigma = sigma, delta = (h0-h1))
+
+
+```
+  
+  
+## Example 4.8: Comparing Paint Formulations
+
+A product developer is interested in reducing the drying time of a primer paint. Two formulations of the paint are tested; formulation 1 is the standard chemistry, and formulation 2 has a new drying ingredient that should reduce the drying time. From experience, it is known that the standard deviation of drying time is eight minutes, and this inherent variability should be unaffected by the addition of the new ingredient.  
+Ten specimens are painted with formulation 1, and another 10 specimens are painted with formulation 2; the 20 specimens are painted in random order. The two sample average drying times are min and min, respectively. 
+  
+What conclusions can the product developer draw about the effectiveness of the new ingredient, using a = 0.05?
+
+
+
+
+```{r}
+#Given variables
+x_1 = 121
+x_2 = 112
+sample_1 = 10
+sample_2 = 10
+sd = 8
+
+#The Null Hypothesis is that the mean drying time for paints is the same
+
+#Z Score calculation
+Z = (x_1 - x_2) / sqrt( ( (sd^2) / sample_1 ) + ( ( sd^2) / sample_2 ) )
+
+if(Z > 1.645){
+  print("Reject Null Hypothesis")
+}
+if(Z < 1.645){
+  print("Accept Null Hypothesis")
+}
+
+```
+
+
+  
+## Example 4.9 Comparing Mean Yields
+
+Two catalysts are being analyzed to determine how they affect the mean yield of a chemical process. Specifically, catalyst 1 is currently in use, but catalyst 2 is acceptable. Since catalyst 2 is cheaper, it should be adopted, providing it does not change the process yield. An experiment is run in the pilot plant and results in the data shown in Table 4.2. Is there any difference between the mean yields? Use and assume equal variances.
+  
+  
+  
+```{r}
+
+#Generate data frame
+Catalyst_data = data.frame(Observation_num = c(1:8), Catalyst_1 = c(91.50, 94.18, 92.18, 95.39, 91.79, 89.07, 94.72, 89.21), Catalyst_2 = c(89.19, 90.95, 90.46, 93.21, 97.19, 97.04, 91.07, 92.75))
+
+#Evaluate data frame
+x_1 = mean(Catalyst_data$Catalyst_1)
+x_2 = mean(Catalyst_data$Catalyst_2)
+sd_1 = sd(Catalyst_data$Catalyst_1)
+sd_2 = sd(Catalyst_data$Catalyst_2)
+n = 8
+
+#Calculate Pooled estimator of sigma^2 from eq 4.51
+s_pooled = sqrt(((n -1) * (sd_1 ^ 2) + (n - 1) * (sd_2 ^ 2)) /  ( n + n - 2))
+
+#Now calculate t statistic
+t_stat = (x_1 - x_2) / (s_pooled * sqrt((1/n) + (1/n)))
+
+#Find acceptable range for t value
+Range_t <- qt(c(.025, .975), df = 14)
+
+if(Range_t[1] < t_stat & Range_t[2] > t_stat) {
+  print("Accept null hypothesis")
+} else{
+  print("Reject null hypothesis")
+}
+
+
+```
+
+## Example 4.10: Doped Versus Undoped Cement
+
+An article in the journal Hazardous Waste and Hazardous Materials (Vol. 6, 1989) reported the results of an analysis of the weight of calcium in standard cement and cement doped with lead. Reduced levels of calcium would indicate that the hydration mechanism in the cement is blocked and would allow water to attack various locations in the cement structure. Ten samples of standard cement had an average weight percent calcium of 90.0 with a sample standard deviation of 5.0 and 15 samples of the lead-doped cement had an average weight percent calcium of 87.0 with a sample standard deviation of 4.0. Is there evidence to support a claim that doping the cement with lead changes the mean weight of calcium in the cement?
+  
+  
+  
+
+```{r}
+#Given variables
+x_1 = 90
+x_2 = 87
+sd_1 = 5
+sd_2 = 4
+n_1 = 10
+n_2 = 15
+
+#Application of equation 4.57
+s_pooled = sqrt((((n_1 - 1) * (sd_1 ^ 2)) + ((n_2 - 1) * (sd_2 ^ 2))) / (n_1 + n_2 - 2))
+
+t_value <- qt(c(.025, .975), df = 23)[2]
+
+#Left bound
+left_bound = x_1 - x_2 - t_value * s_pooled * sqrt((1/n_1) + (1/n_2))
+#Now for the right
+right_bound = x_1 - x_2 + t_value * s_pooled * sqrt((1/n_1) + (1/n_2))
+
+#Let's bring it all together
+Mean_diff = x_1 - x_2
+
+if(left_bound < Mean_diff & Mean_diff < right_bound) {
+  print("Cannot Reject Null Hypothesis")
+} else{
+  print("Reject Null Hypothesis")
+}
+
+
+
+```
+
+## Example 4.13: Fitting a Linear Regression Model
+
+Sixteen observations on the operating cost of a branch office of a finance company (y) and two predictor variables—number of new loan applications and number of loans outstanding. Fit a multiple linear regression model to these data.
+  
+Here's model fitting in R
+
+```{r}
+#Get the data
+Finance_data = data.frame(Observation = c(1:16), Applications = c(80, 93, 100, 82, 90, 99, 81, 96, 94, 93, 97, 95, 100, 85, 86, 87), Outstanding = c(8,9,10,12,11,8,8,10,12,11,13,11,8,12,9,12), Cost = c(2256,2340,2426,2293,2330,2368,2250,2409,2364,2379,2440,2364,2404,2317,2309,2328))
+
+#Fit the model
+Finance_model = lm(data = Finance_data, Cost ~ Outstanding + Applications)
+summary(Finance_model)
+
+```
+  
+  
+
+## Example 4.15: A Confidence Interval on a Regression Coefficient
+
+Construct a 95% confidence interval for the parameter in Example 4.13.
+
+
+```{r}
+Finance_data = data.frame(Observation = c(1:16), Applications = c(80, 93, 100, 82, 90, 99, 81, 96, 94, 93, 97, 95, 100, 85, 86, 87), Outstanding = c(8,9,10,12,11,8,8,10,12,11,13,11,8,12,9,12), Cost = c(2256,2340,2426,2293,2330,2368,2250,2409,2364,2379,2440,2364,2404,2317,2309,2328))
+
+#re create the model from 4.13 
+Finance_model = lm(data = Finance_data, Cost ~ Outstanding + Applications)
+
+#the default confint is 95%
+confint(Finance_model, "Applications")
+
+
+```
+
