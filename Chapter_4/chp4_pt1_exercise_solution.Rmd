@@ -21,6 +21,7 @@ Test the hypothesis that the mean inside bearing diameter is 8.25cm. Use a two-s
 null_hypothesis = 8.25
 sample_mean = 8.2535
 standard_dev = 0.002
+
 t_stat = (sample_mean - null_hypothesis) / (standard_dev / sqrt(15))
 
 Range_t <- qt(c(.025, .975), df = 14)
