@@ -159,6 +159,7 @@ Here's model fitting in R
 Finance_data = data.frame(Observation = c(1:16), Applications = c(80, 93, 100, 82, 90, 99, 81, 96, 94, 93, 97, 95, 100, 85, 86, 87), Outstanding = c(8,9,10,12,11,8,8,10,12,11,13,11,8,12,9,12), Cost = c(2256,2340,2426,2293,2330,2368,2250,2409,2364,2379,2440,2364,2404,2317,2309,2328))
 
 #Fit the model
+#the second parameter can be read "predict cost using the columns outstanding and applications"
 Finance_model = lm(data = Finance_data, Cost ~ Outstanding + Applications)
 summary(Finance_model)
 
