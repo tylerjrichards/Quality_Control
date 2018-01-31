@@ -1,0 +1,10 @@
+
+Notes: couldn't find 4.20 4.27 examples
+added 4.13 because 4.15 depended on it, and we needed to introduce how to do linear regression also introduced the concept of making a function in R and helped explain how to do it
+
+to do:
+remove 4.9, 4.10, 4.11, 4.15 (for now)
+add 4.12
+add back of the book solutions
+4.7, 4.8, 4.9, 4.10, 4.15, 4.20. 4.27
+

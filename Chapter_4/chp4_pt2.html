@@ -76,7 +76,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<p>4.7 4.8 4.9 4.10 4.15 4.20 4.27</p>
 <div id="example-4.7-finding-the-power-of-a-test" class="section level2">
 <h2>Example 4.7: Finding the Power of a Test</h2>
 <p>The mean contents of coffee cans filled on a particular production line are being studied. Standards specify that the mean contents must be 16.0 oz, and from past experience it is known that the standard deviation of the can contents is 0.1 oz. The hypotheses are h0 = 16.1 and h1 = 16.0.<br />
@@ -127,65 +126,45 @@ Z =<span class="st"> </span>(x_<span class="dv">1</span> <span class="op">-</spa
   <span class="kw">print</span>(<span class="st">&quot;Accept Null Hypothesis&quot;</span>)
 }</code></pre></div>
 </div>
-<div id="example-4.9-comparing-mean-yields" class="section level2">
-<h2>Example 4.9 Comparing Mean Yields</h2>
-<p>Two catalysts are being analyzed to determine how they affect the mean yield of a chemical process. Specifically, catalyst 1 is currently in use, but catalyst 2 is acceptable. Since catalyst 2 is cheaper, it should be adopted, providing it does not change the process yield. An experiment is run in the pilot plant and results in the data shown in Table 4.2. Is there any difference between the mean yields? Use and assume equal variances.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Generate data frame</span>
-Catalyst_data =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Observation_num =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>), <span class="dt">Catalyst_1 =</span> <span class="kw">c</span>(<span class="fl">91.50</span>, <span class="fl">94.18</span>, <span class="fl">92.18</span>, <span class="fl">95.39</span>, <span class="fl">91.79</span>, <span class="fl">89.07</span>, <span class="fl">94.72</span>, <span class="fl">89.21</span>), <span class="dt">Catalyst_2 =</span> <span class="kw">c</span>(<span class="fl">89.19</span>, <span class="fl">90.95</span>, <span class="fl">90.46</span>, <span class="fl">93.21</span>, <span class="fl">97.19</span>, <span class="fl">97.04</span>, <span class="fl">91.07</span>, <span class="fl">92.75</span>))
+<div id="example-4.12-the-paper-tensile-strength-experiment" class="section level2">
+<h2>Example 4.12: The Paper Tensile Strength Experiment</h2>
+<p>Consider the paper tensile strength experiment described in Section 4.5.1. Use the analysis of variance to test the hypothesis that different hardwood concentrations do not affect the mean tensile strength of the paper.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#R has functions for calculating anova, but the example specifies that we should use the sum of squares method. If you're interested, check out the aov() function for more functionality. </span>
 
-<span class="co">#Evaluate data frame</span>
-x_<span class="dv">1</span> =<span class="st"> </span><span class="kw">mean</span>(Catalyst_data<span class="op">$</span>Catalyst_<span class="dv">1</span>)
-x_<span class="dv">2</span> =<span class="st"> </span><span class="kw">mean</span>(Catalyst_data<span class="op">$</span>Catalyst_<span class="dv">2</span>)
-sd_<span class="dv">1</span> =<span class="st"> </span><span class="kw">sd</span>(Catalyst_data<span class="op">$</span>Catalyst_<span class="dv">1</span>)
-sd_<span class="dv">2</span> =<span class="st"> </span><span class="kw">sd</span>(Catalyst_data<span class="op">$</span>Catalyst_<span class="dv">2</span>)
-n =<span class="st"> </span><span class="dv">8</span>
+<span class="co">#Load dataset</span>
+Tensile_observations =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Hardwood_concentration =</span> <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">20</span>), <span class="dt">One =</span> <span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">12</span>,<span class="dv">14</span>,<span class="dv">19</span>), <span class="dt">Two =</span> <span class="kw">c</span>(<span class="dv">8</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">25</span>), <span class="dt">Three =</span> <span class="kw">c</span>(<span class="dv">15</span>,<span class="dv">13</span>,<span class="dv">19</span>,<span class="dv">22</span>), <span class="dt">Four =</span> <span class="kw">c</span>(<span class="dv">11</span>,<span class="dv">18</span>,<span class="dv">17</span>,<span class="dv">23</span>), <span class="dt">Five =</span> <span class="kw">c</span>(<span class="dv">9</span>,<span class="dv">19</span>,<span class="dv">16</span>,<span class="dv">18</span>), <span class="dt">Six =</span> <span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">18</span>,<span class="dv">20</span>))
 
-<span class="co">#Calculate Pooled estimator of sigma^2 from eq 4.51</span>
-s_pooled =<span class="st"> </span><span class="kw">sqrt</span>(((n <span class="op">-</span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>(sd_<span class="dv">1</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>(sd_<span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span>)) <span class="op">/</span><span class="st">  </span>( n <span class="op">+</span><span class="st"> </span>n <span class="op">-</span><span class="st"> </span><span class="dv">2</span>))
+<span class="co">#grab the sum using the rowSums function, which sums the rows from each specified column</span>
+Tensile_observations<span class="op">$</span>Totals =<span class="st"> </span><span class="kw">rowSums</span>(Tensile_observations[,<span class="kw">c</span>(<span class="st">&quot;One&quot;</span>, <span class="st">&quot;Two&quot;</span>, <span class="st">&quot;Three&quot;</span>, <span class="st">&quot;Four&quot;</span>, <span class="st">&quot;Five&quot;</span>, <span class="st">&quot;Six&quot;</span>)])
+<span class="co">#the average is the total divided by 6</span>
+Tensile_observations<span class="op">$</span>Averages =<span class="st"> </span>Tensile_observations<span class="op">$</span>Totals <span class="op">/</span><span class="st"> </span><span class="dv">6</span>
 
-<span class="co">#Now calculate t statistic</span>
-t_stat =<span class="st"> </span>(x_<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>x_<span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>(s_pooled <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>((<span class="dv">1</span><span class="op">/</span>n) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>n)))
+<span class="co">#calculate the sum of squares</span>
+Sum_Squares_Total =<span class="st"> </span><span class="kw">sum</span>(<span class="kw">sum</span>(Tensile_observations<span class="op">$</span>One <span class="op">^</span><span class="st"> </span><span class="dv">2</span>), <span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Two <span class="op">^</span><span class="st"> </span><span class="dv">2</span>), <span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Three <span class="op">^</span><span class="st"> </span><span class="dv">2</span>), <span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Four <span class="op">^</span><span class="st"> </span><span class="dv">2</span>),<span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Five <span class="op">^</span><span class="st"> </span><span class="dv">2</span>), <span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Six <span class="op">^</span><span class="st"> </span><span class="dv">2</span>)) <span class="op">-</span><span class="st"> </span>(<span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Totals) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="dv">24</span>
 
-<span class="co">#Find acceptable range for t value</span>
-Range_t &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="kw">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), <span class="dt">df =</span> <span class="dv">14</span>)
+Sum_Squares_Treatment =<span class="st"> </span>(<span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Totals <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="dv">6</span>) <span class="op">-</span><span class="st"> </span>(<span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Totals) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="dv">24</span>
 
-<span class="cf">if</span>(Range_t[<span class="dv">1</span>] <span class="op">&lt;</span><span class="st"> </span>t_stat <span class="op">&amp;</span><span class="st"> </span>Range_t[<span class="dv">2</span>] <span class="op">&gt;</span><span class="st"> </span>t_stat) {
-  <span class="kw">print</span>(<span class="st">&quot;Accept null hypothesis&quot;</span>)
-} <span class="cf">else</span>{
-  <span class="kw">print</span>(<span class="st">&quot;Reject null hypothesis&quot;</span>)
-}</code></pre></div>
-<pre><code>## [1] &quot;Accept null hypothesis&quot;</code></pre>
-</div>
-<div id="example-4.10-doped-versus-undoped-cement" class="section level2">
-<h2>Example 4.10: Doped Versus Undoped Cement</h2>
-<p>An article in the journal Hazardous Waste and Hazardous Materials (Vol. 6, 1989) reported the results of an analysis of the weight of calcium in standard cement and cement doped with lead. Reduced levels of calcium would indicate that the hydration mechanism in the cement is blocked and would allow water to attack various locations in the cement structure. Ten samples of standard cement had an average weight percent calcium of 90.0 with a sample standard deviation of 5.0 and 15 samples of the lead-doped cement had an average weight percent calcium of 87.0 with a sample standard deviation of 4.0. Is there evidence to support a claim that doping the cement with lead changes the mean weight of calcium in the cement?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Given variables</span>
-x_<span class="dv">1</span> =<span class="st"> </span><span class="dv">90</span>
-x_<span class="dv">2</span> =<span class="st"> </span><span class="dv">87</span>
-sd_<span class="dv">1</span> =<span class="st"> </span><span class="dv">5</span>
-sd_<span class="dv">2</span> =<span class="st"> </span><span class="dv">4</span>
-n_<span class="dv">1</span> =<span class="st"> </span><span class="dv">10</span>
-n_<span class="dv">2</span> =<span class="st"> </span><span class="dv">15</span>
+Sum_Squares_E =<span class="st"> </span>Sum_Squares_Total <span class="op">-</span><span class="st"> </span>Sum_Squares_Treatment
 
-<span class="co">#Application of equation 4.57</span>
-s_pooled =<span class="st"> </span><span class="kw">sqrt</span>((((n_<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>(sd_<span class="dv">1</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span>)) <span class="op">+</span><span class="st"> </span>((n_<span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>(sd_<span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">2</span>))) <span class="op">/</span><span class="st"> </span>(n_<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>n_<span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span>))
+<span class="co">#factor is a data type that allows us to categorize the data, making this process easier</span>
+Tensile_observations<span class="op">$</span>Hardwood_concentration =<span class="st"> </span><span class="kw">as.factor</span>(Tensile_observations<span class="op">$</span>Hardwood_concentration)
 
-t_value &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="kw">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), <span class="dt">df =</span> <span class="dv">23</span>)[<span class="dv">2</span>]
+<span class="co">#a is the number of observations</span>
+<span class="co">#n is the number of columns</span>
+a =<span class="st"> </span><span class="dv">4</span>
+n =<span class="st"> </span><span class="dv">6</span>
+error_mean_square =<span class="st"> </span>Sum_Squares_E <span class="op">/</span><span class="st"> </span>(a <span class="op">*</span><span class="st"> </span>(n<span class="op">-</span><span class="dv">1</span>))
 
-<span class="co">#Left bound</span>
-left_bound =<span class="st"> </span>x_<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>x_<span class="dv">2</span> <span class="op">-</span><span class="st"> </span>t_value <span class="op">*</span><span class="st"> </span>s_pooled <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>((<span class="dv">1</span><span class="op">/</span>n_<span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>n_<span class="dv">2</span>))
-<span class="co">#Now for the right</span>
-right_bound =<span class="st"> </span>x_<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>x_<span class="dv">2</span> <span class="op">+</span><span class="st"> </span>t_value <span class="op">*</span><span class="st"> </span>s_pooled <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>((<span class="dv">1</span><span class="op">/</span>n_<span class="dv">1</span>) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>n_<span class="dv">2</span>))
+<span class="co">#find the F statistic</span>
+F_stat =<span class="st"> </span>(Sum_Squares_Treatment <span class="op">/</span><span class="st"> </span>(a<span class="op">-</span><span class="dv">1</span>) ) <span class="op">/</span><span class="st"> </span>(Sum_Squares_E <span class="op">/</span><span class="st"> </span>(a <span class="op">*</span><span class="st"> </span>( n <span class="op">-</span><span class="dv">1</span>)))
 
-<span class="co">#Let's bring it all together</span>
-Mean_diff =<span class="st"> </span>x_<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>x_<span class="dv">2</span>
-
-<span class="cf">if</span>(left_bound <span class="op">&lt;</span><span class="st"> </span>Mean_diff <span class="op">&amp;</span><span class="st"> </span>Mean_diff <span class="op">&lt;</span><span class="st"> </span>right_bound) {
-  <span class="kw">print</span>(<span class="st">&quot;Cannot Reject Null Hypothesis&quot;</span>)
-} <span class="cf">else</span>{
+<span class="co">#compare the F statistic to the target</span>
+<span class="cf">if</span>(F_stat <span class="op">&gt;</span><span class="st"> </span><span class="kw">qf</span>(<span class="kw">c</span>(.<span class="dv">01</span>, .<span class="dv">99</span>), <span class="dv">3</span>, <span class="dv">20</span>)[<span class="dv">2</span>]){
   <span class="kw">print</span>(<span class="st">&quot;Reject Null Hypothesis&quot;</span>)
+} <span class="cf">else</span> {
+  <span class="kw">print</span>(<span class="st">&quot;Do not Reject Null Hypothesis&quot;</span>)
 }</code></pre></div>
-<pre><code>## [1] &quot;Cannot Reject Null Hypothesis&quot;</code></pre>
+<pre><code>## [1] &quot;Reject Null Hypothesis&quot;</code></pre>
 </div>
 <div id="example-4.13-fitting-a-linear-regression-model" class="section level2">
 <h2>Example 4.13: Fitting a Linear Regression Model</h2>
@@ -195,6 +174,7 @@ Mean_diff =<span class="st"> </span>x_<span class="dv">1</span> <span class="op"
 Finance_data =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Observation =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>), <span class="dt">Applications =</span> <span class="kw">c</span>(<span class="dv">80</span>, <span class="dv">93</span>, <span class="dv">100</span>, <span class="dv">82</span>, <span class="dv">90</span>, <span class="dv">99</span>, <span class="dv">81</span>, <span class="dv">96</span>, <span class="dv">94</span>, <span class="dv">93</span>, <span class="dv">97</span>, <span class="dv">95</span>, <span class="dv">100</span>, <span class="dv">85</span>, <span class="dv">86</span>, <span class="dv">87</span>), <span class="dt">Outstanding =</span> <span class="kw">c</span>(<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">12</span>,<span class="dv">11</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>,<span class="dv">11</span>,<span class="dv">13</span>,<span class="dv">11</span>,<span class="dv">8</span>,<span class="dv">12</span>,<span class="dv">9</span>,<span class="dv">12</span>), <span class="dt">Cost =</span> <span class="kw">c</span>(<span class="dv">2256</span>,<span class="dv">2340</span>,<span class="dv">2426</span>,<span class="dv">2293</span>,<span class="dv">2330</span>,<span class="dv">2368</span>,<span class="dv">2250</span>,<span class="dv">2409</span>,<span class="dv">2364</span>,<span class="dv">2379</span>,<span class="dv">2440</span>,<span class="dv">2364</span>,<span class="dv">2404</span>,<span class="dv">2317</span>,<span class="dv">2309</span>,<span class="dv">2328</span>))
 
 <span class="co">#Fit the model</span>
+<span class="co">#the second parameter can be read &quot;predict cost using the columns outstanding and applications&quot;</span>
 Finance_model =<span class="st"> </span><span class="kw">lm</span>(<span class="dt">data =</span> Finance_data, Cost <span class="op">~</span><span class="st"> </span>Outstanding <span class="op">+</span><span class="st"> </span>Applications)
 <span class="kw">summary</span>(Finance_model)</code></pre></div>
 <pre><code>## 

@@ -6,7 +6,6 @@ output:
     highlight: github
 ---
 
-4.7 4.8 4.9 4.10 4.15 4.20 4.27
 
 ## Example 4.7: Finding the Power of a Test
 
@@ -71,82 +70,53 @@ if(Z < 1.645){
 
 ```
 
+  
+  
+## Example 4.12: The Paper Tensile Strength Experiment
 
-  
-## Example 4.9 Comparing Mean Yields
+Consider the paper tensile strength experiment described in Section 4.5.1. Use the analysis of variance to test the hypothesis that different hardwood concentrations do not affect the mean tensile strength of the paper. 
 
-Two catalysts are being analyzed to determine how they affect the mean yield of a chemical process. Specifically, catalyst 1 is currently in use, but catalyst 2 is acceptable. Since catalyst 2 is cheaper, it should be adopted, providing it does not change the process yield. An experiment is run in the pilot plant and results in the data shown in Table 4.2. Is there any difference between the mean yields? Use and assume equal variances.
-  
-  
-  
 ```{r}
 
-#Generate data frame
-Catalyst_data = data.frame(Observation_num = c(1:8), Catalyst_1 = c(91.50, 94.18, 92.18, 95.39, 91.79, 89.07, 94.72, 89.21), Catalyst_2 = c(89.19, 90.95, 90.46, 93.21, 97.19, 97.04, 91.07, 92.75))
+#R has functions for calculating anova, but the example specifies that we should use the sum of squares method. If you're interested, check out the aov() function for more functionality. 
 
-#Evaluate data frame
-x_1 = mean(Catalyst_data$Catalyst_1)
-x_2 = mean(Catalyst_data$Catalyst_2)
-sd_1 = sd(Catalyst_data$Catalyst_1)
-sd_2 = sd(Catalyst_data$Catalyst_2)
-n = 8
+#Load dataset
+Tensile_observations = data.frame(Hardwood_concentration = c(5,10,15,20), One = c(7,12,14,19), Two = c(8,17,18,25), Three = c(15,13,19,22), Four = c(11,18,17,23), Five = c(9,19,16,18), Six = c(10,15,18,20))
 
-#Calculate Pooled estimator of sigma^2 from eq 4.51
-s_pooled = sqrt(((n -1) * (sd_1 ^ 2) + (n - 1) * (sd_2 ^ 2)) /  ( n + n - 2))
+#grab the sum using the rowSums function, which sums the rows from each specified column
+Tensile_observations$Totals = rowSums(Tensile_observations[,c("One", "Two", "Three", "Four", "Five", "Six")])
+#the average is the total divided by 6
+Tensile_observations$Averages = Tensile_observations$Totals / 6
 
-#Now calculate t statistic
-t_stat = (x_1 - x_2) / (s_pooled * sqrt((1/n) + (1/n)))
+#calculate the sum of squares
+Sum_Squares_Total = sum(sum(Tensile_observations$One ^ 2), sum(Tensile_observations$Two ^ 2), sum(Tensile_observations$Three ^ 2), sum(Tensile_observations$Four ^ 2),sum(Tensile_observations$Five ^ 2), sum(Tensile_observations$Six ^ 2)) - (sum(Tensile_observations$Totals) ^ 2) / 24
 
-#Find acceptable range for t value
-Range_t <- qt(c(.025, .975), df = 14)
+Sum_Squares_Treatment = (sum(Tensile_observations$Totals ^ 2) / 6) - (sum(Tensile_observations$Totals) ^ 2) / 24
 
-if(Range_t[1] < t_stat & Range_t[2] > t_stat) {
-  print("Accept null hypothesis")
-} else{
-  print("Reject null hypothesis")
-}
+Sum_Squares_E = Sum_Squares_Total - Sum_Squares_Treatment
 
+#factor is a data type that allows us to categorize the data, making this process easier
+Tensile_observations$Hardwood_concentration = as.factor(Tensile_observations$Hardwood_concentration)
 
-```
+#a is the number of observations
+#n is the number of columns
+a = 4
+n = 6
+error_mean_square = Sum_Squares_E / (a * (n-1))
 
-## Example 4.10: Doped Versus Undoped Cement
+#find the F statistic
+F_stat = (Sum_Squares_Treatment / (a-1) ) / (Sum_Squares_E / (a * ( n -1)))
 
-An article in the journal Hazardous Waste and Hazardous Materials (Vol. 6, 1989) reported the results of an analysis of the weight of calcium in standard cement and cement doped with lead. Reduced levels of calcium would indicate that the hydration mechanism in the cement is blocked and would allow water to attack various locations in the cement structure. Ten samples of standard cement had an average weight percent calcium of 90.0 with a sample standard deviation of 5.0 and 15 samples of the lead-doped cement had an average weight percent calcium of 87.0 with a sample standard deviation of 4.0. Is there evidence to support a claim that doping the cement with lead changes the mean weight of calcium in the cement?
-  
-  
-  
-
-```{r}
-#Given variables
-x_1 = 90
-x_2 = 87
-sd_1 = 5
-sd_2 = 4
-n_1 = 10
-n_2 = 15
-
-#Application of equation 4.57
-s_pooled = sqrt((((n_1 - 1) * (sd_1 ^ 2)) + ((n_2 - 1) * (sd_2 ^ 2))) / (n_1 + n_2 - 2))
-
-t_value <- qt(c(.025, .975), df = 23)[2]
-
-#Left bound
-left_bound = x_1 - x_2 - t_value * s_pooled * sqrt((1/n_1) + (1/n_2))
-#Now for the right
-right_bound = x_1 - x_2 + t_value * s_pooled * sqrt((1/n_1) + (1/n_2))
-
-#Let's bring it all together
-Mean_diff = x_1 - x_2
-
-if(left_bound < Mean_diff & Mean_diff < right_bound) {
-  print("Cannot Reject Null Hypothesis")
-} else{
+#compare the F statistic to the target
+if(F_stat > qf(c(.01, .99), 3, 20)[2]){
   print("Reject Null Hypothesis")
+} else {
+  print("Do not Reject Null Hypothesis")
 }
 
-
-
 ```
+
+
 
 ## Example 4.13: Fitting a Linear Regression Model
 
