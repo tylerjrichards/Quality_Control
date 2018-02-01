@@ -41,7 +41,7 @@ powerZtest(n = n, sigma = sigma, delta = (h0-h1))
 ## Example 4.8: Comparing Paint Formulations
 
 A product developer is interested in reducing the drying time of a primer paint. Two formulations of the paint are tested; formulation 1 is the standard chemistry, and formulation 2 has a new drying ingredient that should reduce the drying time. From experience, it is known that the standard deviation of drying time is eight minutes, and this inherent variability should be unaffected by the addition of the new ingredient.  
-Ten specimens are painted with formulation 1, and another 10 specimens are painted with formulation 2; the 20 specimens are painted in random order. The two sample average drying times are min and min, respectively. 
+Ten specimens are painted with formulation 1, and another 10 specimens are painted with formulation 2; the 20 specimens are painted in random order. The two sample average drying times are 121 min and 112 min, respectively. 
   
 What conclusions can the product developer draw about the effectiveness of the new ingredient, using a = 0.05?
 

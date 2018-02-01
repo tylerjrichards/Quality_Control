@@ -12,7 +12,7 @@
 
 
 
-<title>Chapter 4 Part 2: Example Walkthroughs</title>
+<title>Chapter 4 Part 2: Questions</title>
 
 
 
@@ -69,146 +69,37 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="container">
 <div class="inner">
 <header>
-<h1 class="title toc-ignore">Chapter 4 Part 2: Example Walkthroughs</h1>
+<h1 class="title toc-ignore">Chapter 4 Part 2: Questions</h1>
 </header>
 
 <hr>
 
 
 
-<div id="example-4.7-finding-the-power-of-a-test" class="section level2">
-<h2>Example 4.7: Finding the Power of a Test</h2>
-<p>The mean contents of coffee cans filled on a particular production line are being studied. Standards specify that the mean contents must be 16.0 oz, and from past experience it is known that the standard deviation of the can contents is 0.1 oz. The hypotheses are h0 = 16.1 and h1 = 16.0.<br />
-A random sample of nine cans is to be used, and the type I error probability is specified as a = .05. h0 is rejected if Z &gt; 1.96.<br />
-Find the probability of type II error and the power of the test, if the true mean contents are equal to 16.1.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Given Variables</span>
-h0 =<span class="st"> </span><span class="fl">16.1</span>
-h1 =<span class="st"> </span><span class="fl">16.0</span>
-sigma =<span class="st"> </span>.<span class="dv">1</span>
-n =<span class="st"> </span><span class="dv">9</span>
-
-<span class="co">#Create Z test function</span>
-<span class="co">#we can create functions in R that pre-define the inputs and the outputs</span>
-powerZtest =<span class="st"> </span><span class="cf">function</span>(<span class="dt">alpha =</span> <span class="fl">0.05</span>, sigma, n, delta){ <span class="co">#here we define what the user will need to input to use our function</span>
-  zcr =<span class="st"> </span><span class="kw">qnorm</span>(<span class="dt">p =</span> <span class="dv">1</span><span class="op">-</span>alpha, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>) <span class="co">#here is the code that finds the power of a Z test</span>
-  s =<span class="st"> </span>sigma<span class="op">/</span><span class="kw">sqrt</span>(n)
-  power =<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(<span class="dt">q =</span> zcr, <span class="dt">mean =</span> (delta<span class="op">/</span>s), <span class="dt">sd =</span> <span class="dv">1</span>)
-  <span class="kw">return</span>(power) <span class="co">#and this is what the function returns</span>
-}
-<span class="co">#functions will make our code much faster in the future</span>
-
-<span class="co">#now that we've created the function, let's use it!</span>
-<span class="kw">powerZtest</span>(<span class="dt">n =</span> n, <span class="dt">sigma =</span> sigma, <span class="dt">delta =</span> (h0<span class="op">-</span>h1))</code></pre></div>
-<pre><code>## [1] 0.9123145</code></pre>
+<div id="in-class-example-1-cars" class="section level2">
+<h2>In Class Example 1: Cars</h2>
+<ol style="list-style-type: lower-alpha">
+<li>Given the mtcars dataset, create a multivariate linear regression model predicting the miles per gallon (mpg column) using the number of cylinders (cyl), the horsepower (hp), and the number of forward gears (gear). The dataset can be accessed using the code below.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">'mtcars'</span>)
+<span class="co">#the mtcars dataset is now usable. Use summary(mtcars) to view the data</span>
+<span class="co">#the mtcars dataset was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)</span></code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>What is the F statistic for the data?</li>
+<li>What is a 95% confidence interval for the cyl parameter?</li>
+<li>What is the 99% confidence interval for the gear parameter?</li>
+</ol>
 </div>
-<div id="example-4.8-comparing-paint-formulations" class="section level2">
-<h2>Example 4.8: Comparing Paint Formulations</h2>
-<p>A product developer is interested in reducing the drying time of a primer paint. Two formulations of the paint are tested; formulation 1 is the standard chemistry, and formulation 2 has a new drying ingredient that should reduce the drying time. From experience, it is known that the standard deviation of drying time is eight minutes, and this inherent variability should be unaffected by the addition of the new ingredient.<br />
-Ten specimens are painted with formulation 1, and another 10 specimens are painted with formulation 2; the 20 specimens are painted in random order. The two sample average drying times are 121 min and 112 min, respectively.</p>
-<p>What conclusions can the product developer draw about the effectiveness of the new ingredient, using a = 0.05?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Given variables</span>
-x_<span class="dv">1</span> =<span class="st"> </span><span class="dv">121</span>
-x_<span class="dv">2</span> =<span class="st"> </span><span class="dv">112</span>
-sample_<span class="dv">1</span> =<span class="st"> </span><span class="dv">10</span>
-sample_<span class="dv">2</span> =<span class="st"> </span><span class="dv">10</span>
-sd =<span class="st"> </span><span class="dv">8</span>
-
-<span class="co">#The Null Hypothesis is that the mean drying time for paints is the same</span>
-
-<span class="co">#Z Score calculation</span>
-Z =<span class="st"> </span>(x_<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>x_<span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>( ( (sd<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>sample_<span class="dv">1</span> ) <span class="op">+</span><span class="st"> </span>( ( sd<span class="op">^</span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span>sample_<span class="dv">2</span> ) )
-
-<span class="cf">if</span>(Z <span class="op">&gt;</span><span class="st"> </span><span class="fl">1.645</span>){
-  <span class="kw">print</span>(<span class="st">&quot;Reject Null Hypothesis&quot;</span>)
-}</code></pre></div>
-<pre><code>## [1] &quot;Reject Null Hypothesis&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(Z <span class="op">&lt;</span><span class="st"> </span><span class="fl">1.645</span>){
-  <span class="kw">print</span>(<span class="st">&quot;Accept Null Hypothesis&quot;</span>)
-}</code></pre></div>
+<div id="in-class-example-2-elon-musk" class="section level2">
+<h2>In Class Example 2: Elon Musk</h2>
+<p>Tesla recently declared that they could speed up their cars simply by adding software to their cars. You don’t believe them and convince the engineering department to buy a Tesla to test it out. The average maximum speed for the Tesla before the new software after 20 trial runs is 95 mph. After the software is installed, the maximum speed is 96.5 mph at 5 trial runs. The standard deviation is known to be 2.<br />
+a. What can be said about the experiment, using a = .05?<br />
+b. Does this conclusion change if the second sample size increases to 20?<br />
+c. What is the conclusion if the second sample size is 5, and the standard deviation is 1?</p>
 </div>
-<div id="example-4.12-the-paper-tensile-strength-experiment" class="section level2">
-<h2>Example 4.12: The Paper Tensile Strength Experiment</h2>
-<p>Consider the paper tensile strength experiment described in Section 4.5.1. Use the analysis of variance to test the hypothesis that different hardwood concentrations do not affect the mean tensile strength of the paper.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#R has functions for calculating anova, but the example specifies that we should use the sum of squares method. If you're interested, check out the aov() function for more functionality. </span>
-
-<span class="co">#Load dataset</span>
-Tensile_observations =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Hardwood_concentration =</span> <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">20</span>), <span class="dt">One =</span> <span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">12</span>,<span class="dv">14</span>,<span class="dv">19</span>), <span class="dt">Two =</span> <span class="kw">c</span>(<span class="dv">8</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">25</span>), <span class="dt">Three =</span> <span class="kw">c</span>(<span class="dv">15</span>,<span class="dv">13</span>,<span class="dv">19</span>,<span class="dv">22</span>), <span class="dt">Four =</span> <span class="kw">c</span>(<span class="dv">11</span>,<span class="dv">18</span>,<span class="dv">17</span>,<span class="dv">23</span>), <span class="dt">Five =</span> <span class="kw">c</span>(<span class="dv">9</span>,<span class="dv">19</span>,<span class="dv">16</span>,<span class="dv">18</span>), <span class="dt">Six =</span> <span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">18</span>,<span class="dv">20</span>))
-
-<span class="co">#grab the sum using the rowSums function, which sums the rows from each specified column</span>
-Tensile_observations<span class="op">$</span>Totals =<span class="st"> </span><span class="kw">rowSums</span>(Tensile_observations[,<span class="kw">c</span>(<span class="st">&quot;One&quot;</span>, <span class="st">&quot;Two&quot;</span>, <span class="st">&quot;Three&quot;</span>, <span class="st">&quot;Four&quot;</span>, <span class="st">&quot;Five&quot;</span>, <span class="st">&quot;Six&quot;</span>)])
-<span class="co">#the average is the total divided by 6</span>
-Tensile_observations<span class="op">$</span>Averages =<span class="st"> </span>Tensile_observations<span class="op">$</span>Totals <span class="op">/</span><span class="st"> </span><span class="dv">6</span>
-
-<span class="co">#calculate the sum of squares</span>
-Sum_Squares_Total =<span class="st"> </span><span class="kw">sum</span>(<span class="kw">sum</span>(Tensile_observations<span class="op">$</span>One <span class="op">^</span><span class="st"> </span><span class="dv">2</span>), <span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Two <span class="op">^</span><span class="st"> </span><span class="dv">2</span>), <span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Three <span class="op">^</span><span class="st"> </span><span class="dv">2</span>), <span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Four <span class="op">^</span><span class="st"> </span><span class="dv">2</span>),<span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Five <span class="op">^</span><span class="st"> </span><span class="dv">2</span>), <span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Six <span class="op">^</span><span class="st"> </span><span class="dv">2</span>)) <span class="op">-</span><span class="st"> </span>(<span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Totals) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="dv">24</span>
-
-Sum_Squares_Treatment =<span class="st"> </span>(<span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Totals <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="dv">6</span>) <span class="op">-</span><span class="st"> </span>(<span class="kw">sum</span>(Tensile_observations<span class="op">$</span>Totals) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>) <span class="op">/</span><span class="st"> </span><span class="dv">24</span>
-
-Sum_Squares_E =<span class="st"> </span>Sum_Squares_Total <span class="op">-</span><span class="st"> </span>Sum_Squares_Treatment
-
-<span class="co">#factor is a data type that allows us to categorize the data, making this process easier</span>
-Tensile_observations<span class="op">$</span>Hardwood_concentration =<span class="st"> </span><span class="kw">as.factor</span>(Tensile_observations<span class="op">$</span>Hardwood_concentration)
-
-<span class="co">#a is the number of observations</span>
-<span class="co">#n is the number of columns</span>
-a =<span class="st"> </span><span class="dv">4</span>
-n =<span class="st"> </span><span class="dv">6</span>
-error_mean_square =<span class="st"> </span>Sum_Squares_E <span class="op">/</span><span class="st"> </span>(a <span class="op">*</span><span class="st"> </span>(n<span class="op">-</span><span class="dv">1</span>))
-
-<span class="co">#find the F statistic</span>
-F_stat =<span class="st"> </span>(Sum_Squares_Treatment <span class="op">/</span><span class="st"> </span>(a<span class="op">-</span><span class="dv">1</span>) ) <span class="op">/</span><span class="st"> </span>(Sum_Squares_E <span class="op">/</span><span class="st"> </span>(a <span class="op">*</span><span class="st"> </span>( n <span class="op">-</span><span class="dv">1</span>)))
-
-<span class="co">#compare the F statistic to the target</span>
-<span class="cf">if</span>(F_stat <span class="op">&gt;</span><span class="st"> </span><span class="kw">qf</span>(<span class="kw">c</span>(.<span class="dv">01</span>, .<span class="dv">99</span>), <span class="dv">3</span>, <span class="dv">20</span>)[<span class="dv">2</span>]){
-  <span class="kw">print</span>(<span class="st">&quot;Reject Null Hypothesis&quot;</span>)
-} <span class="cf">else</span> {
-  <span class="kw">print</span>(<span class="st">&quot;Do not Reject Null Hypothesis&quot;</span>)
-}</code></pre></div>
-<pre><code>## [1] &quot;Reject Null Hypothesis&quot;</code></pre>
-</div>
-<div id="example-4.13-fitting-a-linear-regression-model" class="section level2">
-<h2>Example 4.13: Fitting a Linear Regression Model</h2>
-<p>Sixteen observations on the operating cost of a branch office of a finance company (y) and two predictor variables—number of new loan applications and number of loans outstanding. Fit a multiple linear regression model to these data.</p>
-<p>Here’s model fitting in R</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Get the data</span>
-Finance_data =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Observation =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>), <span class="dt">Applications =</span> <span class="kw">c</span>(<span class="dv">80</span>, <span class="dv">93</span>, <span class="dv">100</span>, <span class="dv">82</span>, <span class="dv">90</span>, <span class="dv">99</span>, <span class="dv">81</span>, <span class="dv">96</span>, <span class="dv">94</span>, <span class="dv">93</span>, <span class="dv">97</span>, <span class="dv">95</span>, <span class="dv">100</span>, <span class="dv">85</span>, <span class="dv">86</span>, <span class="dv">87</span>), <span class="dt">Outstanding =</span> <span class="kw">c</span>(<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">12</span>,<span class="dv">11</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>,<span class="dv">11</span>,<span class="dv">13</span>,<span class="dv">11</span>,<span class="dv">8</span>,<span class="dv">12</span>,<span class="dv">9</span>,<span class="dv">12</span>), <span class="dt">Cost =</span> <span class="kw">c</span>(<span class="dv">2256</span>,<span class="dv">2340</span>,<span class="dv">2426</span>,<span class="dv">2293</span>,<span class="dv">2330</span>,<span class="dv">2368</span>,<span class="dv">2250</span>,<span class="dv">2409</span>,<span class="dv">2364</span>,<span class="dv">2379</span>,<span class="dv">2440</span>,<span class="dv">2364</span>,<span class="dv">2404</span>,<span class="dv">2317</span>,<span class="dv">2309</span>,<span class="dv">2328</span>))
-
-<span class="co">#Fit the model</span>
-<span class="co">#the second parameter can be read &quot;predict cost using the columns outstanding and applications&quot;</span>
-Finance_model =<span class="st"> </span><span class="kw">lm</span>(<span class="dt">data =</span> Finance_data, Cost <span class="op">~</span><span class="st"> </span>Outstanding <span class="op">+</span><span class="st"> </span>Applications)
-<span class="kw">summary</span>(Finance_model)</code></pre></div>
-<pre><code>## 
-## Call:
-## lm(formula = Cost ~ Outstanding + Applications, data = Finance_data)
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -21.4972 -13.1978  -0.4736  10.5558  25.4299 
-## 
-## Coefficients:
-##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  1566.0778    61.5918   25.43 1.80e-12 ***
-## Outstanding     8.5848     2.4387    3.52  0.00376 ** 
-## Applications    7.6213     0.6184   12.32 1.52e-08 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 16.36 on 13 degrees of freedom
-## Multiple R-squared:  0.927,  Adjusted R-squared:  0.9157 
-## F-statistic:  82.5 on 2 and 13 DF,  p-value: 4.1e-08</code></pre>
-</div>
-<div id="example-4.15-a-confidence-interval-on-a-regression-coefficient" class="section level2">
-<h2>Example 4.15: A Confidence Interval on a Regression Coefficient</h2>
-<p>Construct a 95% confidence interval for the parameter in Example 4.13.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Finance_data =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Observation =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">16</span>), <span class="dt">Applications =</span> <span class="kw">c</span>(<span class="dv">80</span>, <span class="dv">93</span>, <span class="dv">100</span>, <span class="dv">82</span>, <span class="dv">90</span>, <span class="dv">99</span>, <span class="dv">81</span>, <span class="dv">96</span>, <span class="dv">94</span>, <span class="dv">93</span>, <span class="dv">97</span>, <span class="dv">95</span>, <span class="dv">100</span>, <span class="dv">85</span>, <span class="dv">86</span>, <span class="dv">87</span>), <span class="dt">Outstanding =</span> <span class="kw">c</span>(<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">12</span>,<span class="dv">11</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">12</span>,<span class="dv">11</span>,<span class="dv">13</span>,<span class="dv">11</span>,<span class="dv">8</span>,<span class="dv">12</span>,<span class="dv">9</span>,<span class="dv">12</span>), <span class="dt">Cost =</span> <span class="kw">c</span>(<span class="dv">2256</span>,<span class="dv">2340</span>,<span class="dv">2426</span>,<span class="dv">2293</span>,<span class="dv">2330</span>,<span class="dv">2368</span>,<span class="dv">2250</span>,<span class="dv">2409</span>,<span class="dv">2364</span>,<span class="dv">2379</span>,<span class="dv">2440</span>,<span class="dv">2364</span>,<span class="dv">2404</span>,<span class="dv">2317</span>,<span class="dv">2309</span>,<span class="dv">2328</span>))
-
-<span class="co">#re create the model from 4.13 </span>
-Finance_model =<span class="st"> </span><span class="kw">lm</span>(<span class="dt">data =</span> Finance_data, Cost <span class="op">~</span><span class="st"> </span>Outstanding <span class="op">+</span><span class="st"> </span>Applications)
-
-<span class="co">#the default confint is 95%</span>
-<span class="kw">confint</span>(Finance_model, <span class="st">&quot;Applications&quot;</span>)</code></pre></div>
-<pre><code>##                 2.5 %   97.5 %
-## Applications 6.285254 8.957326</code></pre>
+<div id="in-class-example-3-tide" class="section level2">
+<h2>In Class Example 3: Tide</h2>
+<p>The average weight of Tide Pods per large container is 1.5 lbs with a standard deviation of .2 lbs. If the hypotheses for this is h0 = 1.8 and h1 = 1.5, the type I error probability is .05, and the sample size of the randomly selection containers is 19, what is the power of the type II error test?</p>
 </div>
 </div>
 </div>

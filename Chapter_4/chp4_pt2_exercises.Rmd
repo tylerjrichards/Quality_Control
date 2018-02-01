@@ -1,0 +1,38 @@
+---
+title: 'Chapter 4 Part 2: Questions'
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r include=FALSE}
+library(knitr)
+```
+
+## In Class Example 1: Cars
+  
+a. Given the mtcars dataset, create a multivariate linear regression model predicting the miles per gallon (mpg column) using the number of cylinders (cyl), the horsepower (hp), and the number of forward gears (gear). The dataset can be accessed using the code below.
+```{r}
+data('mtcars')
+#the mtcars dataset is now usable. Use summary(mtcars) to view the data
+#the mtcars dataset was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)
+```
+
+b. What is the F statistic for the data?
+c. What is a 95% confidence interval for the cyl parameter?
+d. What is the 99% confidence interval for the gear parameter?
+  
+  
+## In Class Example 2: Elon Musk
+  
+Tesla recently declared that they could speed up their cars simply by adding software to their cars. You don't believe them and convince the engineering department to buy a Tesla to test it out. The average maximum speed for the Tesla before the new software after 20 trial runs is 95 mph. After the software is installed, the maximum speed is 96.5 mph at 5 trial runs. The standard deviation is known to be 2.  
+a. What can be said about the experiment, using a = .05?  
+b. Does this conclusion change if the second sample size increases to 20?  
+c. What is the conclusion if the second sample size is 5, and the standard deviation is 1?
+  
+## In Class Example 3: Tide
+  
+The average weight of Tide Pods per large container is 1.5 lbs with a standard deviation of .2 lbs. If the hypotheses for this is h0 = 1.8 and h1 = 1.5, the type I error probability is .05, and the sample size of the randomly selection containers is 19, what is the power of the type II error test?
+

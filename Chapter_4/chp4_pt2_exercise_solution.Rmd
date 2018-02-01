@@ -1,0 +1,148 @@
+---
+title: 'Chapter 4 Part 2: Solutions'
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r include=FALSE}
+library(knitr)
+```
+
+## In Class Example 1: Cars
+
+a. Given the mtcars dataset, create a multivariate linear regression model predicting the miles per gallon (mpg column) using the number of cylinders (cyl), the horsepower (hp), and the number of forward gears (gear). The dataset can be accessed using the code below.
+```{r}
+data('mtcars')
+#the mtcars dataset is now usable. Use summary(mtcars) to view the data
+#the mtcars dataset was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)
+```
+
+b. What is the F statistic for the data?
+c. What is a 95% confidence interval for the cyl parameter?
+d. What is the 99% confidence interval for the gear parameter?
+  
+  
+  
+a.  
+  
+```{r}
+car_model <- lm(data = mtcars, mpg ~ cyl + hp + gear)
+summary(car_model)
+```
+  
+b. The F statistic is 31.42.  
+c. 
+
+```{r}
+confint(car_model, "cyl")
+```
+  
+d.
+```{r}
+confint(car_model, "gear", level = .99)
+```
+  
+
+## In Class Example 2: Elon Musk
+
+Tesla recently declared that they could speed up their cars simply by adding software to their cars. You don't believe them and convince the engineering department to buy a Tesla to test it out. The average maximum speed for the Tesla before the new software after 20 trial runs is 95 mph. After the software is installed, the maximum speed is 96.5 mph at 5 trial runs. The standard deviation is known to be 2.  
+a. What can be said about the experiment, using a = .05?  
+b. Does this conclusion change if the second sample size increases to 20?
+c. What is the conclusion if the second sample size is 5, and the standard deviation is 1?
+
+  
+  
+a.
+
+```{r}
+#Given variables
+x_1 = 95
+x_2 = 96.5
+sample_1 = 20
+sample_2 = 5
+sd = 2
+
+#The Null Hypothesis is that the mean drying time for paints is the same
+
+#Z Score calculation
+Z = (x_2 - x_1) / sqrt( ( (sd^2) / sample_1 ) + ( ( sd^2) / sample_2 ) )
+
+if(Z > qnorm(.95)){
+  print("Reject Null Hypothesis")
+}
+if(Z < qnorm(.95)){
+  print("Do Not Reject Null Hypothesis")
+}
+```
+
+b.
+
+```{r}
+x_1 = 95
+x_2 = 96.5
+sample_1 = 20
+sample_2 = 20
+sd = 2
+
+#The Null Hypothesis is that the mean drying time for paints is the same
+
+#Z Score calculation
+Z = (x_2 - x_1) / sqrt( ( (sd^2) / sample_1 ) + ( ( sd^2) / sample_2 ) )
+
+if(Z > qnorm(.95)){
+  print("Reject Null Hypothesis")
+}
+if(Z < qnorm(.95)){
+  print("Do Not Reject Null Hypothesis")
+}
+```
+
+c.  
+
+
+```{r}
+#Given variables
+x_1 = 95
+x_2 = 96.5
+sample_1 = 20
+sample_2 = 5
+sd = 1
+
+#The Null Hypothesis is that the mean drying time for paints is the same
+
+#Z Score calculation
+Z = (x_2 - x_1) / sqrt( ( (sd^2) / sample_1 ) + ( ( sd^2) / sample_2 ) )
+
+if(Z > qnorm(.95)){
+  print("Reject Null Hypothesis")
+}
+if(Z < qnorm(.95)){
+  print("Do Not Reject Null Hypothesis")
+}
+```
+  
+## In Class Example 3:
+  
+The average weight of Tide Pods per large container is 1.5 lbs with a standard deviation of .2 lbs. If the hypotheses for this is h0 = 1.8 and h1 = 1.5, the type I error probability is .05, and the sample size of the randomly selection containers is 19, what is the power of the type II error test?
+
+```{r}
+#Given Variables
+h0 = 1.8
+h1 = 1.5
+sigma = .2
+n = 19
+
+#Create Z test function
+#we can create functions in R that pre-define the inputs and the outputs
+powerZtest = function(alpha = 0.05, sigma, n, delta){ #here we define what the user will need to input to use our function
+  zcr = qnorm(p = 1-alpha, mean = 0, sd = 1) #here is the code that finds the power of a Z test
+  s = sigma/sqrt(n)
+  power = 1 - pnorm(q = zcr, mean = (delta/s), sd = 1)
+  return(power) #and this is what the function returns
+}
+powerZtest(alpha = .1, sigma = sigma, n = n, delta = (h0 - h1))
+```
+
