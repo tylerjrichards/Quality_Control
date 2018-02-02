@@ -83,10 +83,11 @@ Test the hypothesis that the mean inside bearing diameter is 8.25cm. Use a two-s
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">null_hypothesis =<span class="st"> </span><span class="fl">8.25</span>
 sample_mean =<span class="st"> </span><span class="fl">8.2535</span>
 standard_dev =<span class="st"> </span><span class="fl">0.002</span>
-t_stat =<span class="st"> </span>(sample_mean <span class="op">-</span><span class="st"> </span>null_hypothesis) <span class="op">/</span><span class="st"> </span>(standard_dev <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">15</span>))
 
-Range_t &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="kw">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>), <span class="dt">df =</span> <span class="dv">14</span>)
-<span class="cf">if</span>(Range_t[<span class="dv">1</span>] <span class="op">&lt;</span><span class="st"> </span>t_stat <span class="op">&amp;</span><span class="st"> </span>t_stat <span class="op">&lt;</span><span class="st"> </span>Range_t[<span class="dv">2</span>]){
+z =<span class="st"> </span>((sample_mean <span class="op">-</span><span class="st"> </span>null_hypothesis)<span class="op">/</span>(standard_dev<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">15</span>)))
+
+Range_z &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="kw">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))
+<span class="cf">if</span>(Range_z[<span class="dv">1</span>] <span class="op">&lt;</span><span class="st"> </span>z <span class="op">&amp;</span><span class="st"> </span>z <span class="op">&lt;</span><span class="st"> </span>Range_z[<span class="dv">2</span>]){
   <span class="kw">print</span>(<span class="st">&quot;Accept&quot;</span>)
 } <span class="cf">else</span>{
   <span class="kw">print</span>(<span class="st">&quot;Reject&quot;</span>)
@@ -97,12 +98,12 @@ Range_t &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="kw
 <h2>In Class Example 2: Aircraft Bearings Confidence intervals</h2>
 <p>Construct a 95% two sided confidence interval on the mean bearing diameter using data from the previous question.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample_mean =<span class="st"> </span><span class="fl">8.2535</span>
-error =<span class="st"> </span><span class="kw">qt</span>(.<span class="dv">975</span>, <span class="dt">df =</span> <span class="dv">14</span>) <span class="op">*</span><span class="st"> </span>(standard_dev <span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">15</span>))
+error =<span class="st"> </span><span class="kw">qnorm</span>(.<span class="dv">975</span>) <span class="op">*</span><span class="st"> </span>(standard_dev <span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">15</span>))
 left_interval =<span class="st"> </span>sample_mean <span class="op">-</span><span class="st"> </span>error
 right_interval =<span class="st"> </span>sample_mean <span class="op">+</span><span class="st"> </span>error
 
 <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;The 95% interval is between &quot;</span>, left_interval, <span class="st">&quot; and &quot;</span>, right_interval))</code></pre></div>
-<pre><code>## [1] &quot;The 95% interval is between  8.25239243691687  and  8.25460756308313&quot;</code></pre>
+<pre><code>## [1] &quot;The 95% interval is between  8.25248787895049  and  8.25451212104951&quot;</code></pre>
 </div>
 <div id="in-class-example-3-circuit-boards" class="section level2">
 <h2>In Class Example 3: Circuit Boards</h2>
@@ -172,6 +173,143 @@ upper_bound =<span class="st"> </span>degree_freedom<span class="op">*</span>s_s
 
 <span class="kw">paste</span>(<span class="st">&quot;The interval is from &quot;</span>, <span class="kw">round</span>(<span class="kw">sqrt</span>(lower_bound),<span class="dv">3</span>), <span class="st">&quot; to &quot;</span>, <span class="kw">round</span>(<span class="kw">sqrt</span>(upper_bound),<span class="dv">3</span>))</code></pre></div>
 <pre><code>## [1] &quot;The interval is from  0.738  to  1.546&quot;</code></pre>
+<p>There were some back of the book examples that were put on the board, here are their solutions as well</p>
+</div>
+<div id="back-of-the-book-solution-4.7" class="section level2">
+<h2>Back of the Book Solution 4.7</h2>
+<p>Ferric chloride is used as a flux in some types of extraction metallurgy processes. This material is shipped in containers, and the container weight varies. It is important to obtain an accurate estimate of mean container weight. Suppose that from long experience a reliable value for the standard deviation of flux container weight is determined to be 4 lb.<br />
+How large a sample would be required to construct a 95% two-sided confidence interval on the mean that has a total width of 1 lb?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#we need the z score, the standard deviation, and the two sided MOE for the sample size equation</span>
+<span class="co">#input data</span>
+z =<span class="st"> </span><span class="kw">qnorm</span>(.<span class="dv">975</span>)
+stand_dev =<span class="st"> </span><span class="dv">4</span>
+margin_of_error =<span class="st"> </span>.<span class="dv">5</span>
+
+<span class="co">#finish </span>
+sample_size =<span class="st"> </span>((z <span class="op">*</span><span class="st"> </span>stand_dev) <span class="op">/</span><span class="st"> </span>margin_of_error) <span class="op">^</span><span class="st"> </span><span class="dv">2</span>
+<span class="kw">print</span>(sample_size)</code></pre></div>
+<pre><code>## [1] 245.8534</code></pre>
+</div>
+<div id="back-of-the-book-solution-4.8" class="section level2">
+<h2>Back of the Book Solution 4.8</h2>
+<p>The diameters of aluminum alloy rods produced on an extrusion machine are known to have a standard deviation of 0.0001 in. A random sample of 25 rods has an average diameter of 0.5046 in. (a) Test the hypothesis that mean rod diameter is 0.5025 in. Assume a two-sided alternative and use a = .05<br />
+(b) Find the P-value for this test.<br />
+(c) Construct a 95% two-sided confidence interval</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#a</span>
+null_hypothesis =<span class="st"> </span>.<span class="dv">5025</span>
+sample_mean =<span class="st"> </span>.<span class="dv">5046</span>
+standard_dev =<span class="st"> </span><span class="fl">0.002</span>
+
+z =<span class="st"> </span>((sample_mean <span class="op">-</span><span class="st"> </span>null_hypothesis)<span class="op">/</span>(standard_dev<span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">25</span>)))
+
+
+Range_z &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="kw">c</span>(.<span class="dv">025</span>, .<span class="dv">975</span>))
+<span class="cf">if</span>(Range_z[<span class="dv">1</span>] <span class="op">&lt;</span><span class="st"> </span>z <span class="op">&amp;</span><span class="st"> </span>z <span class="op">&lt;</span><span class="st"> </span>Range_z[<span class="dv">2</span>]){
+  <span class="kw">print</span>(<span class="st">&quot;Accept&quot;</span>)
+} <span class="cf">else</span>{
+  <span class="kw">print</span>(<span class="st">&quot;Reject&quot;</span>)
+}</code></pre></div>
+<pre><code>## [1] &quot;Reject&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#b</span>
+<span class="co">#calculate the p value from the normal distribution</span>
+
+<span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(z))</code></pre></div>
+<pre><code>## [1] 1.520992e-07</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#c</span>
+sample_mean =<span class="st"> </span>.<span class="dv">5046</span>
+error =<span class="st"> </span><span class="kw">qnorm</span>(.<span class="dv">975</span>) <span class="op">*</span><span class="st"> </span>(standard_dev <span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">25</span>))
+left_interval =<span class="st"> </span>sample_mean <span class="op">-</span><span class="st"> </span>error
+right_interval =<span class="st"> </span>sample_mean <span class="op">+</span><span class="st"> </span>error
+
+<span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;The 95% interval is between &quot;</span>, left_interval, <span class="st">&quot; and &quot;</span>, right_interval))</code></pre></div>
+<pre><code>## [1] &quot;The 95% interval is between  0.503816014406184  and  0.505383985593816&quot;</code></pre>
+</div>
+<div id="back-of-the-book-solution-4.10" class="section level2">
+<h2>Back of the Book Solution 4.10</h2>
+<p>Two machines are used for filling glass bottles with a soft-drink beverage. The filling processes have known standard deviations liter and liter, respectively. A random sample of bottles from machine 1 and bottles from machine 2 results in average net contents of liters and liters.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Test the hypothesis that both machines fill to the same net contents, using a = .05. What are your conclusions?<br />
+</li>
+<li>Find the P-value for this test.<br />
+</li>
+<li>Construct a 95% confidence interval on the difference in mean fill volume</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#a</span>
+<span class="co">#enter the data</span>
+x1 =<span class="st"> </span><span class="fl">2.04</span>
+x2 =<span class="st"> </span><span class="fl">2.07</span>
+sd1 =<span class="st"> </span>.<span class="dv">010</span>
+sd2 =<span class="st"> </span>.<span class="dv">015</span>
+n1 =<span class="st"> </span><span class="dv">25</span>
+n2 =<span class="st"> </span><span class="dv">20</span>
+
+<span class="co">#test hypothesis</span>
+
+z =<span class="st"> </span>(x2 <span class="op">-</span><span class="st"> </span>x1)<span class="op">/</span><span class="kw">sqrt</span>(((sd1<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>n1)<span class="op">+</span>((sd2<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>n2)) <span class="co">#equation 4.48</span>
+
+<span class="cf">if</span>(z <span class="op">&gt;</span><span class="st"> </span><span class="fl">1.645</span>){
+  <span class="kw">print</span>(<span class="st">&quot;Reject Null Hypothesis&quot;</span>)
+}</code></pre></div>
+<pre><code>## [1] &quot;Reject Null Hypothesis&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(z <span class="op">&lt;</span><span class="st"> </span><span class="fl">1.645</span>){
+  <span class="kw">print</span>(<span class="st">&quot;Accept Null Hypothesis&quot;</span>)
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#b</span>
+<span class="co">#p value</span>
+<span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(z))</code></pre></div>
+<pre><code>## [1] 1.563638e-14</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#c</span>
+error =<span class="st"> </span><span class="kw">qnorm</span>(.<span class="dv">975</span>) <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(((sd1<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>n1)<span class="op">+</span>((sd2<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>n2))
+
+<span class="co">#Left bound</span>
+left =<span class="st"> </span>x2 <span class="op">-</span><span class="st"> </span>x1 <span class="op">-</span><span class="st"> </span>error
+
+<span class="co">#Right bound</span>
+right =<span class="st"> </span>x2 <span class="op">-</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span>error
+
+<span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;The 95% interval is&quot;</span>, <span class="kw">round</span>(left,<span class="dv">5</span>), <span class="st">&quot;&lt; difference in true means &lt;&quot;</span>, <span class="kw">round</span>(right,<span class="dv">5</span>)))</code></pre></div>
+<pre><code>## [1] &quot;The 95% interval is 0.02235 &lt; difference in true means &lt; 0.03765&quot;</code></pre>
+</div>
+<div id="back-of-the-book-solution-4.15" class="section level2">
+<h2>Back of the Book Solution 4.15</h2>
+<p>A random sample of 500 connecting rod pins contains 65 nonconforming units. Estimate the process fraction nonconforming.<br />
+(a) Test the hypothesis that the true fraction defective in this process is 0.08. Use a = .05<br />
+(b) Find the P-value for this test.<br />
+(c) Construct a 95% upper confidence interval on the true process fraction nonconforming.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#a</span>
+sample_size =<span class="st"> </span><span class="dv">500</span>
+nonconfirming =<span class="st"> </span><span class="dv">65</span>
+
+<span class="co">#given variables</span>
+errors =<span class="st"> </span><span class="dv">65</span>
+sample_size =<span class="st"> </span><span class="dv">500</span>
+null_hypothesis =<span class="st"> </span><span class="fl">0.08</span>
+alpha =<span class="st"> </span><span class="fl">0.05</span>
+
+<span class="co">#Equation</span>
+Z =<span class="st"> </span>((errors <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span>) <span class="op">-</span><span class="st"> </span>sample_size <span class="op">*</span><span class="st"> </span>null_hypothesis) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(sample_size <span class="op">*</span><span class="st"> </span>null_hypothesis <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>null_hypothesis))
+
+<span class="cf">if</span>(Z <span class="op">&gt;</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span><span class="op">-</span>(alpha<span class="op">/</span><span class="dv">2</span>))) {
+  <span class="kw">print</span>(<span class="st">&quot;REJECT&quot;</span>)
+}</code></pre></div>
+<pre><code>## [1] &quot;REJECT&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(Z <span class="op">&lt;</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span><span class="op">-</span>(alpha<span class="op">/</span><span class="dv">2</span>))) {
+  <span class="kw">print</span>(<span class="st">&quot;ACCEPT&quot;</span>)
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#b</span>
+<span class="co">#p value</span>
+<span class="dv">2</span><span class="op">*</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="kw">abs</span>(Z))</code></pre></div>
+<pre><code>## [1] 5.374702e-05</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#c</span>
+alpha =<span class="st"> </span><span class="fl">0.05</span>
+fraction_rejected =<span class="st"> </span>errors <span class="op">/</span><span class="st"> </span>sample_size
+Z_score =<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span><span class="op">-</span>(alpha)) 
+
+<span class="co">#Upper Bound</span>
+upper_bound =<span class="st"> </span>fraction_rejected <span class="op">+</span><span class="st"> </span>Z_score <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>((fraction_rejected <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>fraction_rejected)) <span class="op">/</span><span class="st"> </span>sample_size)
+
+<span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;The 95% upper bound is&quot;</span>, <span class="kw">round</span>(upper_bound, <span class="dv">3</span>)))</code></pre></div>
+<pre><code>## [1] &quot;The 95% upper bound is 0.155&quot;</code></pre>
 </div>
 </div>
 </div>

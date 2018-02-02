@@ -85,12 +85,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#the mtcars dataset is now usable. Use summary(mtcars) to view the data</span>
 <span class="co">#the mtcars dataset was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)</span></code></pre></div>
 <ol start="2" style="list-style-type: lower-alpha">
-<li>What is the F statistic for the data?</li>
-<li>What is a 95% confidence interval for the cyl parameter?</li>
-<li><p>What is the 99% confidence interval for the gear parameter?</p></li>
-<li></li>
+<li>What is the F statistic for the data?<br />
+</li>
+<li>What is a 95% confidence interval for the cyl parameter?<br />
+</li>
+<li>What is the 99% confidence interval for the gear parameter?</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">car_model &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">data =</span> mtcars, mpg <span class="op">~</span><span class="st"> </span>cyl <span class="op">+</span><span class="st"> </span>hp <span class="op">+</span><span class="st"> </span>gear)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#a</span>
+car_model &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">data =</span> mtcars, mpg <span class="op">~</span><span class="st"> </span>cyl <span class="op">+</span><span class="st"> </span>hp <span class="op">+</span><span class="st"> </span>gear)
 <span class="kw">summary</span>(car_model)</code></pre></div>
 <pre><code>## 
 ## Call:
@@ -131,7 +133,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>In Class Example 2: Elon Musk</h2>
 <p>Tesla recently declared that they could speed up their cars simply by adding software to their cars. You don’t believe them and convince the engineering department to buy a Tesla to test it out. The average maximum speed for the Tesla before the new software after 20 trial runs is 95 mph. After the software is installed, the maximum speed is 96.5 mph at 5 trial runs. The standard deviation is known to be 2.<br />
 a. What can be said about the experiment, using a = .05?<br />
-b. Does this conclusion change if the second sample size increases to 20? c. What is the conclusion if the second sample size is 5, and the standard deviation is 1?</p>
+b. Does this conclusion change if the second sample size increases to 20?<br />
+c. What is the conclusion if the second sample size is 5, and the standard deviation is 1?</p>
 <ol style="list-style-type: lower-alpha">
 <li></li>
 </ol>

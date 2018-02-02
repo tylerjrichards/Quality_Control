@@ -22,10 +22,10 @@ null_hypothesis = 8.25
 sample_mean = 8.2535
 standard_dev = 0.002
 
-t_stat = (sample_mean - null_hypothesis) / (standard_dev / sqrt(15))
+z = ((sample_mean - null_hypothesis)/(standard_dev/sqrt(15)))
 
-Range_t <- qt(c(.025, .975), df = 14)
-if(Range_t[1] < t_stat & t_stat < Range_t[2]){
+Range_z <- qnorm(c(.025, .975))
+if(Range_z[1] < z & z < Range_z[2]){
   print("Accept")
 } else{
   print("Reject")
@@ -40,7 +40,7 @@ Construct a 95% two sided confidence interval on the mean bearing diameter using
 
 ```{r}
 sample_mean = 8.2535
-error = qt(.975, df = 14) * (standard_dev /sqrt(15))
+error = qnorm(.975) * (standard_dev /sqrt(15))
 left_interval = sample_mean - error
 right_interval = sample_mean + error
 
@@ -132,6 +132,170 @@ paste("The interval is from ", round(sqrt(lower_bound),3), " to ", round(sqrt(up
 
 
 ```
+
+There were some back of the book examples that were put on the board, here are their solutions as well
+
+## Back of the Book Solution 4.7
+  
+Ferric chloride is used as a flux in some types of extraction metallurgy processes. This material is shipped in containers, and the container weight varies. It is important to obtain an accurate estimate of mean container weight. Suppose that from long experience a reliable value for the standard deviation of flux container weight is determined to be 4 lb.  
+How large a sample would be required to construct a 95% two-sided confidence interval on the mean that has a total width of 1 lb?
+
+```{r}
+#we need the z score, the standard deviation, and the two sided MOE for the sample size equation
+#input data
+z = qnorm(.975)
+stand_dev = 4
+margin_of_error = .5
+
+#finish 
+sample_size = ((z * stand_dev) / margin_of_error) ^ 2
+print(sample_size)
+```
+  
+## Back of the Book Solution 4.8
+The diameters of aluminum alloy rods produced on an extrusion machine are known to have a standard
+deviation of 0.0001 in. A random sample of 25 rods has an average diameter of 0.5046 in. 
+(a) Test the hypothesis that mean rod diameter is 0.5025 in. Assume a two-sided alternative and use a = .05  
+(b) Find the P-value for this test.  
+(c) Construct a 95% two-sided confidence interval  
+  
+```{r}
+#a
+null_hypothesis = .5025
+sample_mean = .5046
+standard_dev = 0.002
+
+z = ((sample_mean - null_hypothesis)/(standard_dev/sqrt(25)))
+
+
+Range_z <- qnorm(c(.025, .975))
+if(Range_z[1] < z & z < Range_z[2]){
+  print("Accept")
+} else{
+  print("Reject")
+}
+```
+  
+```{r}
+#b
+#calculate the p value from the normal distribution
+
+2*pnorm(-abs(z))
+```
+  
+```{r}
+#c
+sample_mean = .5046
+error = qnorm(.975) * (standard_dev /sqrt(25))
+left_interval = sample_mean - error
+right_interval = sample_mean + error
+
+print(paste("The 95% interval is between ", left_interval, " and ", right_interval))
+
+```
+  
+  
+  
+
+## Back of the Book Solution 4.10
+Two machines are used for filling glass bottles with a soft-drink beverage. The filling processes have known standard deviations liter and liter, respectively. A random sample of bottles from machine 1 and bottles from machine 2 results in average net contents of liters and liters.  
+
+(a) Test the hypothesis that both machines fill to the same net contents, using a = .05. What are your conclusions?   
+(b) Find the P-value for this test.  
+(c) Construct a 95% confidence interval on the difference in mean fill volume  
+```{r}
+#a
+#enter the data
+x1 = 2.04
+x2 = 2.07
+sd1 = .010
+sd2 = .015
+n1 = 25
+n2 = 20
+
+#test hypothesis
+
+z = (x2 - x1)/sqrt(((sd1^2)/n1)+((sd2^2)/n2)) #equation 4.48
+
+if(z > 1.645){
+  print("Reject Null Hypothesis")
+}
+if(z < 1.645){
+  print("Accept Null Hypothesis")
+}
+
+```
+  
+```{r}
+#b
+#p value
+2*pnorm(-abs(z))
+```
+  
+```{r}
+#c
+error = qnorm(.975) * sqrt(((sd1^2)/n1)+((sd2^2)/n2))
+
+#Left bound
+left = x2 - x1 - error
+
+#Right bound
+right = x2 - x1 + error
+
+print(paste("The 95% interval is", round(left,5), "< difference in true means <", round(right,5)))
+```
+  
+
+## Back of the Book Solution 4.15
+A random sample of 500 connecting rod pins contains 65 nonconforming units. Estimate the process fraction nonconforming.  
+(a) Test the hypothesis that the true fraction defective in this process is 0.08. Use a = .05  
+(b) Find the P-value for this test.  
+(c) Construct a 95% upper confidence interval on the true process fraction nonconforming.  
+
+```{r}
+#a
+sample_size = 500
+nonconfirming = 65
+
+#given variables
+errors = 65
+sample_size = 500
+null_hypothesis = 0.08
+alpha = 0.05
+
+#Equation
+Z = ((errors - 0.5) - sample_size * null_hypothesis) / sqrt(sample_size * null_hypothesis * (1 - null_hypothesis))
+
+if(Z > qnorm(1-(alpha/2))) {
+  print("REJECT")
+}
+if(Z < qnorm(1-(alpha/2))) {
+  print("ACCEPT")
+}
+
+
+
+```
+
+```{r}
+#b
+#p value
+2*pnorm(-abs(Z))
+```
+
+```{r}
+#c
+alpha = 0.05
+fraction_rejected = errors / sample_size
+Z_score = qnorm(1-(alpha)) 
+
+#Upper Bound
+upper_bound = fraction_rejected + Z_score * sqrt((fraction_rejected * (1 - fraction_rejected)) / sample_size)
+
+print(paste("The 95% upper bound is", round(upper_bound, 3)))
+
+```
+  
 
 
 
