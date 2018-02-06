@@ -1,0 +1,95 @@
+---
+title: "Everything about R"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+## R Tutorial For The Lost
+  
+This tutorial will cover every function and concept that we learned about R in this course, and could prove to be a useful study guide for exam 2. 
+  
+### Create a Variable
+
+```{r eval = F}
+#two ways
+my_variable = 5
+my_variable <- 5
+```
+
+### Create a Vector (sequence of data elements)
+
+```{r eval = F}
+#c stands for concatenate
+my_vector = c(1,2,3)
+```
+
+### Create a Dataframe (a table of data with rows and columns, analogous to a spreadsheet)
+
+```{r eval = F}
+my_dataframe = data.frame(first_column = c(1,2,3), second_column = c(4,5,6))
+
+```
+
+### Stem and Leaf Plot
+```{r eval = F}
+stem(data)
+```
+### Histogram
+```{r eval = F}
+hist(data, breaks = number_of_bins, xlab = "My X Label", ylab = "My Y Label", main = "Graph Title")
+```
+
+### BoxPlot
+```{r eval = F}
+boxplot(data, ylim = my_y_limits)
+```
+
+### Normal Distributions
+```{r eval = F}
+#Density
+dnorm(x, mean = 0, sd = 1)
+
+#Direct Look-Up
+pnorm(q, mean = 0, sd = 1, lower.tail = TRUE)
+
+#Inverse Look-Up
+qnorm(p, mean = 0, sd = 1, lower.tail = TRUE)
+
+#Random Number Generation
+rnorm(n, mean = 0, sd = 1)
+
+#lower.tail = FALSE gives the compliment
+```
+
+### Binomial Distributions
+```{r eval = F}
+#same as normal, but replacing norm with binom
+#Direct Look-Up
+pbinom(number, mean, sd)
+
+#Inverse Look-Up
+qnorm(percentile, mean, sd)
+
+#Density/P.D.F.
+dnorm(number, mean, sd)
+```
+  
+### Formatting
+
+```{r eval = F}
+#print characters and strings
+print(paste(my_number, "my string"))
+
+#round
+round(my_number, number_digits)
+```
+
+### Probability Plots
+
+```{r eval = F}
+library(e1071)
+probplot(my_data, qdist = qnorm)
+```
+
