@@ -1,0 +1,64 @@
+---
+title: "Chapter 6: Example Walkthroughs"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+## Example 6.1: X and R Charts for a Manufacturing Process
+
+A hard-bake process (see Section 5.3.1) is used in conjunction with photolithography in semiconductor manufacturing. We wish to establish statistical control of the flow width of the resist in this process using and R charts. Twenty-five samples, each of size five wafers, have been taken when we think the process is in control. The interval of time between samples or subgroups is one hour. The flow width measurement data (in x microns) from these samples are shown in Table 6.1.
+```{r}
+#only run this line worse
+install.packages("qicharts")
+```
+
+```{r}
+flow_Width = data.frame(Sample_Number = c(1:25), Wafer1 = c(1.3235,	1.4314,	1.4284,	1.5028,	1.5604,	1.5955,	1.6274,	1.4190,	1.3884,	1.4039,	1.4158,	1.5821,	1.2856,	1.4951,	1.3589,	1.5747,	1.3680,	1.4163,	1.5796,	1.7106,	1.4371,	1.4738,	1.5917,	1.6399,	1.5797), Wafer2 = c(1.4128,	1.3592,	1.4871,	1.6352,	1.2735,	1.5451,	1.5064,	1.4303,	1.7277,	1.6697,	1.7667,	1.3355,	1.4106,	1.4036,	1.2863,	1.5301,	1.7269,	1.3864,	1.4185,	1.4412,	1.5051,	1.5936,	1.4333,	1.5243,	1.3663 ), Wafer3 = c(1.6744,	1.6075,	1.4932,	1.3841,	1.5265,	1.3574,	1.8366,	1.6637,	1.5355,	1.5089,	1.4278,	1.5777,	1.4447,	1.5893,	1.5996,	1.5171,	1.3957,	1.3057,	1.6541,	1.2361,	1.3485,	1.6583,	1.5551,	1.5705,	1.6240), Wafer4 = c(1.4573,	1.4666,	1.4324,	1.2831,	1.4363,	1.3281,	1.4177,	1.6067,	1.5176,	1.4627,	1.5928,	1.3908,	1.6398,	1.6458,	1.2497,	1.1839,	1.5014,	1.6210,	1.5116,	1.3820,	1.5670,	1.4973,	1.5295,	1.5563,	1.3732), Wafer5 = c(1.6914,	1.6109,	1.5674,	1.5507,	1.6441,	1.4198,	1.5144,	1.5519,	1.3688,	1.5220,	1.4181,	1.7559,	1.1928,	1.4969,	1.5471,	1.8662,	1.4449,	1.5573,	1.7247,	1.7601,	1.4880,	1.4720,	1.6866,	1.5530,	1.6887))
+
+library(qicharts)
+
+#the qicharts package requires us to manipulate our dataframe into two columns 
+#we'll use stack(), which puts the columns on top of each other
+flow_Width = data.frame(flow_Width[1], stack(flow_Width[2:6]))
+flow_Width = flow_Width[,1:2]
+
+#we can check the format of the data by running either View(flow_Width) or str(flow_Width)
+#checking the format of the data is an important step in this process, and should be run whenever you make a significant change in the data
+
+#the qic function takes the values on the x and y axis, and the dataset as well, and returns a chart with UCL, CL, and LCL already calculated
+
+values = flow_Width[,2]
+sample_number = my_data[,1]
+
+d <- data.frame(values,sample_number)
+
+qic(y = values,
+    x = sample_number,
+    data = d,
+    chart = 'xbar')
+
+
+```
+
+```{r}
+#there is another method for this using the qcc package
+install.packages("qcc")
+```
+
+```{r}
+library(qcc)
+flow_Width = data.frame(Wafer1 = c(1.3235,	1.4314,	1.4284,	1.5028,	1.5604,	1.5955,	1.6274,	1.4190,	1.3884,	1.4039,	1.4158,	1.5821,	1.2856,	1.4951,	1.3589,	1.5747,	1.3680,	1.4163,	1.5796,	1.7106,	1.4371,	1.4738,	1.5917,	1.6399,	1.5797), Wafer2 = c(1.4128,	1.3592,	1.4871,	1.6352,	1.2735,	1.5451,	1.5064,	1.4303,	1.7277,	1.6697,	1.7667,	1.3355,	1.4106,	1.4036,	1.2863,	1.5301,	1.7269,	1.3864,	1.4185,	1.4412,	1.5051,	1.5936,	1.4333,	1.5243,	1.3663 ), Wafer3 = c(1.6744,	1.6075,	1.4932,	1.3841,	1.5265,	1.3574,	1.8366,	1.6637,	1.5355,	1.5089,	1.4278,	1.5777,	1.4447,	1.5893,	1.5996,	1.5171,	1.3957,	1.3057,	1.6541,	1.2361,	1.3485,	1.6583,	1.5551,	1.5705,	1.6240), Wafer4 = c(1.4573,	1.4666,	1.4324,	1.2831,	1.4363,	1.3281,	1.4177,	1.6067,	1.5176,	1.4627,	1.5928,	1.3908,	1.6398,	1.6458,	1.2497,	1.1839,	1.5014,	1.6210,	1.5116,	1.3820,	1.5670,	1.4973,	1.5295,	1.5563,	1.3732), Wafer5 = c(1.6914,	1.6109,	1.5674,	1.5507,	1.6441,	1.4198,	1.5144,	1.5519,	1.3688,	1.5220,	1.4181,	1.7559,	1.1928,	1.4969,	1.5471,	1.8662,	1.4449,	1.5573,	1.7247,	1.7601,	1.4880,	1.4720,	1.6866,	1.5530,	1.6887))
+
+#this is a bit easier than the other method, but the first method has different customization options so it may be useful to know both
+qcc(flow_Width, type = "xbar")
+
+```
+
+```{r}
+#for the R chart, just change the parameter
+qcc(flow_Width, type = "R")
+
+```
+
