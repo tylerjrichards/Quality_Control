@@ -1,0 +1,11 @@
+For this Friday: 
+  replace qicharts with qcc
+  think about entering in sample data and then transposing
+  remove bit easier than the other method
+    add a bit about qcc package, functions that it has
+    literally called quality control charts, perfect
+    qcc charts show if the process is wrong
+  explain xbar.one
+  include what the print function does in this situation specifically
+    explain the references to stuff a couple times each
+  take out example 6.5
