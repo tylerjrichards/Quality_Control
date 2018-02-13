@@ -86,10 +86,7 @@ summary(s_piston_data_chart)
   
 ## Example 6.4: X and s Charts for the Piston Ring Data, Variable Sample Size
   
-  
-Consider the data in Table 6.4, which is a modification of the piston-ring data used in Example 6.3. Note that the sample sizes vary from n = 3 to n = 5. Use the procedure described on page 255 to set up the and x s control charts.
-  
-  
+Consider the data in Table 6.4, which is a modificaiton of the piston-ring data used in Example 6.3. Note that the sample sizes vary from n = 3 to n = 5. Use the procedure described on page 255 to set up the x and s control charts.
   
   
 ```{r}
