@@ -1,0 +1,79 @@
+---
+title: "Manually Entering Data in R: A BetteR Way"
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+Entering manual data into R is frustrating and difficult, but sometimes is necessary if your data is small and in a pdf format. Below is a an easier method for the textbook -> R pathway.
+
+
+##Format
+
+In the Quality Control Textbook, data often comes in the format of a table that looks like this.
+  
+
+```{r include=FALSE}
+library(knitr)
+```
+
+```{r echo = F}
+include_graphics("C:/Users/Tyler/Documents/Spring18/Quality_Control/Screenshots/Example_data.png")
+
+```
+  
+  
+A faster way to get this into R is to copy it onto your clipboard (ctrl + c), and then tell R to read the data from your clipboard.  
+
+##Step 1: TextBook -> Clipboard  
+
+Copy and Paste the data into a notepad. Press enter to add a line at the end. We add a line at the end so that R knows when to stop reading in data. It should look like this.
+
+```{r echo = F}
+
+include_graphics("C:/Users/Tyler/Documents/Spring18/Quality_Control/Screenshots/Notepad.png")
+
+```
+  
+##Step 2: Notepad -> Clipboard
+ 
+  
+Copy the entire notepad, including the extra line. 
+  
+
+```{r}
+include_graphics("C:/Users/Tyler/Documents/Spring18/Quality_Control/Screenshots/Notepad_highlighted.png")
+
+```
+  
+  
+  
+##Step 3: Clipboard -> R  
+  
+Use the read.delim function to get the data from the clipboard into R. In this case, the separation between the two numbers is a space, so the sep parameter is set to " ". If it were commas, the sep would be set to ",". There is no header in our data, so we set the header parameter to F for FALSE. We then use the colnames function to give our columns names.  
+  
+```{r eval = F}
+x <- read.delim("clipboard", sep = " ", header = F)
+#if using a mac, use read.delim(pipe(“pbpaste”))
+colnames(x) <- c("col1", "col2")
+
+```
+
+The data in the textbook is now in the R environment, assigned to the variable x. Perfect!  
+  
+  
+##Step 4: R -> .csv  
+  
+The issue with this method is that if you change what is on your clipboard, your workflow changes. In the interest of reproducibility, it is best practice to save your data so that your analysis can be repeated. We can use the write.csv() function to take out dataframe and write it to a .csv file (comma separated value file). We then can use the read.csv() function in the future to repeat out analysis.
+
+```{r eval=F}
+write.csv(x, "my_data.csv")
+```
+
+
+
+
+
+
