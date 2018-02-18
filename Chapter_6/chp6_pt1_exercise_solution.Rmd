@@ -1,0 +1,128 @@
+---
+title: 'Chapter 6 Part 1: Questions'
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r include=FALSE}
+library(knitr)
+```
+
+
+## Book Problem 6.5: Soft Drinks
+
+The fill volume of soft-drink beverage bottles is an important quality characteristic. The volume is measured (approximately) by placing a gauge over the crown and comparing the height of the liquid in the neck of the bottle against a coded scale. On this scale, a reading of zero corresponds to the correct fill height. Fifteen samples of size n = 10 have been analyzed, and the fill heights are shown in Table 6E.5.  
+  
+  
+a. Set up x and s control charts on this process.
+Does the process exhibit statistical control?  
+b. Set up an R chart, and compare with the s chart
+in part (a)  
+c. Remove the last 5 observations of x10 and set up x and s control charts on this process
+
+```{r include = F}
+library(here)
+setwd(here("Chapter_6"))
+```
+
+```{r message=F}
+#a
+library(qcc)
+#see the Manual Data Entry Tutorial for instructions on getting the data to a csv format
+Fill_height <- read.csv("Fill_height.csv") #read.csv reads a csv file into R
+Fill_height <- as.data.frame(t(Fill_height)) #the data needs to be flipped using the t() function, which transposes matrices and dataframes. We then turn that transpose into a dataframe with the as.data.frame function
+
+qcc(data = Fill_height, type = "xbar")
+qcc(data = Fill_height, type = "S")
+```
+  
+```{r}
+#b
+qcc(data = Fill_height, type = "R")
+```
+
+```{r}
+#c
+Fill_height[6:10, 15] <- NA
+qcc(data = Fill_height, type = "xbar")
+qcc(data = Fill_height, type = "S")
+```
+
+## Book Problem 6.9: Piston Ring  
+
+  
+Consider the piston ring data shown in Table 6.3.
+Assume that the specifications on this component are 74.000 + 0.05 mm.
+    
+a. (a) Set up and R control charts on this process. Is the process in statistical control?
+  
+b.Note that the control limits on the chart in part (a) are identical to the control limits on the chart in Example 6.3, where the limits were based on s. Will this always happen?
+  
+```{r}
+Piston_data = data.frame(Observation1 = c(74.03, 73.995, 73.988, 74.002, 73.992,	74.009,	73.995,	73.985,	74.008,	73.998,	73.994,	74.004,	73.983,	74.006,	74.012,	74,	73.994,	74.006,	73.984,	74,	73.982,	74.004,	74.01,	74.015,	73.982), Observation2 = c(74.002,	73.992,	74.024,	73.996,	74.007,	73.994,	74.006,	74.003,	73.995,	74,	73.998,	74,	74.002,	73.967,	74.014,	73.984,	74.012,	74.01,	74.002,	74.01,	74.001,	73.999,	73.989,	74.008,	73.984), Observation3 = c(74.019,	74.001,	74.021,	73.993,	74.015,	73.997,	73.994,	73.993,	74.009,	73.99,	73.994,	74.007,	73.998,	73.994,	73.998,	74.005,	73.986,	74.018,	74.003,	74.013,	74.015,	73.99,	73.99,	73.993,	73.995), Observation4 = c(73.992,	74.011,	74.005,	74.015,	73.989,	73.985,	74,	74.015,	74.005,	74.007,	73.995,	74,	73.997,	74,	73.999,	73.998,	74.005,	74.003,	74.005,	74.02,	74.005,	74.006,	74.009,	74,	74.017), Observation5 = c(74.008,	74.004,	74.002,	74.009,	74.014,	73.993,	74.005,	73.988,	74.004,	73.995,	73.99,	73.996,	74.012,	73.984,	74.007,	73.996,	74.007,	74,	73.997,	74.009,	73.996,	74.009,	74.014,	74.01,	74.013))
+qcc(data = Piston_data, type = "xbar")
+qcc(data = Piston_data, type = "R")
+```
+
+```{r}
+#b
+#this will not always happen
+```
+  
+  
+## Book Problem 6.10: Piston Ring Cont
+  
+Table 6E.7 shows 15 additional samples for the piston ring process (Table 6.3), taken after the initial control charts were established. Plot these data on the x and R chart developed in Exercise 6.9. Is the process in control?  
+
+```{r}
+#read in new data (again, see the tutorial for how to get data from the textbook into R)
+New_Piston_data <- read.csv("Piston_data_new.csv")
+colnames(New_Piston_data) <- colnames(Piston_data) #make the column names match each other
+Combined_Pison <- rbind(Piston_data, New_Piston_data) #rbind combines the rows of the two dataframes using the column names
+
+qcc(data = Combined_Pison, type = "xbar")
+qcc(data = Combined_Pison, type = "R")
+```
+  
+  
+  
+  
+  
+## Book Problem 6.56: Polymer Viscosity
+
+Continuation of Exercise 6.55. The next five measurements on viscosity are 3163, 3199, 3054, 3147, and 3156. Do these measurements indicate that the process is in statistical control?
+
+## Book Problem 6.57: Oxide Thickness of Silicon Wafers
+  
+  
+a. Thirty observations on the oxide thickness of individual silicon wafers are shown in Table 6E.22. Use these data to set up a control chart on oxide thickness and a moving range chart. Does the process exhibit statistical control? Does oxide thickness follow a normal distribution?  
+  
+b. Following the establishment of the control charts in part (a), ten new wafers were observed. The oxide thickness measurements are as follows (see book). Plot these observations against the control limits determined in part (a). Is the process in control?
+
+```{r}
+Silicon_Wafers <- read.csv("Silicon_Wafers.csv")
+Silicon_Wafers_MA <- as.data.frame(cbind(Silicon_Wafers$V2[1:length(Silicon_Wafers$V2)-1], Silicon_Wafers$V2[2:length(Silicon_Wafers$V2)]), ncol=2)
+
+qcc(data = Silicon_Wafers$V2, type = "xbar.one")
+qcc(data = Silicon_Wafers_MA$V1, type = "xbar.one")
+
+```
+
+```{r}
+#b
+Additional_data <- read.csv("Oxide_Thickness_addition.csv")
+colnames(Additional_data) <- colnames(Silicon_Wafers)
+Silicon_Wafers <- rbind(Additional_data, Silicon_Wafers)
+Silicon_Wafers_MA <- as.data.frame(cbind(Silicon_Wafers$V2[1:length(Silicon_Wafers$V2)-1], Silicon_Wafers$V2[2:length(Silicon_Wafers$V2)]), ncol=2)
+
+qcc(data = Silicon_Wafers$V2, type = "xbar.one")
+qcc(data = Silicon_Wafers_MA$V1, type = "xbar.one")
+
+```
+
+
+
+
