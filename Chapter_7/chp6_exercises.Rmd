@@ -1,0 +1,57 @@
+---
+title: 'Chapter 6 Part 1: Questions'
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r include=FALSE}
+library(knitr)
+```
+
+
+## Book Problem 6.5: Soft Drinks
+
+The fill volume of soft-drink beverage bottles is an important quality characteristic. The volume is measured (approximately) by placing a gauge over the crown and comparing the height of the liquid in the neck of the bottle against a coded scale. On this scale, a reading of zero corresponds to the correct fill height. Fifteen samples of size n = 10 have been analyzed, and the fill heights are shown in Table 6E.5.  
+  
+  
+a. Set up x and s control charts on this process.
+Does the process exhibit statistical control?  
+b. Set up an R chart, and compare with the s chart
+in part (a)  
+c. Remove the last 5 observations of x10 and set up x and s control charts on this process
+
+## Book Problem 6.9: Piston Ring  
+
+  
+Consider the piston ring data shown in Table 6.3.
+Assume that the specifications on this component are 74.000 + 0.05 mm.
+    
+a. (a) Set up and R control charts on this process. Is the process in statistical control?
+  
+b.Note that the control limits on the chart in part (a) are identical to the control limits on the chart in Example 6.3, where the limits were based on s. Will this always happen?
+  
+  
+  
+## Book Problem 6.10: Piston Ring Cont
+  
+Table 6E.7 shows 15 additional samples for the piston ring process (Table 6.3), taken after the initial control charts were established. Plot these data on the x and R chart developed in Exercise 6.9. Is the process in control?  
+  
+  
+  
+## Book Problem 6.56: Polymer Viscosity
+
+Continuation of Exercise 6.55. The next five measurements on viscosity are 3163, 3199, 3054, 3147, and 3156. Do these measurements indicate that the process is in statistical control?
+
+## Book Problem 6.57: Oxide Thickness of Silicon Wafers
+  
+  
+a. Thirty observations on the oxide thickness of individual silicon wafers are shown in Table 6E.22. Use these data to set up a control chart on oxide thickness and a moving range chart. Does the process exhibit statistical control? Does oxide thickness follow a normal distribution?  
+  
+b. Following the establishment of the control charts in part (a), ten new wafers were observed. The oxide thickness measurements are as follows (see book). Plot these observations against the control limits determined in part (a). Is the process in control?
+
+
+
+
