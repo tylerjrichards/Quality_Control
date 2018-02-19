@@ -1,0 +1,10 @@
+things to discuss: 
+how to write out solutions for non-R problems
+office hours: a few more people asked, already got a room in marston: Wednesday 1-3pm
+  before the exam: 
+
+
+Things to do: 
+get there a bit early, download r and rstudio
+
+examples in chapter 7: 7.1, 7.2, one on variable sample size inbetween 7.2 and 7.3 (nothing about average sample size), standardized chart example, 7.3, 7.4, 7.5
