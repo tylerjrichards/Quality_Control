@@ -1,0 +1,127 @@
+---
+title: 'Chapter 7: Example Walkthrough'
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r include=FALSE}
+library(knitr)
+```
+
+## Example 7.1: Construction and Operation of a Fraction Nonconforming Control Chart  
+  
+  
+Frozen orange juice concentrate is packed in 6-oz cardboard cans. These cans are formed on a machine by spinning them from cardboard stock and attaching a metal bottom panel. By inspection of a can, we may determine whether, when filled, it could possibly leak either on the side seam or around the bottom joint. Such a nonconforming can has an improper seal on either the side seam or the bottom panel. Set up a control chart to improve the fraction of nonconforming cans produced by this machine.      
+
+```{r message=F}
+
+library(qcc)
+Orange_juice_can <- read.csv("Orange_Juice_cans.csv") #read the data into R
+names(Orange_juice_can) <- c("Number_Noncomforming", "Percent_Nonconforming") #use the names() function to give column names
+Orange_juice_can$size <- 50 #sample size is not variable here, set the size to 50
+OJ_pchart <- qcc(Orange_juice_can$Number_Noncomforming, sizes = Orange_juice_can$size, type = "p") #call the qcc function with type set to p. The $ symbol gives the column from a dataframe
+#we don't actually use the percent nonconforming column because R calculates this for us
+
+```
+  
+  
+  
+## Example 7.2: An np Control chart
+  
+  
+Set up an np control chart for the orange juice concentrate can
+process in Example 7.1.  
+
+```{r}
+#use the data from 7.1, switch type to np
+OJ_npchart <- qcc(Orange_juice_can$Number_Noncomforming, sizes = Orange_juice_can$size, type = "np") 
+
+
+```
+  
+  
+## Example 7.2.2 Variable Sample Size
+
+Use data in table 7.4 to construct a control chart to improve the fraction of nonconforming units for purchase order data.   
+  
+
+```{r}
+Purchase_order <- read.csv("Purchase_order.csv", header = T)
+names(Purchase_order) <- c("Sample_Size", "Number_Nonconforming")
+#there is no difference in R with variable sample size
+Purchase_order_chart <- qcc(Purchase_order$Number_Nonconforming, sizes = Purchase_order$Sample_Size, type = "p")
+```
+  
+  
+## Example 7.2.3 Standardized Control Chart
+
+Use the data from table 7.4 to create a standardized control chart about the purchase order data.  
+  
+  
+
+```{r message=F}
+#qicharts has a better function for standardized control charts than the qcc package, so we'll use that
+#run install.packages("qicharts") if you do not have the package yet
+library(qicharts)
+qic(data = Purchase_order,
+    n = Sample_Size,
+    y = Number_Nonconforming,
+    chart = 'p',
+    standardised = T
+    )
+```
+
+## Example 7.3: Nonconformities in Printed Circuit Boards
+
+Table 7.7 presents the number of nonconformities observed in 26 successive samples of 100 printed circuit boards. Note that, for reasons of convenience, the inspection unit is defined as 100 boards. Set up a c chart for these data.  
+  
+  
+  
+```{r}
+#read these data into R
+Circuit_board <- read.csv("Printed_Circuit_Board.csv")
+names(Circuit_board) <- c("Sample_Size", "Number_Nonconformities")
+
+#use the qcc function to make the c chart
+Circuit_board_chart <- qcc(Circuit_board$Number_Nonconformities, sizes = Circuit_board$Sample_Size, type = "c")
+```
+  
+  
+## Example 7.4: Control Charts in Supply Chain Operations
+  
+  
+A supply chain engineering group monitors shipments of materials through the company distribution network. Errors on either the delivered material or the accompanying documentation are tracked on a weekly basis. Fifty randomly selected shipments are examined and the errors recorded. Data for twenty weeks are shown in Table 7.10. Set up a u control chart to monitor this process.  
+
+  
+```{r}
+#read in these data
+Shipping_errors <- read.csv("Shipping_errors.csv")
+names(Shipping_errors) <- c("Sample_Size", "Number_Nonconformities")
+
+#use the qcc function to get a u chart
+Shipping_errors_chart <- qcc(Shipping_errors$Number_Nonconformities, sizes = Shipping_errors$Sample_Size, type = "u")
+
+
+```
+  
+  
+## Example 7.5:
+
+In a textile finishing plant, dyed cloth is inspected for the occurrence of defects per 50 square meters. The data on ten rolls of cloth are shown in Table 7.11. Use these data to set up a control chart for nonconformities per unit.  
+
+  
+  
+```{r}
+#read these data into r from table 7.11
+#for this problem we need only the third and fourth column. R will calculate the rest. 
+Dyed_Cloth <- read.csv("Dyed_Cloth.csv")
+names(Dyed_Cloth) <- c("Sample_Size", "Number_Nonconformities_per_Unit")
+
+#use the qcc function to graph the control chart
+Dyed_Cloth_chart <- qcc(Dyed_Cloth$Number_Nonconformities_per_Unit, sizes = Dyed_Cloth$Sample_Size, type = "u")
+
+```
+
