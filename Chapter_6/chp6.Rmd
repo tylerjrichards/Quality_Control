@@ -1,5 +1,6 @@
 ---
 title: "Chapter 6: Example Walkthroughs"
+author: Tyler Richards
 output:
   prettydoc::html_pretty:
     theme: tactile

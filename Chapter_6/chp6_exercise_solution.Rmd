@@ -1,5 +1,5 @@
 ---
-title: 'Chapter 6 Part 1: Questions'
+title: 'Chapter 6 Exercise Solutions'
 output:
   prettydoc::html_pretty:
     theme: tactile

@@ -1,5 +1,6 @@
 ---
 title: 'Chapter 7: Example Walkthrough'
+author: Tyler Richards
 output:
   prettydoc::html_pretty:
     theme: tactile
@@ -26,6 +27,16 @@ OJ_pchart <- qcc(Orange_juice_can$Number_Noncomforming, sizes = Orange_juice_can
 #we don't actually use the percent nonconforming column because R calculates this for us
 
 ```
+  
+Analysis of the data from sample 15 indicates that a new batch of cardboard stock was put into production during that half-hour period. The introduction of new batches of raw material sometimes causes irregular production performance, and it is reasonable to believe that this has occurred here. Furthermore, during the half-hour period in which sample 23 was obtained, a relatively inexperienced operator had been temporarily assigned to the machine, and this could account for the high fraction nonconforming obtained from that sample. Consequently, samples 15 and 23 are eliminated and the chart redrawn.  
+
+
+```{r}
+#eliminate row 15 and 23 of the data
+New_OJ <- Orange_juice_can[-c(15,23),] #we remove rows by making a vector with the c() function, and putting a negative sign before it which can be read as "everything except row 15 and 23". 
+New_OJ_pchart <- qcc(New_OJ$Number_Noncomforming, sizes = New_OJ$size, type = "p")
+```
+
   
   
   
@@ -108,14 +119,14 @@ Shipping_errors_chart <- qcc(Shipping_errors$Number_Nonconformities, sizes = Shi
 ```
   
   
-## Example 7.5:
+## Example 7.5: Dyed Cloth Defects per unit - u chart
 
 In a textile finishing plant, dyed cloth is inspected for the occurrence of defects per 50 square meters. The data on ten rolls of cloth are shown in Table 7.11. Use these data to set up a control chart for nonconformities per unit.  
 
   
   
 ```{r}
-#read these data into r from table 7.11
+#read these data into R from table 7.11
 #for this problem we need only the third and fourth column. R will calculate the rest. 
 Dyed_Cloth <- read.csv("Dyed_Cloth.csv")
 names(Dyed_Cloth) <- c("Sample_Size", "Number_Nonconformities_per_Unit")
