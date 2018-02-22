@@ -1,0 +1,43 @@
+---
+title: 'Chapter 7 End of Chapter Questions'
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r include=FALSE}
+library(knitr)
+```
+
+Currently, the questions come from the 6th edition of the QC book. Different version have the same problems but different numbers.  
+  
+## Problem 7.1: Nonconforming Bearings
+
+The data in Table 7E.1 give the number of nonconforming bearing and seal assemblies in samples of  size 100. Construct a fraction nonconforming control chart for these data. If any points plot out of control, assume that assignable causes can be found and determine the revised control limits.  
+  
+  
+## Problem 7.6: np Chart
+
+Based on the data in Table 7E.6 if an np chart is to be established, what would you recommend as the center line and control limits? Assume that n = 500
+
+## Problem 7.21: Maintenance Repair
+
+A maintenance group improves the effectiveness of its repair work by monitoring the number of maintenance requests that require a second call to complete the repair. Twenty weeks of data are shown in Table 7E.8.  
+Create a control chart for controlling future production.  
+  
+  
+## Problem 7.23: Standardized Maintenance Repair Chart
+
+Use the data from problem 7.21 above to create a standardized chart for the data  
+
+## Problem 7.67: 
+  
+The data in Table 7E.19 are the number of information errors found in customer records in a marketing company database. Five records were sampled each day.  
+Set up a c chart for the total number of errors. Is
+the process in control?  
+
+
+
+  
