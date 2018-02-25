@@ -1,0 +1,99 @@
+---
+title: 'Chapter 7 End of Chapter Questions'
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r include=FALSE}
+library(knitr)
+```
+
+Currently, the questions come from the 6th edition of the QC book. Different version have the same problems but different numbers.  
+  
+## Problem 7.1: Nonconforming Bearings
+
+The data in Table 7E.1 give the number of nonconforming bearing and seal assemblies in samples of  size 100. Construct a fraction nonconforming control chart for these data. If any points plot out of control, assume that assignable causes can be found and determine the revised control limits.  
+
+  
+```{r message=F}
+library(qcc)
+Switch_conformity <- read.csv("Switch_conformity.csv")
+
+Switch_chart <- qcc(Switch_conformity$Num_Nonconforming, sizes = Switch_conformity$Size, type = 'p')
+
+```
+  
+  
+In this case, sample 12 is beyond the control limit. Let's remove it and try again.  
+
+```{r}
+Switch_conformity_edited <- Switch_conformity[-c(12),]
+
+Switch_chart_edited <- qcc(Switch_conformity_edited$Num_Nonconforming, sizes = Switch_conformity_edited$Size, type = 'p')
+```
+
+  
+  
+## Problem 7.6: np Chart
+
+Based on the data in Table 7E.6 if an np chart is to be established, what would you recommend as the center line and control limits? Assume that n = 500  
+
+```{r}
+#the data can be read from the chart
+Item_nonconforming <- read.csv("Item_nonconforming.csv")
+Item_chart <- qcc(Item_nonconforming$Num_Nonconforming, sizes = Item_nonconforming$Size, type = 'np')
+
+```
+
+
+## Problem 7.21: Maintenance Repair
+
+A maintenance group improves the effectiveness of its repair work by monitoring the number of maintenance requests that require a second call to complete the repair. Twenty weeks of data are shown in Table 7E.8.  
+Create a control chart for controlling future production.  
+  
+```{r}
+Maintenance_Requests <- read.csv("Maintenance_Requests.csv")
+
+Maintenance_chart <- qcc(Maintenance_Requests$Second_Visit_Required, sizes = Maintenance_Requests$Requests, type = 'np')
+
+```
+
+  
+## Problem 7.23: Standardized Maintenance Repair Chart
+
+Use the data from problem 7.21 above to create a standardized chart for the data
+
+```{r warning=F}
+#use the data from the previous problem
+library(qicharts)
+qic(data = Maintenance_Requests,
+    n = Requests,
+    y = Second_Visit_Required,
+    chart = 'p',
+    standardised = T
+    )
+```
+
+  
+  
+  
+## Problem 7.67: 
+  
+The data in Table 7E.19 are the number of information errors found in customer records in a marketing company database. Five records were sampled each day.  
+Set up a c chart for the total number of errors. Is the process in control?
+
+```{r}
+Customer_info_errors <- read.csv("Customer_info_errors.csv") #read the data into R
+
+Customer_info_errors$Total <- rowSums(Customer_info_errors[,2:6]) #sum the errors, without including the sample number
+
+qcc(Customer_info_errors$Total, type = 'c')
+```
+
+
+
+
+  

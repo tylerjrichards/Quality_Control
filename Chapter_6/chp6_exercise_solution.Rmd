@@ -93,7 +93,20 @@ qcc(data = Combined_Pison, type = "R")
   
 ## Book Problem 6.56: Polymer Viscosity
 
-Continuation of Exercise 6.55. The next five measurements on viscosity are 3163, 3199, 3054, 3147, and 3156. Do these measurements indicate that the process is in statistical control?
+Continuation of Exercise 6.55. The next five measurements on viscosity are 3163, 3199, 3054, 3147, and 3156. Do these measurements indicate that the process is in statistical control?  
+  
+  
+
+```{r}
+Viscosity_data <- read.csv("Polymer_Viscosity_data.csv")
+names(Viscosity_data) <- c("Sample", "Value")
+new_Viscosity <- data.frame(Sample = 21:25, Value = c(3163, 3199, 3054, 3147, 3156))
+
+total_Viscosity <- rbind(new_Viscosity, Viscosity_data)
+qcc(data = new_Viscosity$Value, type = "xbar.one")
+
+```
+
 
 ## Book Problem 6.57: Oxide Thickness of Silicon Wafers
   
@@ -110,7 +123,7 @@ qcc(data = Silicon_Wafers$V2, type = "xbar.one")
 qcc(data = Silicon_Wafers_MA$V1, type = "xbar.one")
 
 ```
-
+  
 ```{r}
 #b
 Additional_data <- read.csv("Oxide_Thickness_addition.csv")
