@@ -1,0 +1,13 @@
+Chapter 6 exercise solutions: MR charts for QC
+  don't have moving range charts in the tutorial, but the last example calls for one
+    two ways to do it:
+      1. QCC: convoluted
+made another edit, mr chart vs r chart
+
+add a screenshot of the table when referenced in the future
+
+edit chapter 7 solution, show why we need 
+
+
+chapter 8 examples: do a lot of them
+chapter 13: has a lot of statistical work

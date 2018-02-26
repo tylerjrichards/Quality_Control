@@ -32,7 +32,7 @@ Create a control chart for controlling future production.
 
 Use the data from problem 7.21 above to create a standardized chart for the data  
 
-## Problem 7.67: 
+## Problem 7.67: Marketing Input Errors, c chart
   
 The data in Table 7E.19 are the number of information errors found in customer records in a marketing company database. Five records were sampled each day.  
 Set up a c chart for the total number of errors. Is

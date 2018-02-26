@@ -66,8 +66,11 @@ Maintenance_chart <- qcc(Maintenance_Requests$Second_Visit_Required, sizes = Mai
 
 Use the data from problem 7.21 above to create a standardized chart for the data
 
-```{r warning=F}
-#use the data from the previous problem
+```{r message=F}
+#use the data from the previous problem to make the standardized chart
+#the qicharts library has a function called qic, which allows us to make a standardised charts more easily
+#if you haven't already, run ** install.packages("qicharts") ** to install the package
+
 library(qicharts)
 qic(data = Maintenance_Requests,
     n = Requests,

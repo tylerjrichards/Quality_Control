@@ -111,10 +111,12 @@ Maintenance_chart &lt;-<span class="st"> </span><span class="kw">qcc</span>(Main
 <div id="problem-7.23-standardized-maintenance-repair-chart" class="section level2">
 <h2>Problem 7.23: Standardized Maintenance Repair Chart</h2>
 <p>Use the data from problem 7.21 above to create a standardized chart for the data</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#use the data from the previous problem</span>
-<span class="kw">library</span>(qicharts)</code></pre></div>
-<pre><code>## qicharts will no longer be maintained. Please consider moving to qicharts2: https://anhoej.github.io/qicharts2/.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qic</span>(<span class="dt">data =</span> Maintenance_Requests,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#use the data from the previous problem to make the standardized chart</span>
+<span class="co">#the qicharts library has a function called qic, which allows us to make a standardised charts more easily</span>
+<span class="co">#if you haven't already, run ** install.packages(&quot;qicharts&quot;) ** to install the package</span>
+
+<span class="kw">library</span>(qicharts)
+<span class="kw">qic</span>(<span class="dt">data =</span> Maintenance_Requests,
     <span class="dt">n =</span> Requests,
     <span class="dt">y =</span> Second_Visit_Required,
     <span class="dt">chart =</span> <span class="st">'p'</span>,
