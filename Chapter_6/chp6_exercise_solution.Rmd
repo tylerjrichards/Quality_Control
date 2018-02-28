@@ -107,7 +107,7 @@ new_Viscosity <- data.frame(Sample = 21:25, Value = c(3163, 3199, 3054, 3147, 31
 total_Viscosity <- rbind(new_Viscosity, Viscosity_data)
 
 #graph!
-qcc(data = new_Viscosity$Value, type = "xbar.one")
+qcc(data = total_Viscosity$Value, type = "xbar.one")
 
 ```
 
