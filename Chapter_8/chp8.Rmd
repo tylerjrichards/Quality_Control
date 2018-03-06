@@ -91,192 +91,14 @@ print(paste("The CI is inbetween", round(Lower_b,3), "and", round(Upper_b,3)))
 
 ```
 
-## Example 8.5: A Confidence Interval in Cpk
-  
-A sample of size n = 20 from a stable process is used to estimate Cpk, with the result that Cpk = 1.33. Find an approximate 95% confidence interval on Cpk.  
-  
-  
-  
-```{r}
-#assign variables
-Cpk <- 1.33
-z <- qnorm(.975)
-n = 20
 
-#Lower bound using equation 8.21
-Lower_b <- Cpk * (1 - z * sqrt((1 / (9 * n * (Cpk ^ 2))) + (1 / (2 * (n-1)))))
-
-#Upper
-Upper_b <- Cpk * (1 + z * sqrt((1 / (9 * n * (Cpk ^ 2))) + (1 / (2 * (n-1)))))
-
-#Now put it all together
-print(paste("The CI is inbetween", round(Lower_b,2), "and", round(Upper_b,2)))
-
-```
-
-
-## Example 8.6: Supplier Qualification
-
-A customer has told his supplier that, in order to qualify for business with his company, the supplier must demonstrate that his process capability exceeds Cp = 1.33. Thus, the supplier is interested in establishing a procedure to test the hypotheses.
-H_null: Cp = 1.33
-H_1: Cp > 1.33
-The supplier wants to be sure that if the process capability is below 1.33 there will be a high probability of detecting this (say, 0.90), whereas if the process capability exceeds 1.66 there will be a high probability of judging the process capable (again, say, 0.90). This would imply that Cp(Low) = 1.33, Cp(High) = 1.66, and a = b = 0.10. To find the sample size and critical value for C from Table 8.4, compute Cp(high) / Cp(low) = 1.25.
-  
-  
-  
-```{r echo = F}
----
-title: 'Chapter 8: Example Walkthrough'
-author: Tyler Richards
-output:
-  prettydoc::html_pretty:
-    theme: tactile
-    highlight: github
----
-
-
-```{r include=FALSE}
-library(knitr)
-library(here)
-```
-
-## Example 8.1: Estimating Process Capability with a Histogram
-
-Figure 8.2 presents a histogram of the bursting strength of 100 glass containers. The data are shown in Table 8.1. What is the capability of the process?
-  
-  
-```{r}
-Glass_containers <- read.csv("Glass_containers.csv")
-
-#analysis
-Glass_avg <- mean(Glass_containers$x)
-Glass_std <- sd(Glass_containers$x)
-
-print(paste("99.73 percent of all the glass containers will burst between ", Glass_avg - 3*Glass_std, " and ", Glass_avg + 3*Glass_std, "."))
-
-#histogram
-hist(Glass_containers[,c(1)])
-```
-  
-  
-  
-## Example 8.2: One-Sided Process-Capability Ratios
-
-Construct a one-sided process-capability ratio for the container bursting-strength data in Example 8.1. Suppose that the lower specification limit on bursting strength is 200 psi.  
-
-  
-  
-  
-```{r}
-#read in data
-Glass_containers <- read.csv("Glass_containers.csv")
-
-#set variables
-Glass_avg <- mean(Glass_containers$x)
-Glass_std <- sd(Glass_containers$x)
-LSL_bursting_strength <- 200
-
-
-#Use equation 8.8 
-Lower_capability_ratio <- (Glass_avg - LSL_bursting_strength) / (3 * Glass_std)
-
-print(Lower_capability_ratio)
-```
-
-
-## Example 8.4: Confidence Interval in Cp
-
-Suppose that a stable process has upper and lower specifications at USL = 62 and LSL = 38. A sample of size n = 20 from this process reveals that the process mean is centered approximately at the midpoint of the specification interval and that the
-sample standard deviation s = 1.75. Find a 95% confidence
-interval on C.  
-  
-  
-  
-
-```{r}
-#enter data
-USL <- 62
-LSL <- 38
-n = 20
-s = 1.75
-
-#Find point estimate
-C = (USL - LSL) / (6 * s)
-
-#Lower Bound from equation 8.20
-Lower_b <- C * sqrt(qchisq(.025, n - 1)/(n - 1))
-
-#Upper Bound from equation 8.20
-Upper_b <- C * sqrt(qchisq(.975, n - 1)/(n - 1))
-
-#confidence interval
-
-print(paste("The CI is inbetween", round(Lower_b,3), "and", round(Upper_b,3)))
-
-
-
-
-```
-
-## Example 8.5: A Confidence Interval in Cpk
-  
-A sample of size n = 20 from a stable process is used to estimate Cpk, with the result that Cpk = 1.33. Find an approximate 95% confidence interval on Cpk.  
-  
-  
-  
-```{r}
-#assign variables
-Cpk <- 1.33
-z <- qnorm(.975)
-n = 20
-
-#Lower bound using equation 8.21
-Lower_b <- Cpk * (1 - z * sqrt((1 / (9 * n * (Cpk ^ 2))) + (1 / (2 * (n-1)))))
-
-#Upper
-Upper_b <- Cpk * (1 + z * sqrt((1 / (9 * n * (Cpk ^ 2))) + (1 / (2 * (n-1)))))
-
-#Now put it all together
-print(paste("The CI is inbetween", round(Lower_b,2), "and", round(Upper_b,2)))
-
-```
-
-
-## Example 8.6: Supplier Qualification
-
-A customer has told his supplier that, in order to qualify for business with his company, the supplier must demonstrate that his process capability exceeds Cp = 1.33. Thus, the supplier is interested in establishing a procedure to test the hypotheses.
-H_null: Cp = 1.33
-H_1: Cp > 1.33
-The supplier wants to be sure that if the process capability is below 1.33 there will be a high probability of detecting this (say, 0.90), whereas if the process capability exceeds 1.66 there will be a high probability of judging the process capable (again, say, 0.90). This would imply that Cp(Low) = 1.33, Cp(High) = 1.66, and a = b = 0.10. To find the sample size and critical value for C from Table 8.4, compute Cp(high) / Cp(low) = 1.25.
-  
-  
-  
-```{r echo = F}
-setwd(here())
-include_graphics("Screenshots/Table_8_4.png")
-
-```
-  
-  
-The solution to this problem is just to look for the row that has 1.25 in the second column and 1.33 in the 4th column. This corresponds to the sample size of 70.
-```{r}
-#find C by multiplying the third and fourth columns
-C = 1.33 * 1.10
-print(C)
-```
-
-
-
-  
-  
 ## Example 8.7: Measuring Gauge Capability
 
 An instrument is to be used as part of a proposed SPC implementation. The quality-improvement team involved in designing the SPC system would like to get an assessment of gauge capability. Twenty units of the product are obtained, and the process operator who will actually take the measurements for the control chart uses the instrument to measure each unit of product twice. The data are shown in Table 8.6. 
 
 
 ```{r echo = F}
-setwd(here())
-include_graphics("Screenshots/Table_8_6.png")
+include_graphics("C:/Users/Tyler/Documents/Spring18/Quality_Control/Screenshots/Table_8_6.png")
 
 ```
 
@@ -293,7 +115,6 @@ Part_Measurement_data$R <- abs(Part_Measurement_data$M1 - Part_Measurement_data$
 
 #ending it here, can't figure out what d is
 #Find measurement error
-ME = 
 
 ```
 
