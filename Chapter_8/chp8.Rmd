@@ -118,3 +118,30 @@ Part_Measurement_data$R <- abs(Part_Measurement_data$M1 - Part_Measurement_data$
 
 ```
 
+
+## Example 8.7.2: The Analysis of Variance Method
+  
+  
+Use Table 8.8 to show the analysis of variance for the experiment measuring thermal inpedance versus part number, operator/inspector.  
+
+
+```{r}
+#read in the data
+Thermal_Impedance <- read.csv("Thermal_Impedance.csv")
+
+#Part number should be a categorical variable, not a discrete numeric one
+#The factor data type is a way to reshape the data to make the column categorical
+
+Thermal_Impedance$Part_Num <- as.factor(Thermal_Impedance$Part_Num)
+
+#create a linear model to perform anova on
+#the example specifies the formula
+#multiplication in a formula finds the interaction term
+Thermal_fit <- lm(Value ~ Part_Num + Inspector + Part_Num * Inspector, data = Thermal_Impedance)
+
+#perform and print the anova
+anova(fit)
+```
+
+
+
