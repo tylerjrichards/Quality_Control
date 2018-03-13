@@ -91,34 +91,31 @@ print(paste("The CI is inbetween", round(Lower_b,3), "and", round(Upper_b,3)))
 
 ```
 
-
-## Example 8.7: Measuring Gauge Capability
-
-An instrument is to be used as part of a proposed SPC implementation. The quality-improvement team involved in designing the SPC system would like to get an assessment of gauge capability. Twenty units of the product are obtained, and the process operator who will actually take the measurements for the control chart uses the instrument to measure each unit of product twice. The data are shown in Table 8.6. 
-
-
-```{r echo = F}
-include_graphics("C:/Users/Tyler/Documents/Spring18/Quality_Control/Screenshots/Table_8_6.png")
-
-```
-
+## Example 8.5: A Confidence Interval in Cpk
+  
+A sample of size n = 20 from a stable process is used to estimate Cpk, with the result that Cpk = 1.33. Find an approximate 95% confidence interval on Cpk.  
+  
+  
+  
 ```{r}
-#read in data (only includes measurements 1 and 2)
-Part_Measurement_data <- read.csv("Part_Measurement.csv")
+#assign variables
+Cpk <- 1.33
+z <- qnorm(.975)
+n = 20
 
-#name the columns for ease of use
-colnames(Part_Measurement_data) <- c("M1", "M2")
+#Lower bound using equation 8.21
+Lower_b <- Cpk * (1 - z * sqrt((1 / (9 * n * (Cpk ^ 2))) + (1 / (2 * (n-1)))))
 
-#create xbar and R columns
-Part_Measurement_data$xbar <- rowMeans(Part_Measurement_data)
-Part_Measurement_data$R <- abs(Part_Measurement_data$M1 - Part_Measurement_data$M2)
+#Upper
+Upper_b <- Cpk * (1 + z * sqrt((1 / (9 * n * (Cpk ^ 2))) + (1 / (2 * (n-1)))))
 
-#ending it here, can't figure out what d is
-#Find measurement error
+#Now put it all together
+print(paste("The CI is inbetween", round(Lower_b,2), "and", round(Upper_b,2)))
 
 ```
-
-
+  
+  
+  
 ## Example 8.7.2: The Analysis of Variance Method
   
   
@@ -140,7 +137,7 @@ Thermal_Impedance$Part_Num <- as.factor(Thermal_Impedance$Part_Num)
 Thermal_fit <- lm(Value ~ Part_Num + Inspector + Part_Num * Inspector, data = Thermal_Impedance)
 
 #perform and print the anova
-anova(fit)
+anova(Thermal_fit)
 ```
 
 
