@@ -1,0 +1,75 @@
+---
+title: 'Chapter 8 End of Chapter Questions'
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r include=FALSE}
+library(knitr)
+```
+
+Currently, the questions come from the 6th edition of the QC book. Different version have the same problems but different problem numbers.  
+
+## Problem 8.5: Capability Calculation
+
+A process is in control with , and n = 5. The process specifications are at 95 ± 10. The quality characteristic has a normal distribution.  
+(a) Estimate the potential capability.  
+(b) Estimate the actual capability.  
+(c) How much could the fallout in the process be reduced if the process were corrected to operate at the nominal specification?  
+
+
+  
+## Problem 8.9: Processing Data
+  
+  
+Consider the two processes shown in Table 8E.1 (the
+sample size n = 5). Specifications are at 100 ± 10. Calculate Cp, Cpk, and Cpm and interpret these ratios.  
+
+
+  
+## Problem 8.11: Chemical Ingredient Container Weight
+  
+The weights of nominal 1-kg containers of a concentrated chemical ingredient are shown in Table 8E.2. Prepare a normal probability plot of the data and estimate process capability.
+
+  
+  
+## Problem 8.15: Electric Utilities
+
+An electric utility tracks the response time to customerreported outages. The data in Table 8E.5 are a random sample of 40 of the response times (in minutes) for one operating division of this utility during a single month.  
+  
+(a) Estimate the capability of the utility’s process for responding to customer-reported outages.  
+(b) The utility wants to achieve a 90% response rate in under two hours, as response to emergency outages is an important measure of customer satisfaction. What is the capability of the process with respect to this objective?  
+
+
+  
+## Problem 8.19: Company Capability Confidence
+
+  
+  
+A company has been asked by an important customer to demonstrate that its process capability ratio Cp exceeds 1.33. It has taken a sample of 50 parts and obtained the point estimate . Assume that the quality characteristic follows a normal distribution. Can the company demonstrate that Cp exceeds 1.33 at the 95% level of confidence? What level of confidence would give a one-sided lower confidence limit on Cp that exceeds 1.33?  
+  
+  
+## Problem 8.25: Operator Variability
+  
+  
+Ten parts are measured three times by the same operator in a gauge capability study. The data are shown in Table 8E.7.  
+(a) Describe the measurement error that results from the use of this gauge.  
+(b) Estimate total variability and product variability.  
+(c) What percentage of total variability is due to the gauge?  
+(d) If specifications on the part are at 100 ± 15, find the P/T ratio for this gauge. Comment on the adequacy of the gauge.  
+
+  
+## Problem 8.27: Gauge Capability
+  
+  
+The data in Table 8E.9 were taken by one operator during a gauge capability study.  
+(a) Estimate gauge capability.  
+(b) Does the control chart analysis of these data indicate any potential problem in using the gauge?  
+  
+
+  
+
+

@@ -91,29 +91,6 @@ print(paste("The CI is inbetween", round(Lower_b,3), "and", round(Upper_b,3)))
 
 ```
 
-## Example 8.5: A Confidence Interval in Cpk
-  
-A sample of size n = 20 from a stable process is used to estimate Cpk, with the result that Cpk = 1.33. Find an approximate 95% confidence interval on Cpk.  
-  
-  
-  
-```{r}
-#assign variables
-Cpk <- 1.33
-z <- qnorm(.975)
-n = 20
-
-#Lower bound using equation 8.21
-Lower_b <- Cpk * (1 - z * sqrt((1 / (9 * n * (Cpk ^ 2))) + (1 / (2 * (n-1)))))
-
-#Upper
-Upper_b <- Cpk * (1 + z * sqrt((1 / (9 * n * (Cpk ^ 2))) + (1 / (2 * (n-1)))))
-
-#Now put it all together
-print(paste("The CI is inbetween", round(Lower_b,2), "and", round(Upper_b,2)))
-
-```
-  
   
   
 ## Example 8.7.2: The Analysis of Variance Method
@@ -138,6 +115,8 @@ Thermal_fit <- lm(Value ~ Part_Num + Inspector + Part_Num * Inspector, data = Th
 
 #perform and print the anova
 anova(Thermal_fit)
+
+#an astute student would notice that these solutions have different F values than the book. This is because the book is wrong. 
 ```
 
 

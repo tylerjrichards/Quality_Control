@@ -10,51 +10,12 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="author" content="Tyler Richards" />
 
 
-<title>Chapter 8: Example Walkthrough</title>
+<title>Chapter 8 End of Chapter Questions</title>
 
 
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-</style>
 
 
 
@@ -70,99 +31,55 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="container">
 <div class="inner">
 <header>
-<h1 class="title toc-ignore">Chapter 8: Example Walkthrough</h1>
-<h3 class="author">Tyler Richards</h3>
+<h1 class="title toc-ignore">Chapter 8 End of Chapter Questions</h1>
 </header>
 
 <hr>
 
 
 
-<div id="example-8.1-estimating-process-capability-with-a-histogram" class="section level2">
-<h2>Example 8.1: Estimating Process Capability with a Histogram</h2>
-<p>Figure 8.2 presents a histogram of the bursting strength of 100 glass containers. The data are shown in Table 8.1. What is the capability of the process?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Glass_containers &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Glass_containers.csv&quot;</span>)
-
-<span class="co">#analysis</span>
-Glass_avg &lt;-<span class="st"> </span><span class="kw">mean</span>(Glass_containers<span class="op">$</span>x)
-Glass_std &lt;-<span class="st"> </span><span class="kw">sd</span>(Glass_containers<span class="op">$</span>x)
-
-<span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;99.73 percent of all the glass containers will burst between &quot;</span>, Glass_avg <span class="op">-</span><span class="st"> </span><span class="dv">3</span><span class="op">*</span>Glass_std, <span class="st">&quot; and &quot;</span>, Glass_avg <span class="op">+</span><span class="st"> </span><span class="dv">3</span><span class="op">*</span>Glass_std, <span class="st">&quot;.&quot;</span>))</code></pre></div>
-<pre><code>## [1] &quot;99.73 percent of all the glass containers will burst between  168.006208252402  and  360.113791747598 .&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#histogram</span>
-<span class="kw">hist</span>(Glass_containers[,<span class="kw">c</span>(<span class="dv">1</span>)])</code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>Currently, the questions come from the 6th edition of the QC book. Different version have the same problems but different problem numbers.</p>
+<div id="problem-8.5-capability-calculation" class="section level2">
+<h2>Problem 8.5: Capability Calculation</h2>
+<p>A process is in control with , and n = 5. The process specifications are at 95 ± 10. The quality characteristic has a normal distribution.<br />
+(a) Estimate the potential capability.<br />
+(b) Estimate the actual capability.<br />
+(c) How much could the fallout in the process be reduced if the process were corrected to operate at the nominal specification?</p>
 </div>
-<div id="example-8.2-one-sided-process-capability-ratios" class="section level2">
-<h2>Example 8.2: One-Sided Process-Capability Ratios</h2>
-<p>Construct a one-sided process-capability ratio for the container bursting-strength data in Example 8.1. Suppose that the lower specification limit on bursting strength is 200 psi.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#read in data</span>
-Glass_containers &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Glass_containers.csv&quot;</span>)
-
-<span class="co">#set variables</span>
-Glass_avg &lt;-<span class="st"> </span><span class="kw">mean</span>(Glass_containers<span class="op">$</span>x)
-Glass_std &lt;-<span class="st"> </span><span class="kw">sd</span>(Glass_containers<span class="op">$</span>x)
-LSL_bursting_strength &lt;-<span class="st"> </span><span class="dv">200</span>
-
-
-<span class="co">#Use equation 8.8 </span>
-Lower_capability_ratio &lt;-<span class="st"> </span>(Glass_avg <span class="op">-</span><span class="st"> </span>LSL_bursting_strength) <span class="op">/</span><span class="st"> </span>(<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>Glass_std)
-
-<span class="kw">print</span>(Lower_capability_ratio)</code></pre></div>
-<pre><code>## [1] 0.666918</code></pre>
+<div id="problem-8.9-processing-data" class="section level2">
+<h2>Problem 8.9: Processing Data</h2>
+<p>Consider the two processes shown in Table 8E.1 (the sample size n = 5). Specifications are at 100 ± 10. Calculate Cp, Cpk, and Cpm and interpret these ratios.</p>
 </div>
-<div id="example-8.4-confidence-interval-in-cp" class="section level2">
-<h2>Example 8.4: Confidence Interval in Cp</h2>
-<p>Suppose that a stable process has upper and lower specifications at USL = 62 and LSL = 38. A sample of size n = 20 from this process reveals that the process mean is centered approximately at the midpoint of the specification interval and that the sample standard deviation s = 1.75. Find a 95% confidence interval on C.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#enter data</span>
-USL &lt;-<span class="st"> </span><span class="dv">62</span>
-LSL &lt;-<span class="st"> </span><span class="dv">38</span>
-n =<span class="st"> </span><span class="dv">20</span>
-s =<span class="st"> </span><span class="fl">1.75</span>
-
-<span class="co">#Find point estimate</span>
-C =<span class="st"> </span>(USL <span class="op">-</span><span class="st"> </span>LSL) <span class="op">/</span><span class="st"> </span>(<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>s)
-
-<span class="co">#Lower Bound from equation 8.20</span>
-Lower_b &lt;-<span class="st"> </span>C <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">qchisq</span>(.<span class="dv">025</span>, n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))
-
-<span class="co">#Upper Bound from equation 8.20</span>
-Upper_b &lt;-<span class="st"> </span>C <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">qchisq</span>(.<span class="dv">975</span>, n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))
-
-<span class="co">#confidence interval</span>
-
-<span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;The CI is inbetween&quot;</span>, <span class="kw">round</span>(Lower_b,<span class="dv">3</span>), <span class="st">&quot;and&quot;</span>, <span class="kw">round</span>(Upper_b,<span class="dv">3</span>)))</code></pre></div>
-<pre><code>## [1] &quot;The CI is inbetween 1.565 and 3.006&quot;</code></pre>
+<div id="problem-8.11-chemical-ingredient-container-weight" class="section level2">
+<h2>Problem 8.11: Chemical Ingredient Container Weight</h2>
+<p>The weights of nominal 1-kg containers of a concentrated chemical ingredient are shown in Table 8E.2. Prepare a normal probability plot of the data and estimate process capability.</p>
 </div>
-<div id="example-8.7.2-the-analysis-of-variance-method" class="section level2">
-<h2>Example 8.7.2: The Analysis of Variance Method</h2>
-<p>Use Table 8.8 to show the analysis of variance for the experiment measuring thermal inpedance versus part number, operator/inspector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#read in the data</span>
-Thermal_Impedance &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Thermal_Impedance.csv&quot;</span>)
-
-<span class="co">#Part number should be a categorical variable, not a discrete numeric one</span>
-<span class="co">#The factor data type is a way to reshape the data to make the column categorical</span>
-
-Thermal_Impedance<span class="op">$</span>Part_Num &lt;-<span class="st"> </span><span class="kw">as.factor</span>(Thermal_Impedance<span class="op">$</span>Part_Num)
-
-<span class="co">#create a linear model to perform anova on</span>
-<span class="co">#the example specifies the formula</span>
-<span class="co">#multiplication in a formula finds the interaction term</span>
-Thermal_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(Value <span class="op">~</span><span class="st"> </span>Part_Num <span class="op">+</span><span class="st"> </span>Inspector <span class="op">+</span><span class="st"> </span>Part_Num <span class="op">*</span><span class="st"> </span>Inspector, <span class="dt">data =</span> Thermal_Impedance)
-
-<span class="co">#perform and print the anova</span>
-<span class="kw">anova</span>(Thermal_fit)</code></pre></div>
-<pre><code>## Analysis of Variance Table
-## 
-## Response: Value
-##                    Df Sum Sq Mean Sq  F value    Pr(&gt;F)    
-## Part_Num            9 3936.0  437.33 855.6425 &lt; 2.2e-16 ***
-## Inspector           2   39.3   19.63  38.4130 1.817e-11 ***
-## Part_Num:Inspector 18   48.5    2.70   5.2729 5.060e-07 ***
-## Residuals          60   30.7    0.51                       
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#an astute student would notice that these solutions have different F values than the book. This is because the book is wrong. </span></code></pre></div>
+<div id="problem-8.15-electric-utilities" class="section level2">
+<h2>Problem 8.15: Electric Utilities</h2>
+<p>An electric utility tracks the response time to customerreported outages. The data in Table 8E.5 are a random sample of 40 of the response times (in minutes) for one operating division of this utility during a single month.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Estimate the capability of the utility’s process for responding to customer-reported outages.<br />
+</li>
+<li>The utility wants to achieve a 90% response rate in under two hours, as response to emergency outages is an important measure of customer satisfaction. What is the capability of the process with respect to this objective?</li>
+</ol>
+</div>
+<div id="problem-8.19-company-capability-confidence" class="section level2">
+<h2>Problem 8.19: Company Capability Confidence</h2>
+<p>A company has been asked by an important customer to demonstrate that its process capability ratio Cp exceeds 1.33. It has taken a sample of 50 parts and obtained the point estimate . Assume that the quality characteristic follows a normal distribution. Can the company demonstrate that Cp exceeds 1.33 at the 95% level of confidence? What level of confidence would give a one-sided lower confidence limit on Cp that exceeds 1.33?</p>
+</div>
+<div id="problem-8.25-operator-variability" class="section level2">
+<h2>Problem 8.25: Operator Variability</h2>
+<p>Ten parts are measured three times by the same operator in a gauge capability study. The data are shown in Table 8E.7.<br />
+(a) Describe the measurement error that results from the use of this gauge.<br />
+(b) Estimate total variability and product variability.<br />
+(c) What percentage of total variability is due to the gauge?<br />
+(d) If specifications on the part are at 100 ± 15, find the P/T ratio for this gauge. Comment on the adequacy of the gauge.</p>
+</div>
+<div id="problem-8.27-gauge-capability" class="section level2">
+<h2>Problem 8.27: Gauge Capability</h2>
+<p>The data in Table 8E.9 were taken by one operator during a gauge capability study.<br />
+(a) Estimate gauge capability.<br />
+(b) Does the control chart analysis of these data indicate any potential problem in using the gauge?</p>
 </div>
 </div>
 </div>
