@@ -1,5 +1,5 @@
 ---
-title: 'Chapter 8 End of Chapter Questions'
+title: 'Chapter 8 End of Chapter Solution'
 output:
   prettydoc::html_pretty:
     theme: tactile
@@ -15,11 +15,32 @@ Currently, the questions come from the 6th edition of the QC book. Different ver
 
 ## Problem 8.5: Capability Calculation
 
-A process is in control with x = 100, s = 1.05, and n = 5. The process specifications are at 95 ± 10. The quality characteristic has a normal distribution.  
+A process is in control with x_bar = 100, s = 1.05, and n = 5. The process specifications are at 95 ± 10. The quality characteristic has a normal distribution.  
 (a) Estimate the potential capability.  
 (b) Estimate the actual capability.  
-(c) How much could the fallout in the process be reduced if the process were corrected to operate at the nominal specification?  
+(c) How much could the fallout in the process be reduced if the process were corrected to operate at the nominal specification? 
 
+```{r}
+#potential capability
+
+#we estimate sigma using c_4 and s
+c_4 = .94
+s = 1.05
+sigma = (s /c_4 )
+
+#find Cp, which is potential capability
+Cp <- (105 - 85) / (6 * sigma)
+
+
+#Cpk is actual capability
+upper = (105 - 100) / (3 * sigma)
+lower = (100 - 85) / (3 * sigma)
+
+Cpk = min(upper, lower)
+
+
+
+```
 
   
 ## Problem 8.9: Processing Data
@@ -27,12 +48,61 @@ A process is in control with x = 100, s = 1.05, and n = 5. The process specifica
   
 Consider the two processes shown in Table 8E.1 (the
 sample size n = 5). Specifications are at 100 ± 10. Calculate Cp, Cpk, and Cpm and interpret these ratios.  
+```{r}
+x_a_mean = 100
+s_a = 3
+x_b_mean = 105
+s_b = 1
+
+#process a
+Cp_a = (110 - 90) / (6 * s_a)
+Cpk_upper_a = (110 - x_a_mean) / (3 * s_a)
+Cpk_lower_a = (x_a_mean - 90) / (3 * s_a)
+min(Cpk_upper_a, Cpk_lower_a )
+
+#process b
+Cp_b = (110 - 90) / (6 * 1)
+
+Cpk_upper_b = (110 - x_b_mean) / (3 * s_b)
+Cpk_lower_b = (x_b_mean - 90) / (3 * s_b)
+min(Cpk_upper_b, Cpk_lower_b )
+
+#Cpm
+#ξ = xi
+xi_b = (x_b_mean - (.5*(110 + 90))) / s_b
+
+
+Cpm_b = Cp_b / sqrt(1 + xi_b^2)
+Cpm_b
+
+
+```
 
 
   
 ## Problem 8.11: Chemical Ingredient Container Weight
   
 The weights of nominal 1-kg containers of a concentrated chemical ingredient are shown in Table 8E.2. Prepare a normal probability plot of the data and estimate process capability.
+
+```{r}
+#read in the data
+weights <- c(0.9475, 0.9775, 0.9965, 1.0075, 1.0180, 0.9705, 0.9860, 0.9975, 1.0100, 1.0200, 0.9770, 0.9960, 1.0050, 1.0175, 1.0250)
+
+library(e1071)
+probplot(weights)
+```
+
+```{r}
+#see section 8.2.2 for explained methodology
+#84th percentile
+#sigma can be estimated by the 84th percentile minus the 50th percentile
+#from the chart, we see that the 84th percentile is around 1.021
+#the 50th percentile is around .995
+sigma = 1.021 - 1
+
+#6 sigma is sufficient to estimate
+sigma * 6
+```
 
   
   
@@ -43,6 +113,9 @@ An electric utility tracks the response time to customerreported outages. The da
 (a) Estimate the capability of the utility’s process for responding to customer-reported outages.  
 (b) The utility wants to achieve a 90% response rate in under two hours, as response to emergency outages is an important measure of customer satisfaction. What is the capability of the process with respect to this objective?  
 
+```{r}
+
+```
 
   
 ## Problem 8.19: Company Capability Confidence
