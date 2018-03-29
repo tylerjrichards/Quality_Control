@@ -1,0 +1,102 @@
+---
+title: 'Chapter 13: Example Walkthrough'
+author: Tyler Richards
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r include=FALSE}
+library(knitr)
+library(here)
+```
+
+## Example 13.5: The Aircraft Primer Paint Problem
+
+Use the ANOVA described above to analyze the aircraft primer paint experiment described in Section 13.4.1.
+
+```{r}
+#the book has poorly formatted data, we need to take data from this framework
+```
+```{r echo = F}
+include_graphics("C:/Users/Tyler/Documents/Spring18/Quality_Control/Screenshots/Example_13_5.png")
+
+```
+
+```{r}
+#to this one
+Adhesion_data <- read.csv("Adhesion_Force.csv")
+Adhesion_data
+```
+
+
+```{r}
+#this formatting is easiest to do in excel, and is often a requirement when approaching a problem using R
+
+#R read the primer data as numeric, we need categorical data
+Adhesion_data$Primer <- as.factor(Adhesion_data$Primer)
+
+#perform anova
+anova(lm(Value ~ Primer + Application + Primer*Application, data = Adhesion_data))
+
+```
+
+
+## Example 13.6: Router Vibration
+
+```{r}
+#again, the data is formatted poorly in the book
+Router_data <- read.csv("Router_Vibration.csv")
+
+#format the data for our categorical variables
+Router_data$A <- as.factor(Router_data$A)
+Router_data$B <- as.factor(Router_data$B)
+
+#apply anova
+anova(lm(Vibration ~ A + B + A*B, data = Router_data))
+
+#we can get the effects using equations 13.11, 13.12, and 13.13
+#option 1
+effect_A = (1/(2*4))*(96.1 + 161.1 - 59.7 - 64.4)
+effect_B = (1/(2*4))*(59.7 + 161.1 - 96.1 - 64.4)
+effect_AB = (1/(2*4)) * (161.1 + 64.4 - 96.1 - 59.7)
+print(paste(effect_A, effect_B, effect_AB, sep = " "))
+
+#When we fit a linear model, R automatically calculates the effects of each factor. We just need to divide by 2 and take the absolutely value of the value to find the answer here 
+
+Vibration_fit = lm(Vibration ~ A + B + A*B, data = Router_data)
+effect_A = abs(Vibration_fit$effects[2]) / 2 #the second number is the effect of the first factor, the third for the second, etc
+effect_B = abs(Vibration_fit$effects[3]) / 2
+effect_AB = abs(Vibration_fit$effects[4]) / 2
+print(paste(effect_A, effect_B, effect_AB, sep = " ")) #print them all out
+
+```
+
+## Example 13.7: A 2^3 Factorial Design
+
+An experiment was performed to investigate the surface finish of a metal part. The experiment is a 23 factorial design in the factors feed rate (A), depth of cut (B), and tool angle (C), with n = 2 replicates. Table 13.12 presents the observed surface-finish data for this experiment, and the design is shown graphically in Fig. 13.25. Analyze and interpret the data from this experiment. 
+
+```{r}
+#read in the data
+#we can specify the column types using the colClasses parameter
+Surface_data <- read.csv("Surface_Finish.csv", colClasses = c("factor", "factor", "factor", "numeric"))
+
+#use anova
+#we know we're going to be using the model to calculate effects later, so let's define it before anova this time
+Surface_fit <- lm(Surface_Finish ~ A + B + C + A*B + A*C + B*C + A*B*C, data = Surface_data)
+anova(Surface_fit)
+
+effect_A <- abs(Surface_fit$effects[2]) / 2
+effect_B <- abs(Surface_fit$effects[3]) / 2
+effect_C <- abs(Surface_fit$effects[4]) / 2
+effect_AB <- abs(Surface_fit$effects[5]) / 2
+effect_AC <- abs(Surface_fit$effects[6]) / 2
+effect_BC <- abs(Surface_fit$effects[7]) / 2
+effect_ABC <- abs(Surface_fit$effects[8]) / 2
+
+print(paste(effect_A, effect_B, effect_C, effect_AB, effect_AC, effect_BC, effect_ABC, sep = " "))
+
+```
+

@@ -38,8 +38,14 @@ lower = (100 - 85) / (3 * sigma)
 
 Cpk = min(upper, lower)
 
+#c
+val = (5/1.05) * sigma
+p_actual <- pnorm(val, lower.tail = F)
 
+val = (10/1.05) * sigma
+p_potential <- pnorm(val, lower.tail = F)
 
+print(paste(p_actual, p_potential, sep = " "))
 ```
 
   
@@ -49,27 +55,36 @@ Cpk = min(upper, lower)
 Consider the two processes shown in Table 8E.1 (the
 sample size n = 5). Specifications are at 100 ± 10. Calculate Cp, Cpk, and Cpm and interpret these ratios.  
 ```{r}
+#enter data
 x_a_mean = 100
 s_a = 3
 x_b_mean = 105
 s_b = 1
 
+#estimate sigma from chart
+c_4 = .94
+sigma_a = s_a/c_4
+sigma_b = s_b/c_4
+
 #process a
-Cp_a = (110 - 90) / (6 * s_a)
-Cpk_upper_a = (110 - x_a_mean) / (3 * s_a)
-Cpk_lower_a = (x_a_mean - 90) / (3 * s_a)
+Cp_a = (110 - 90) / (6 * sigma_a)
+Cpk_upper_a = (110 - x_a_mean) / (3 * sigma_a)
+Cpk_lower_a = (x_a_mean - 90) / (3 * sigma_a)
+#the smaller of the two is the Cpk
 min(Cpk_upper_a, Cpk_lower_a )
 
 #process b
-Cp_b = (110 - 90) / (6 * 1)
+Cp_b = (110 - 90) / (6 * sigma_b)
 
-Cpk_upper_b = (110 - x_b_mean) / (3 * s_b)
-Cpk_lower_b = (x_b_mean - 90) / (3 * s_b)
+Cpk_upper_b = (110 - x_b_mean) / (3 * sigma_b)
+Cpk_lower_b = (x_b_mean - 90) / (3 * sigma_b)
+#the smaller of the two is the Cpk
 min(Cpk_upper_b, Cpk_lower_b )
 
 #Cpm
-#ξ = xi
-xi_b = (x_b_mean - (.5*(110 + 90))) / s_b
+
+#find ξ as xi
+xi_b = (x_b_mean - (.5*(110 + 90))) / sigma_b
 
 
 Cpm_b = Cp_b / sqrt(1 + xi_b^2)
@@ -114,6 +129,21 @@ An electric utility tracks the response time to customerreported outages. The da
 (b) The utility wants to achieve a 90% response rate in under two hours, as response to emergency outages is an important measure of customer satisfaction. What is the capability of the process with respect to this objective?  
 
 ```{r}
+#enter data
+Electric_utility <- c(80, 102, 86, 94, 86, 106, 105, 110, 127, 97, 110, 104, 97, 128, 98, 84, 97, 87, 99, 94, 105, 104, 84, 77, 125, 85, 80, 104, 103, 109, 115, 89, 100, 96, 96, 87, 106, 100, 102, 93)
+
+#a
+#find 6 sigma for this data
+Six_sigma <- 6 * sd(Electric_utility)
+print(Six_sigma)
+
+#b
+#two hours = 120 minutes
+Upper_limit <- 120
+
+Capability <- (Upper_limit - mean(Electric_utility)) / (3 * sd(Electric_utility))
+print(Capability)
+
 
 ```
 
@@ -121,9 +151,14 @@ An electric utility tracks the response time to customerreported outages. The da
 ## Problem 8.19: Company Capability Confidence
 
   
-  
 A company has been asked by an important customer to demonstrate that its process capability ratio Cp exceeds 1.33. It has taken a sample of 50 parts and obtained the point estimate . Assume that the quality characteristic follows a normal distribution. Can the company demonstrate that Cp exceeds 1.33 at the 95% level of confidence? What level of confidence would give a one-sided lower confidence limit on Cp that exceeds 1.33?  
   
+```{r}
+
+
+
+```
+
   
 ## Problem 8.25: Operator Variability
   
