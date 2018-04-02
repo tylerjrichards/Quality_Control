@@ -179,8 +179,7 @@ pchisq(val, 49)
 Ten parts are measured three times by the same operator in a gauge capability study. The data are shown in Table 8E.7.  
 (a) Describe the measurement error that results from the use of this gauge.  
 (b) Estimate total variability and product variability.  
-(c) What percentage of total variability is due to the gauge?  
-  
+
 
 ```{r}
 
@@ -192,16 +191,57 @@ anova(lm(Value ~ Part_Num + Measurement ,data = Operator_data))
 #b
 sig_total <- sd(Operator_data$Value)^2
 
-#get R bar
-R_bar = mean(c(1, 4, 3, 2,2,1,3,2,3,2))
+#get R bar and d2
+R_bar = mean(c(1, 4, 3, 2, 2, 1, 3, 2, 3, 2))
 d_2 = 1.693
 
+#find the sig for gauge
 sig_gauge = R_bar/d_2
 
+#find product variability
 sig_total - sig_gauge^2
 
-#c
 
 
 ```
+
+## Problem 8.27: Gauge Capability
+  
+  
+The data in Table 8E.9 were taken by one operator during a gauge capability study.  
+(a) Estimate gauge capability.  
+(b) Does the control chart analysis of these data indicate any potential problem in using the gauge?  
+  
+```{r include = F}
+Gauge_data <- read.csv("C:/Users/Tyler/Documents/Spring18/Quality_Control/Chapter_8/Gauge_capability_measurement.csv")
+```
+
+
+```{r eval = F}
+#read in the data
+Gauge_data <- read.csv("Gauge_capability_measurement.csv")
+
+```
+
+```{r}
+
+#Find R
+R_bar <- mean(abs(Gauge_data$Measurement_1 - Gauge_data$Measurement_2))
+
+#look in chart for 1/d_2
+d_2_inverse <- .8865
+
+Six_sigma <- (R_bar * d_2_inverse) * 6
+print(paste("The 6 sigma value is", Six_sigma))
+
+
+#now create the R chart
+library(qcc)
+Gauge_chart <- qcc(Gauge_data[,2:3], type = "R")
+
+#as we can see, there are quite a few out of control groups
+
+```
+
+
 
