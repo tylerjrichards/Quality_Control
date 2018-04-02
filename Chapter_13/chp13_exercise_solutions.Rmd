@@ -1,0 +1,109 @@
+---
+title: 'Chapter 13 End of Chapter Solutions'
+author: 'Tyler Richards'
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r include=FALSE}
+library(knitr)
+```
+
+## Problem 13.1: TV Brightness
+
+An article in Industrial Quality Control (1956, pp. 5–8) describes an experiment to investigate the effect of glass type and phosphor type on the brightness of a television tube. The response measured is the current necessary (in microamps) to obtain a specified brightness level. The data are shown in Table 13E.1. Analyze the data and draw conclusions.
+
+```{r echo = F}
+include_graphics("C:/Users/Tyler/Documents/Spring18/Quality_Control/Screenshots/Exercise_13_1.png")
+```
+
+```{r include = F}
+Television_brightness <- read.csv("C:/Users/Tyler/Documents/Spring18/Quality_Control/Chapter_13/Television_Brightness.csv", colClasses = c("factor", "factor", "numeric"))
+```
+
+```{r eval = F}
+#first, read in the data
+Television_brightness <- read.csv("Chapter_13/Television_Brightness.csv", colClasses = c("factor", "factor", "numeric"))
+```
+
+```{r}
+#perform anova
+anova(lm(Value ~ Glass_type + Phosphor_Type + Glass_type*Phosphor_Type, data = Television_brightness))
+```
+
+
+  
+## Problem 13.2: Cutting Tools
+
+A process engineer is trying to improve the life of a
+cutting tool. He has run a 2^3 experiment using cutting speed (A), metal hardness (B), and cutting angle (C) as the factors. The data from two replicates are shown in Table 13E.2.  
+(a) Do any of the three factors affect tool life?  
+(b) What combination of factor levels produces the longest tool life?  
+(c) Is there a combination of cutting speed and cutting angle that always gives good results regardless of metal hardness?  
+
+```{r echo = F}
+include_graphics("C:/Users/Tyler/Documents/Spring18/Quality_Control/Screenshots/Exercise_13_2.png")
+```
+
+```{r include = F}
+
+Tool_data <- read.csv("C:/Users/Tyler/Documents/Spring18/Quality_Control/Chapter_13/Cutting_tool.csv", colClasses = c("factor", "factor", "factor", "numeric"))
+```
+
+```{r eval = F}
+#read in the data
+Tool_data <- read.csv("Cutting_tool.csv", colClasses = c("factor", "factor", "factor", "factor", "numeric"))
+```
+
+```{r}
+#use anova
+Tool_model <- lm(Value ~ A + B + C, data = Tool_data)
+anova(Tool_model)
+```
+
+
+## Problem 13.3: Tool Life Probability Plot
+
+Find the residuals from the tool life experiment in Exercise 13.2. Construct a normal probability plot of the residuals. Plot the residuals versus the predicted values. Comment on the plots.  
+
+```{r}
+#one of the easiest ways to make a normal probability plot is through the rstandard function
+
+qqnorm(Tool_data$Value)
+
+```
+
+
+## Problem 13.4: Soft Drink Experiment
+
+Four factors are thought to possibly influence the taste of a soft-drink beverage: type of sweetener (A), ratio of syrup to water (B), carbonation level (C), and temperature (D). Each factor can be run at two levels, producing a 2^4 design. At each run in the design, samples of the beverage are given to a test panel consisting of 20 people. Each tester assigns a point score from 1 to 10 to the beverage. Total score is the response variable, and the objective is to find a formulation that maximizes total score. Two replicates of this design are run, and the results are shown in Table 13E.3. Analyze the data and draw conclusions.  
+
+```{r echo = F}
+include_graphics("C:/Users/Tyler/Documents/Spring18/Quality_Control/Screenshots/Exercise_13_4.png")
+```
+
+```{r include = F}
+Soft_drink_data <- read.csv("C:/Users/Tyler/Documents/Spring18/Quality_Control/Chapter_13/Soft_drink_data.csv", colClasses = c("factor", "factor", "factor", "factor", "numeric"))
+```
+
+```{r eval = F}
+Soft_drink_data <- read.csv("Soft_drink_data.csv", colClasses = c("factor", "factor", "factor", "factor", "numeric"))
+```
+
+```{r}
+anova(lm(Value ~ A + B + C + D, data = Soft_drink_data))
+```
+
+
+## Problem 13.5: Soft Drink Probability Plots
+
+Consider the experiment in Exercise 13.4. Plot the residuals against the levels of factors A, B, C, and D.  
+Also construct a normal probability plot of the residuals. Comment on these plots.
+
+```{r}
+qqnorm(Soft_drink_data$Value)
+```
+

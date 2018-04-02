@@ -49,7 +49,7 @@ An electric utility tracks the response time to customerreported outages. The da
 
   
   
-A company has been asked by an important customer to demonstrate that its process capability ratio Cp exceeds 1.33. It has taken a sample of 50 parts and obtained the point estimate . Assume that the quality characteristic follows a normal distribution. Can the company demonstrate that Cp exceeds 1.33 at the 95% level of confidence? What level of confidence would give a one-sided lower confidence limit on Cp that exceeds 1.33?  
+A company has been asked by an important customer to demonstrate that its process capability ratio Cp exceeds 1.33. It has taken a sample of 50 parts and obtained the point estimate 1.52. Assume that the quality characteristic follows a normal distribution. Can the company demonstrate that Cp exceeds 1.33 at the 95% level of confidence? What level of confidence would give a one-sided lower confidence limit on Cp that exceeds 1.33?  
   
   
 ## Problem 8.25: Operator Variability
@@ -57,9 +57,7 @@ A company has been asked by an important customer to demonstrate that its proces
   
 Ten parts are measured three times by the same operator in a gauge capability study. The data are shown in Table 8E.7.  
 (a) Describe the measurement error that results from the use of this gauge.  
-(b) Estimate total variability and product variability.  
-(c) What percentage of total variability is due to the gauge?  
-(d) If specifications on the part are at 100 ± 15, find the P/T ratio for this gauge. Comment on the adequacy of the gauge.  
+(b) Estimate total variability and product variability. 
 
   
 ## Problem 8.27: Gauge Capability

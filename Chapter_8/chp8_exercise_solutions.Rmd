@@ -1,5 +1,5 @@
 ---
-title: 'Chapter 8 End of Chapter Solution'
+title: 'Chapter 8 End of Chapter Solutions'
 output:
   prettydoc::html_pretty:
     theme: tactile
@@ -21,6 +21,7 @@ A process is in control with x_bar = 100, s = 1.05, and n = 5. The process speci
 (c) How much could the fallout in the process be reduced if the process were corrected to operate at the nominal specification? 
 
 ```{r}
+#a
 #potential capability
 
 #we estimate sigma using c_4 and s
@@ -30,13 +31,15 @@ sigma = (s /c_4 )
 
 #find Cp, which is potential capability
 Cp <- (105 - 85) / (6 * sigma)
+print(paste("The potential capability is", Cp))
 
-
+#b
 #Cpk is actual capability
 upper = (105 - 100) / (3 * sigma)
 lower = (100 - 85) / (3 * sigma)
 
 Cpk = min(upper, lower)
+print(paste("The actual capability is ", Cpk))
 
 #c
 val = (5/1.05) * sigma
@@ -44,6 +47,7 @@ p_actual <- pnorm(val, lower.tail = F)
 
 val = (10/1.05) * sigma
 p_potential <- pnorm(val, lower.tail = F)
+
 
 print(paste(p_actual, p_potential, sep = " "))
 ```
@@ -151,11 +155,20 @@ print(Capability)
 ## Problem 8.19: Company Capability Confidence
 
   
-A company has been asked by an important customer to demonstrate that its process capability ratio Cp exceeds 1.33. It has taken a sample of 50 parts and obtained the point estimate . Assume that the quality characteristic follows a normal distribution. Can the company demonstrate that Cp exceeds 1.33 at the 95% level of confidence? What level of confidence would give a one-sided lower confidence limit on Cp that exceeds 1.33?  
+A company has been asked by an important customer to demonstrate that its process capability ratio Cp exceeds 1.33. It has taken a sample of 50 parts and obtained the point estimate Cp = 1.52. Assume that the quality characteristic follows a normal distribution. Can the company demonstrate that Cp exceeds 1.33 at the 95% level of confidence? What level of confidence would give a one-sided lower confidence limit on Cp that exceeds 1.33?  
   
 ```{r}
+#use the chi squared distribution to estimate the lower bound for a 95% confidence level 
+C_given = 1.52
+n = 50
+Lower_b <- C_given * sqrt(qchisq(.05, n - 1)/(n - 1))
+print(Lower_b)
 
+#first, reverse the chi squared equation to get the value
+val = ((1.33 / C_given)^2) * (n-1)
 
+#next, use the pchisq function to get the one-sided lower confidence limit
+pchisq(val, 49)
 
 ```
 
@@ -167,17 +180,28 @@ Ten parts are measured three times by the same operator in a gauge capability st
 (a) Describe the measurement error that results from the use of this gauge.  
 (b) Estimate total variability and product variability.  
 (c) What percentage of total variability is due to the gauge?  
-(d) If specifications on the part are at 100 ± 15, find the P/T ratio for this gauge. Comment on the adequacy of the gauge.  
-
-  
-## Problem 8.27: Gauge Capability
-  
-  
-The data in Table 8E.9 were taken by one operator during a gauge capability study.  
-(a) Estimate gauge capability.  
-(b) Does the control chart analysis of these data indicate any potential problem in using the gauge?  
   
 
-  
+```{r}
 
+#a
+Operator_data <- read.csv("Operator_Variability.csv", colClasses = c("factor", "numeric", "factor"))
+anova(lm(Value ~ Part_Num + Measurement ,data = Operator_data))
+
+
+#b
+sig_total <- sd(Operator_data$Value)^2
+
+#get R bar
+R_bar = mean(c(1, 4, 3, 2,2,1,3,2,3,2))
+d_2 = 1.693
+
+sig_gauge = R_bar/d_2
+
+sig_total - sig_gauge^2
+
+#c
+
+
+```
 

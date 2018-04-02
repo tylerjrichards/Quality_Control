@@ -12,10 +12,48 @@
 
 
 
-<title>Chapter 8 End of Chapter Questions</title>
+<title>Chapter 8 End of Chapter Solutions</title>
 
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 
 
@@ -31,7 +69,7 @@
 <div id="container">
 <div class="inner">
 <header>
-<h1 class="title toc-ignore">Chapter 8 End of Chapter Questions</h1>
+<h1 class="title toc-ignore">Chapter 8 End of Chapter Solutions</h1>
 </header>
 
 <hr>
@@ -41,18 +79,99 @@
 <p>Currently, the questions come from the 6th edition of the QC book. Different version have the same problems but different problem numbers.</p>
 <div id="problem-8.5-capability-calculation" class="section level2">
 <h2>Problem 8.5: Capability Calculation</h2>
-<p>A process is in control with x = 100, s = 1.05, and n = 5. The process specifications are at 95 ± 10. The quality characteristic has a normal distribution.<br />
+<p>A process is in control with x_bar = 100, s = 1.05, and n = 5. The process specifications are at 95 ± 10. The quality characteristic has a normal distribution.<br />
 (a) Estimate the potential capability.<br />
 (b) Estimate the actual capability.<br />
 (c) How much could the fallout in the process be reduced if the process were corrected to operate at the nominal specification?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#a</span>
+<span class="co">#potential capability</span>
+
+<span class="co">#we estimate sigma using c_4 and s</span>
+c_<span class="dv">4</span> =<span class="st"> </span>.<span class="dv">94</span>
+s =<span class="st"> </span><span class="fl">1.05</span>
+sigma =<span class="st"> </span>(s <span class="op">/</span>c_<span class="dv">4</span> )
+
+<span class="co">#find Cp, which is potential capability</span>
+Cp &lt;-<span class="st"> </span>(<span class="dv">105</span> <span class="op">-</span><span class="st"> </span><span class="dv">85</span>) <span class="op">/</span><span class="st"> </span>(<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>sigma)
+<span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;The potential capability is&quot;</span>, Cp))</code></pre></div>
+<pre><code>## [1] &quot;The potential capability is 2.98412698412698&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#b</span>
+<span class="co">#Cpk is actual capability</span>
+upper =<span class="st"> </span>(<span class="dv">105</span> <span class="op">-</span><span class="st"> </span><span class="dv">100</span>) <span class="op">/</span><span class="st"> </span>(<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>sigma)
+lower =<span class="st"> </span>(<span class="dv">100</span> <span class="op">-</span><span class="st"> </span><span class="dv">85</span>) <span class="op">/</span><span class="st"> </span>(<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>sigma)
+
+Cpk =<span class="st"> </span><span class="kw">min</span>(upper, lower)
+<span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;The actual capability is &quot;</span>, Cpk))</code></pre></div>
+<pre><code>## [1] &quot;The actual capability is  1.49206349206349&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#c</span>
+val =<span class="st"> </span>(<span class="dv">5</span><span class="op">/</span><span class="fl">1.05</span>) <span class="op">*</span><span class="st"> </span>sigma
+p_actual &lt;-<span class="st"> </span><span class="kw">pnorm</span>(val, <span class="dt">lower.tail =</span> F)
+
+val =<span class="st"> </span>(<span class="dv">10</span><span class="op">/</span><span class="fl">1.05</span>) <span class="op">*</span><span class="st"> </span>sigma
+p_potential &lt;-<span class="st"> </span><span class="kw">pnorm</span>(val, <span class="dt">lower.tail =</span> F)
+
+
+<span class="kw">print</span>(<span class="kw">paste</span>(p_actual, p_potential, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>))</code></pre></div>
+<pre><code>## [1] &quot;5.21268842886185e-08 9.88539927045978e-27&quot;</code></pre>
 </div>
 <div id="problem-8.9-processing-data" class="section level2">
 <h2>Problem 8.9: Processing Data</h2>
 <p>Consider the two processes shown in Table 8E.1 (the sample size n = 5). Specifications are at 100 ± 10. Calculate Cp, Cpk, and Cpm and interpret these ratios.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#enter data</span>
+x_a_mean =<span class="st"> </span><span class="dv">100</span>
+s_a =<span class="st"> </span><span class="dv">3</span>
+x_b_mean =<span class="st"> </span><span class="dv">105</span>
+s_b =<span class="st"> </span><span class="dv">1</span>
+
+<span class="co">#estimate sigma from chart</span>
+c_<span class="dv">4</span> =<span class="st"> </span>.<span class="dv">94</span>
+sigma_a =<span class="st"> </span>s_a<span class="op">/</span>c_<span class="dv">4</span>
+sigma_b =<span class="st"> </span>s_b<span class="op">/</span>c_<span class="dv">4</span>
+
+<span class="co">#process a</span>
+Cp_a =<span class="st"> </span>(<span class="dv">110</span> <span class="op">-</span><span class="st"> </span><span class="dv">90</span>) <span class="op">/</span><span class="st"> </span>(<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>sigma_a)
+Cpk_upper_a =<span class="st"> </span>(<span class="dv">110</span> <span class="op">-</span><span class="st"> </span>x_a_mean) <span class="op">/</span><span class="st"> </span>(<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>sigma_a)
+Cpk_lower_a =<span class="st"> </span>(x_a_mean <span class="op">-</span><span class="st"> </span><span class="dv">90</span>) <span class="op">/</span><span class="st"> </span>(<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>sigma_a)
+<span class="co">#the smaller of the two is the Cpk</span>
+<span class="kw">min</span>(Cpk_upper_a, Cpk_lower_a )</code></pre></div>
+<pre><code>## [1] 1.044444</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#process b</span>
+Cp_b =<span class="st"> </span>(<span class="dv">110</span> <span class="op">-</span><span class="st"> </span><span class="dv">90</span>) <span class="op">/</span><span class="st"> </span>(<span class="dv">6</span> <span class="op">*</span><span class="st"> </span>sigma_b)
+
+Cpk_upper_b =<span class="st"> </span>(<span class="dv">110</span> <span class="op">-</span><span class="st"> </span>x_b_mean) <span class="op">/</span><span class="st"> </span>(<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>sigma_b)
+Cpk_lower_b =<span class="st"> </span>(x_b_mean <span class="op">-</span><span class="st"> </span><span class="dv">90</span>) <span class="op">/</span><span class="st"> </span>(<span class="dv">3</span> <span class="op">*</span><span class="st"> </span>sigma_b)
+<span class="co">#the smaller of the two is the Cpk</span>
+<span class="kw">min</span>(Cpk_upper_b, Cpk_lower_b )</code></pre></div>
+<pre><code>## [1] 1.566667</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Cpm</span>
+
+<span class="co">#find ξ as xi</span>
+xi_b =<span class="st"> </span>(x_b_mean <span class="op">-</span><span class="st"> </span>(.<span class="dv">5</span><span class="op">*</span>(<span class="dv">110</span> <span class="op">+</span><span class="st"> </span><span class="dv">90</span>))) <span class="op">/</span><span class="st"> </span>sigma_b
+
+
+Cpm_b =<span class="st"> </span>Cp_b <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>xi_b<span class="op">^</span><span class="dv">2</span>)
+Cpm_b</code></pre></div>
+<pre><code>## [1] 0.6520706</code></pre>
 </div>
 <div id="problem-8.11-chemical-ingredient-container-weight" class="section level2">
 <h2>Problem 8.11: Chemical Ingredient Container Weight</h2>
 <p>The weights of nominal 1-kg containers of a concentrated chemical ingredient are shown in Table 8E.2. Prepare a normal probability plot of the data and estimate process capability.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#read in the data</span>
+weights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.9475</span>, <span class="fl">0.9775</span>, <span class="fl">0.9965</span>, <span class="fl">1.0075</span>, <span class="fl">1.0180</span>, <span class="fl">0.9705</span>, <span class="fl">0.9860</span>, <span class="fl">0.9975</span>, <span class="fl">1.0100</span>, <span class="fl">1.0200</span>, <span class="fl">0.9770</span>, <span class="fl">0.9960</span>, <span class="fl">1.0050</span>, <span class="fl">1.0175</span>, <span class="fl">1.0250</span>)
+
+<span class="kw">library</span>(e1071)
+<span class="kw">probplot</span>(weights)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#see section 8.2.2 for explained methodology</span>
+<span class="co">#84th percentile</span>
+<span class="co">#sigma can be estimated by the 84th percentile minus the 50th percentile</span>
+<span class="co">#from the chart, we see that the 84th percentile is around 1.021</span>
+<span class="co">#the 50th percentile is around .995</span>
+sigma =<span class="st"> </span><span class="fl">1.021</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
+
+<span class="co">#6 sigma is sufficient to estimate</span>
+sigma <span class="op">*</span><span class="st"> </span><span class="dv">6</span></code></pre></div>
+<pre><code>## [1] 0.126</code></pre>
 </div>
 <div id="problem-8.15-electric-utilities" class="section level2">
 <h2>Problem 8.15: Electric Utilities</h2>
@@ -62,22 +181,68 @@
 </li>
 <li>The utility wants to achieve a 90% response rate in under two hours, as response to emergency outages is an important measure of customer satisfaction. What is the capability of the process with respect to this objective?</li>
 </ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#enter data</span>
+Electric_utility &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">80</span>, <span class="dv">102</span>, <span class="dv">86</span>, <span class="dv">94</span>, <span class="dv">86</span>, <span class="dv">106</span>, <span class="dv">105</span>, <span class="dv">110</span>, <span class="dv">127</span>, <span class="dv">97</span>, <span class="dv">110</span>, <span class="dv">104</span>, <span class="dv">97</span>, <span class="dv">128</span>, <span class="dv">98</span>, <span class="dv">84</span>, <span class="dv">97</span>, <span class="dv">87</span>, <span class="dv">99</span>, <span class="dv">94</span>, <span class="dv">105</span>, <span class="dv">104</span>, <span class="dv">84</span>, <span class="dv">77</span>, <span class="dv">125</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">104</span>, <span class="dv">103</span>, <span class="dv">109</span>, <span class="dv">115</span>, <span class="dv">89</span>, <span class="dv">100</span>, <span class="dv">96</span>, <span class="dv">96</span>, <span class="dv">87</span>, <span class="dv">106</span>, <span class="dv">100</span>, <span class="dv">102</span>, <span class="dv">93</span>)
+
+<span class="co">#a</span>
+<span class="co">#find 6 sigma for this data</span>
+Six_sigma &lt;-<span class="st"> </span><span class="dv">6</span> <span class="op">*</span><span class="st"> </span><span class="kw">sd</span>(Electric_utility)
+<span class="kw">print</span>(Six_sigma)</code></pre></div>
+<pre><code>## [1] 73.62885</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#b</span>
+<span class="co">#two hours = 120 minutes</span>
+Upper_limit &lt;-<span class="st"> </span><span class="dv">120</span>
+
+Capability &lt;-<span class="st"> </span>(Upper_limit <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(Electric_utility)) <span class="op">/</span><span class="st"> </span>(<span class="dv">3</span> <span class="op">*</span><span class="st"> </span><span class="kw">sd</span>(Electric_utility))
+<span class="kw">print</span>(Capability)</code></pre></div>
+<pre><code>## [1] 0.5765403</code></pre>
 </div>
 <div id="problem-8.19-company-capability-confidence" class="section level2">
 <h2>Problem 8.19: Company Capability Confidence</h2>
-<p>A company has been asked by an important customer to demonstrate that its process capability ratio Cp exceeds 1.33. It has taken a sample of 50 parts and obtained the point estimate 1.52. Assume that the quality characteristic follows a normal distribution. Can the company demonstrate that Cp exceeds 1.33 at the 95% level of confidence? What level of confidence would give a one-sided lower confidence limit on Cp that exceeds 1.33?</p>
+<p>A company has been asked by an important customer to demonstrate that its process capability ratio Cp exceeds 1.33. It has taken a sample of 50 parts and obtained the point estimate Cp = 1.52. Assume that the quality characteristic follows a normal distribution. Can the company demonstrate that Cp exceeds 1.33 at the 95% level of confidence? What level of confidence would give a one-sided lower confidence limit on Cp that exceeds 1.33?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#use the chi squared distribution to estimate the lower bound for a 95% confidence level </span>
+C_given =<span class="st"> </span><span class="fl">1.52</span>
+n =<span class="st"> </span><span class="dv">50</span>
+Lower_b &lt;-<span class="st"> </span>C_given <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">qchisq</span>(.<span class="dv">05</span>, n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))
+<span class="kw">print</span>(Lower_b)</code></pre></div>
+<pre><code>## [1] 1.264851</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#first, reverse the chi squared equation to get the value</span>
+val =<span class="st"> </span>((<span class="fl">1.33</span> <span class="op">/</span><span class="st"> </span>C_given)<span class="op">^</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>(n<span class="op">-</span><span class="dv">1</span>)
+
+<span class="co">#next, use the pchisq function to get the one-sided lower confidence limit</span>
+<span class="kw">pchisq</span>(val, <span class="dv">49</span>)</code></pre></div>
+<pre><code>## [1] 0.1157001</code></pre>
 </div>
 <div id="problem-8.25-operator-variability" class="section level2">
 <h2>Problem 8.25: Operator Variability</h2>
 <p>Ten parts are measured three times by the same operator in a gauge capability study. The data are shown in Table 8E.7.<br />
 (a) Describe the measurement error that results from the use of this gauge.<br />
-(b) Estimate total variability and product variability.</p>
-</div>
-<div id="problem-8.27-gauge-capability" class="section level2">
-<h2>Problem 8.27: Gauge Capability</h2>
-<p>The data in Table 8E.9 were taken by one operator during a gauge capability study.<br />
-(a) Estimate gauge capability.<br />
-(b) Does the control chart analysis of these data indicate any potential problem in using the gauge?</p>
+(b) Estimate total variability and product variability.<br />
+(c) What percentage of total variability is due to the gauge?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#a</span>
+Operator_data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Operator_Variability.csv&quot;</span>, <span class="dt">colClasses =</span> <span class="kw">c</span>(<span class="st">&quot;factor&quot;</span>, <span class="st">&quot;numeric&quot;</span>, <span class="st">&quot;factor&quot;</span>))
+<span class="kw">anova</span>(<span class="kw">lm</span>(Value <span class="op">~</span><span class="st"> </span>Part_Num <span class="op">+</span><span class="st"> </span>Measurement ,<span class="dt">data =</span> Operator_data))</code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Value
+##             Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## Part_Num     9 103.467 11.4963  6.3607 0.0004465 ***
+## Measurement  2   0.800  0.4000  0.2213 0.8036156    
+## Residuals   18  32.533  1.8074                      
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#b</span>
+sig_total &lt;-<span class="st"> </span><span class="kw">sd</span>(Operator_data<span class="op">$</span>Value)<span class="op">^</span><span class="dv">2</span>
+
+<span class="co">#get R bar</span>
+R_bar =<span class="st"> </span><span class="kw">mean</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>))
+d_<span class="dv">2</span> =<span class="st"> </span><span class="fl">1.693</span>
+
+sig_gauge =<span class="st"> </span>R_bar<span class="op">/</span>d_<span class="dv">2</span>
+
+sig_total <span class="op">-</span><span class="st"> </span>sig_gauge<span class="op">^</span><span class="dv">2</span></code></pre></div>
+<pre><code>## [1] 2.871624</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#c</span></code></pre></div>
 </div>
 </div>
 </div>
