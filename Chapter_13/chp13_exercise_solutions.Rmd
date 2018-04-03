@@ -60,7 +60,8 @@ Tool_data <- read.csv("Cutting_tool.csv", colClasses = c("factor", "factor", "fa
 
 ```{r}
 #use anova
-Tool_model <- lm(Value ~ A + B + C, data = Tool_data)
+Tool_model <- lm(Value ~ A + B + C + A*B + A*C + B*C + A*B*C, data = Tool_data)
+Tool_model
 anova(Tool_model)
 ```
 
@@ -70,9 +71,10 @@ anova(Tool_model)
 Find the residuals from the tool life experiment in Exercise 13.2. Construct a normal probability plot of the residuals. Plot the residuals versus the predicted values. Comment on the plots.  
 
 ```{r}
-#one of the easiest ways to make a normal probability plot is through the rstandard function
-
-qqnorm(Tool_data$Value)
+#thankfully, this is super easy in R
+#when you call plot(model), 4 graphs, including all the ones we need, are automatically created
+#we could only request the first two graphs, but the other two are useful as well, just not in this problem.
+plot(Tool_model)
 
 ```
 
@@ -94,7 +96,15 @@ Soft_drink_data <- read.csv("Soft_drink_data.csv", colClasses = c("factor", "fac
 ```
 
 ```{r}
-anova(lm(Value ~ A + B + C + D, data = Soft_drink_data))
+#this formula is an easier way to include all variables and all interactions terms
+#the "." means "use all variables in the linear model"
+#the ".*." means "use all two way interaction terms in the linear model"
+#the ".*.*." means "use all three way interaction terms in the linear model"
+#the ".*.*.*." means "use all four way interaction terms in the linear model"
+#to be clear, you can write these out explicitly if you'd like but this is a much faster way
+Soft_model <- lm(Value ~ . + .*. + .*.*. + .*.*.*., data = Soft_drink_data)
+
+anova(Soft_model)
 ```
 
 
@@ -104,6 +114,7 @@ Consider the experiment in Exercise 13.4. Plot the residuals against the levels 
 Also construct a normal probability plot of the residuals. Comment on these plots.
 
 ```{r}
-qqnorm(Soft_drink_data$Value)
+plot(Soft_model)
+#these residuals are certainly not normally distributed
 ```
 
