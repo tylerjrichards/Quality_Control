@@ -17,7 +17,8 @@ library(here)
 
 ```{r}
 library(AcceptanceSampling)
-x <- OC2c(50, 25)
+x <- OC2c(n = 89,c = 2)
+x
 plot(x)
 ```
 
