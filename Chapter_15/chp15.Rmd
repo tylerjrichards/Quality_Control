@@ -1,0 +1,23 @@
+---
+title: 'Chapter 15: Example Walkthrough'
+author: Tyler Richards
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+
+```{r include=FALSE}
+library(knitr)
+library(here)
+```
+
+## Chapter 15.
+
+```{r}
+library(AcceptanceSampling)
+x <- OC2c(50, 25)
+plot(x)
+```
+
