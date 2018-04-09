@@ -154,11 +154,11 @@ effect_AB =<span class="st"> </span>(<span class="dv">1</span><span class="op">/
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#When we fit a linear model, R automatically calculates the effects of each factor. We just need to divide by 2 and take the absolutely value of the value to find the answer here </span>
 
 Vibration_fit =<span class="st"> </span><span class="kw">lm</span>(Vibration <span class="op">~</span><span class="st"> </span>A <span class="op">+</span><span class="st"> </span>B <span class="op">+</span><span class="st"> </span>A<span class="op">*</span>B, <span class="dt">data =</span> Router_data)
-effect_A =<span class="st"> </span><span class="kw">abs</span>(Vibration_fit<span class="op">$</span>effects[<span class="dv">2</span>]) <span class="op">/</span><span class="st"> </span><span class="dv">2</span> <span class="co">#the second number is the effect of the first factor, the third for the second, etc</span>
-effect_B =<span class="st"> </span><span class="kw">abs</span>(Vibration_fit<span class="op">$</span>effects[<span class="dv">3</span>]) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
-effect_AB =<span class="st"> </span><span class="kw">abs</span>(Vibration_fit<span class="op">$</span>effects[<span class="dv">4</span>]) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
+effect_A =<span class="st"> </span>Vibration_fit<span class="op">$</span>effects[<span class="dv">2</span>] <span class="op">/</span><span class="st"> </span><span class="dv">2</span> <span class="co">#the second number is the effect of the first factor, the third for the second, etc</span>
+effect_B =<span class="st"> </span>Vibration_fit<span class="op">$</span>effects[<span class="dv">3</span>] <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
+effect_AB =<span class="st"> </span>Vibration_fit<span class="op">$</span>effects[<span class="dv">4</span>] <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
 <span class="kw">print</span>(<span class="kw">paste</span>(effect_A, effect_B, effect_AB, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)) <span class="co">#print them all out</span></code></pre></div>
-<pre><code>## [1] &quot;16.6375 7.5375 8.7125&quot;</code></pre>
+<pre><code>## [1] &quot;16.6375 7.5375 -8.7125&quot;</code></pre>
 </div>
 <div id="example-13.7-a-23-factorial-design" class="section level2">
 <h2>Example 13.7: A 2^3 Factorial Design</h2>
@@ -185,16 +185,16 @@ Surface_fit &lt;-<span class="st"> </span><span class="kw">lm</span>(Surface_Fin
 ## Residuals  8 19.500   2.438                    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">effect_A &lt;-<span class="st"> </span><span class="kw">abs</span>(Surface_fit<span class="op">$</span>effects[<span class="dv">2</span>]) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
-effect_B &lt;-<span class="st"> </span><span class="kw">abs</span>(Surface_fit<span class="op">$</span>effects[<span class="dv">3</span>]) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
-effect_C &lt;-<span class="st"> </span><span class="kw">abs</span>(Surface_fit<span class="op">$</span>effects[<span class="dv">4</span>]) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
-effect_AB &lt;-<span class="st"> </span><span class="kw">abs</span>(Surface_fit<span class="op">$</span>effects[<span class="dv">5</span>]) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
-effect_AC &lt;-<span class="st"> </span><span class="kw">abs</span>(Surface_fit<span class="op">$</span>effects[<span class="dv">6</span>]) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
-effect_BC &lt;-<span class="st"> </span><span class="kw">abs</span>(Surface_fit<span class="op">$</span>effects[<span class="dv">7</span>]) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
-effect_ABC &lt;-<span class="st"> </span><span class="kw">abs</span>(Surface_fit<span class="op">$</span>effects[<span class="dv">8</span>]) <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">effect_A &lt;-<span class="st"> </span>Surface_fit<span class="op">$</span>effects[<span class="dv">2</span>] <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
+effect_B &lt;-<span class="st"> </span>Surface_fit<span class="op">$</span>effects[<span class="dv">3</span>] <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
+effect_C &lt;-<span class="st"> </span>Surface_fit<span class="op">$</span>effects[<span class="dv">4</span>] <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
+effect_AB &lt;-<span class="st"> </span>Surface_fit<span class="op">$</span>effects[<span class="dv">5</span>] <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
+effect_AC &lt;-<span class="st"> </span>Surface_fit<span class="op">$</span>effects[<span class="dv">6</span>] <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
+effect_BC &lt;-<span class="st"> </span>Surface_fit<span class="op">$</span>effects[<span class="dv">7</span>] <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
+effect_ABC &lt;-<span class="st"> </span>Surface_fit<span class="op">$</span>effects[<span class="dv">8</span>] <span class="op">/</span><span class="st"> </span><span class="dv">2</span>
 
 <span class="kw">print</span>(<span class="kw">paste</span>(effect_A, effect_B, effect_C, effect_AB, effect_AC, effect_BC, effect_ABC, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>))</code></pre></div>
-<pre><code>## [1] &quot;3.375 1.625 0.875 1.375 0.125 0.625 1.125&quot;</code></pre>
+<pre><code>## [1] &quot;3.375 1.625 0.875 1.375 -0.125 -0.625 1.125&quot;</code></pre>
 </div>
 </div>
 </div>

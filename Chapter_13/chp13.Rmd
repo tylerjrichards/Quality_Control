@@ -67,9 +67,9 @@ print(paste(effect_A, effect_B, effect_AB, sep = " "))
 #When we fit a linear model, R automatically calculates the effects of each factor. We just need to divide by 2 and take the absolutely value of the value to find the answer here 
 
 Vibration_fit = lm(Vibration ~ A + B + A*B, data = Router_data)
-effect_A = abs(Vibration_fit$effects[2]) / 2 #the second number is the effect of the first factor, the third for the second, etc
-effect_B = abs(Vibration_fit$effects[3]) / 2
-effect_AB = abs(Vibration_fit$effects[4]) / 2
+effect_A = Vibration_fit$effects[2] / 2 #the second number is the effect of the first factor, the third for the second, etc
+effect_B = Vibration_fit$effects[3] / 2
+effect_AB = Vibration_fit$effects[4] / 2
 print(paste(effect_A, effect_B, effect_AB, sep = " ")) #print them all out
 
 ```
@@ -88,13 +88,13 @@ Surface_data <- read.csv("Surface_Finish.csv", colClasses = c("factor", "factor"
 Surface_fit <- lm(Surface_Finish ~ A + B + C + A*B + A*C + B*C + A*B*C, data = Surface_data)
 anova(Surface_fit)
 
-effect_A <- abs(Surface_fit$effects[2]) / 2
-effect_B <- abs(Surface_fit$effects[3]) / 2
-effect_C <- abs(Surface_fit$effects[4]) / 2
-effect_AB <- abs(Surface_fit$effects[5]) / 2
-effect_AC <- abs(Surface_fit$effects[6]) / 2
-effect_BC <- abs(Surface_fit$effects[7]) / 2
-effect_ABC <- abs(Surface_fit$effects[8]) / 2
+effect_A <- Surface_fit$effects[2] / 2
+effect_B <- Surface_fit$effects[3] / 2
+effect_C <- Surface_fit$effects[4] / 2
+effect_AB <- Surface_fit$effects[5] / 2
+effect_AC <- Surface_fit$effects[6] / 2
+effect_BC <- Surface_fit$effects[7] / 2
+effect_ABC <- Surface_fit$effects[8] / 2
 
 print(paste(effect_A, effect_B, effect_C, effect_AB, effect_AC, effect_BC, effect_ABC, sep = " "))
 

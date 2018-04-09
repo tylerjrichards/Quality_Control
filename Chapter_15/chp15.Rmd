@@ -20,5 +20,14 @@ library(AcceptanceSampling)
 x <- OC2c(n = 89,c = 2)
 x
 plot(x)
+
+library(qcc)
+library(readr)
+Switch_conformity <- read_csv("~/Documents/Spring18/Quality_Control/Chapter_7/Switch_conformity.csv")
+
+Switch_chart <- qcc(Switch_conformity$Num_Nonconforming, sizes = Switch_conformity$Size, type = 'p')
+
+oc.curves(Switch_chart, 89, 15)
+
 ```
 
