@@ -8,7 +8,7 @@ output:
 
 ## R Tutorial For The Lost
   
-This tutorial will cover every function and concept that we learned about R in this course, and could prove to be a useful study guide for exam 2. 
+This tutorial will cover a few basic functions of R
   
 ### Create a Variable
 
